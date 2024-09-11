@@ -1,0 +1,23 @@
+.btn-back {
+    color: var(--color-primary);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.detail-faq {
+    margin-top: 24px;
+    padding-bottom: 80px;
+}
+
+@media(max-width: 767px) {
+    .detail-faq {
+        margin-top: 16px;
+        padding-bottom: 36px;
+    }
+}
+
+.title {
+    font-size: 34px;
+    color: var(--color-primary);
+}

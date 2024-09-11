@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="p-2">
+            <div class="header-card px-2 pt-2 pb-0">
+                <h3 class="font-weight-bold mb-0" style="color: #4252b6; font-size: 18px;"> {{'orders.order_code' |
+                    translate }}: <span> {{data.code}} </span>
+                </h3>
+            </div>
+            <div class="customer-detail pt-0 x-2 ">
+                <div>
+                    <span class="font-weight-bold px-2 mb-1" style="font-size: 14px;">
+                        {{ 'orders.order_detail' | translate }}</span>
+                    <div class="d-flex">
+                        <div class="d-flex h-100 align-items-center px-2">
+                            <i class="fas fa-envelope"></i>
+                            <span class="alert-link mx-1"> {{ data.email }} </span>
+                        </div>
+                        <div class="d-flex h-100 align-items-center">
+                            <i class="fas fa-phone"></i>
+                            <span class="mx-1 "> {{ data.order_phone }} </span>
+                        </div>
+                    </div>
+                    <div class="px-2">
+                        <div role="alert">
+                            <span class="text-gr-al">{{ 'orders.name' | translate}}:</span>
+                            <span class="alert-link"> {{ data.name }} </span>
+                        </div>
+                        <div role="alert">
+                            <span class="text-gr-al">{{ 'orders.customer_address' | translate}}:</span>
+                            <span class="alert-link"> {{ data.customer_address }} </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 pl-0">
+        <div class="d-flex align-items-center" style="height: 131px;">
+            <div class="customer-detail">
+                <div>
+                    <div class="p-2">
+                        <span class="text-gr-al">{{ 'orders.total_price' | translate}}: </span>
+                        <span class="alert-link">{{+data.total_price > 0 ?
+                            data.total_price.toLocaleString('vi',{maximumFractionDigits:5}) : 0}}</span>
+                    </div>
+                    <div class="p-2">
+                        <span class="text-gr-al">{{ 'orders.total_sale' | translate}}: </span>
+                        <span class="alert-link"> {{+data.total_sale > 0 ?
+                            data.total_sale.toLocaleString('vi',{maximumFractionDigits:5}) : 0}} </span>
+                    </div>
+                    <div class="p-2">
+                        <span class="text-gr-al">{{ 'orders.total_payment' | translate}}: </span>
+                        <span class="alert-link"> {{+data.total_payment > 0 ?
+                            data.total_payment.toLocaleString('vi',{maximumFractionDigits:5}) : 0}} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card p-2 mt-3">
+    <!-- List table -->
+    <table class="table table-hover mt-2">
+        <thead>
+            <tr>
+                <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <span *ngSwitchDefault>{{col.title | translate }}</span>
+                        <i *ngIf="tableService.sorting.field==col.field" class="fa"
+                            [ngClass]="{ 'fa-long-arrow-down' : tableService.sorting.sort=='asc' , 'fa-long-arrow-up' : tableService.sorting.sort=='desc' }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableService.data; let i= index">
+                <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show == false }">
+                    <div [ngSwitch]="col.field" [ngClass]="col.class || 'text-left'">
+                        <span *ngSwitchCase="'index'"> {{i+1}}
+                        </span>
+                        <span *ngSwitchCase="'price'">
+                            {{item[col.field] >= 0 ? item[col.field].toLocaleString(item.currency_code == 'VND' ? 'vi' :
+                            'en', {maximumFractionDigits: 5}) : ''}}
+                        </span>
+                        <span *ngSwitchCase="'total'">
+                            {{item[col.field] >= 0 ? item[col.field].toLocaleString(item.currency_code == 'VND' ? 'vi' :
+                            'en', {maximumFractionDigits: 5}) : ''}}
+                        </span>
+                        <span *ngSwitchCase="'maker_date'">
+                            {{item[col.field]| date: 'dd/MM/yyyy' }}
+                        </span>
+                        <span *ngSwitchDefault>{{item[col.field]}}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

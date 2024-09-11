@@ -1,0 +1,360 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card w-100">
+        <div class="card-header">
+            <strong>{{ ((id && id !=0)?'pages.edit':'pages.add') | translate : {name : fm.value.name} }}</strong>
+            <i style="font-size: 1.5rem;cursor: pointer;" (click)="options.openModal(DevTemplate)"
+                class="fas fa-info-circle text-dark"></i>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                        <label>Ngôn ngữ</label>
+                        <div class="d-flex mb-4" >
+                            <div *ngFor="let item of mutiLang" class="cursor-pointer"
+                                >
+                                <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38"
+                                    [src]="item.icon" [title]="item.name" [alt]="item.name"
+                                    [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                                    [ngClass]="{'border': +item.id == +lang_id}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Loại trang</label>
+                        <div class="d-flex mb-3">
+                            <div class="form-check cursor-pointer mr-3">
+                                <input class="form-check-input" type="radio" formControlName="type" name="type"
+                                    id="type2" [value]="2" (change)="onChangeType(2, true)">
+                                <label class="form-check-label cursor-pointer" for="type2">
+                                    Page
+                                </label>
+                            </div>
+                            <div class="form-check  cursor-pointer">
+                                <input class="form-check-input" type="radio" formControlName="type" name="type"
+                                    id="type1" [value]="1" (change)="onChangeType(1,true)">
+                                <label class="form-check-label cursor-pointer" for="type1">
+                                    Link
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 pr-md-0">
+                        <div class="form-group">
+                            <label>{{ 'lblName' | translate }}<span class="text-red pl-2 font-lg">*</span></label>
+                            <input type="text" autocomplete="off" (keyup)="onChangeLink($event)" class="form-control"
+                                name="name" formControlName="name" required>
+                            <small class="text-red"
+                                *ngIf="required || fm.get('name').invalid && fm.get('name').touched">{{
+                                'message.required' | translate }}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'lblLink' | translate }}<span class="text-red pl-2 font-lg">*</span></label>
+                            <div class="custom-control custom-checkbox  mb-3" *ngIf="fm.value.type == 1">
+                                <input type="checkbox" class="custom-control-input" id="target" [value]="1"
+                                    formControlName="target_blank">
+                                <label class="custom-control-label cursor-pointer" for="target">
+                                    Mở tài liệu trong một tab mới</label>
+                            </div>
+                            <input autocomplete="off" *ngIf="fm.value.type != 1 " type="text"
+                                [(ngModel)]="fm.value.link" class="form-control" name="link" formControlName="link"
+                                required>
+                            <input autocomplete="off" *ngIf="fm.value.type == 1 " type="text" class="form-control"
+                                name="link" formControlName="link">
+                            <small class="text-red"
+                                *ngIf="required || fm.get('link').invalid && fm.get('link').touched">{{
+                                'message.required' | translate }}</small>
+                        </div>
+                        <div class="form-group" *ngIf="fm.value.type != 1">
+                            <label>{{ 'pages.title' | translate }}</label>
+                            <input autocomplete="off" type="text" class="form-control" name="title"
+                                formControlName="title">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 pr-md-0">
+                                <div class="form-group position-relative">
+                                    <label for="pageParent">{{ 'lblParentName' | translate }}</label>
+                                    <div data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        data-display="static"
+                                        class="cursor-pointer p-2 d-flex align-items-center justify-content-between border">
+                                        <div style="width: 95%;">
+                                            <div class="text-in-line">
+                                                {{ pageParent.name != '' ? pageParent.name : parent_name_lang}}
+                                            </div>
+                                        </div>
+                                        <span class="dropdown-toggle"></span>
+                                    </div>
+                                    <div class="dropdown-menu p-2 w-100">
+                                        <div class="container-search">
+                                            <div class="cursor-pointer">
+                                                <div class="p-2 dropdown-item " style="font-weight: 500;"
+                                                    (click)="pageParent._select({id:0,name:''})">
+                                                    Chọn trang cha
+                                                </div>
+                                            </div>
+                                            <ng-template #recursiveParent let-listPage>
+                                                <div class=" cursor-pointer" *ngFor="let item of listPage ">
+                                                    <div class="p-2  dropdown-item position-relative"
+                                                        [ngClass]="{'border-item pl-3': item.level > 1  }"
+                                                        (click)="pageParent._select(item)">
+                                                        <span
+                                                            [ngStyle]="{'font-weight': item.level == 1 ? 500 :''}">{{item.name
+                                                            }} </span>
+                                                    </div>
+                                                    <div class="dropdown-menu-item ml-3 border-left "
+                                                        *ngIf="item.data && item.data.length > 0 ">
+                                                        <ng-container
+                                                            *ngTemplateOutlet="recursiveParent;context: { $implicit: item.data }">
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                            <ng-container
+                                                *ngTemplateOutlet="recursiveParent;  context:{ $implicit: listPage }">
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>{{ 'lblOrders' | translate }}</label>
+                                    <input autocomplete="off" type="number" min="0" class="form-control" name="order"
+                                        formControlName="orders">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-0 pt-2" *ngIf="fm.value.type != 1">
+                            <label>{{ 'lblTitle' | translate }}
+                                <small class="text-danger"> ( tối đa 75 ký tự )</small>
+                            </label>
+                            <input autocomplete="off" type="text" class="form-control" name="title_seo"
+                                formControlName="title_seo"
+                                [ngStyle]="{'border-color': !fm.get('title_seo').valid ? '#dc3545' : ''}">
+                            <small class="text-red" [ngClass]="{'invisible': fm.get('title_seo').valid}">{{
+                                'message.chekSeo' | translate }}</small>
+                        </div>
+                        <div class="form-group pt-2" *ngIf="fm.value.type != 1">
+                            <label>{{ 'lblDescription' | translate }}
+                                <small class="text-danger"> ( tối đa 325 ký tự )</small>
+                            </label>
+                            <textarea autocomplete="off" formControlName="description" class="form-control"
+                                style="height: 108px;"
+                                [ngStyle]="{'border-color': !fm.get('description').valid ? '#dc3545' : ''}"></textarea>
+                            <small class="text-red" [ngClass]="{'invisible': fm.get('description').valid}">{{
+                                'message.chekSeo' | translate }}</small>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="row mb-4">
+                            <div class="col-4 pr-md-0">
+                                <div>
+                                    <label class="mb-1 ml-1">{{ 'lblImages' | translate }}
+                                        <small> (500px x 300px)</small></label>
+                                    <div class="imagesThumb" *ngIf="images">
+                                        <div *ngFor="let item of images.data; let i = index">
+                                            <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                            <span (click)="images._change($event,item)"
+                                                *ngIf="item.type==0 || item.type==1" class="change">
+                                                <i class="far fa-image"></i>
+                                            </span>
+                                            <span (click)="images._del(i)" *ngIf="item.type==0 || item.type==1"
+                                                class="del">
+                                                <i class="fas fa-times"></i>
+                                            </span>
+                                            <span (click)="images._push($event)" *ngIf="item.type==2" class="add">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </span>
+                                        </div>
+                                        <input id="image-upload" type="file" (change)="images._onchange($event)"
+                                            accept="image/png, image/jpeg,image/svg+xml ">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 pr-md-0">
+                                <div *ngIf="options.dataCheck['icon'].enable">
+                                    <label class="mb-1">{{ 'pages.icon' | translate }}
+                                        <small class="ml-2"> (64px x 64px) </small></label>
+                                    <div class="imagesThumb" *ngIf="icon">
+                                        <div *ngFor="let item of icon.data; let i = index">
+                                            <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                            <span (click)="icon._change($event,item)"
+                                                *ngIf="item.type==0 || item.type==1" class="change">
+                                                <i class="far fa-image"></i>
+                                            </span>
+                                            <span (click)="icon._del(i)" *ngIf="item.type==0 || item.type==1"
+                                                class="del">
+                                                <i class="fas fa-times"></i>
+                                            </span>
+                                            <span (click)="icon._push($event)" *ngIf="item.type==2" class="add">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </span>
+                                        </div>
+                                        <input id="icon-upload" type="file" (change)="icon._onchange($event)"
+                                            accept="image/png, image/jpeg, image/svg+xml ">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div *ngIf="options.dataCheck['background'].enable">
+                                    <label class="mb-1">{{ 'pages.background' | translate }}
+                                        <small class="ml-2"> (1440px x 140px) </small></label>
+                                    <div class="imagesThumb w-100" *ngIf="background">
+                                        <div class="w-100" *ngFor="let item of background.data; let i = index">
+                                            <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                            <span (click)="background._change($event,item)"
+                                                *ngIf="item.type==0 || item.type==1" class="change">
+                                                <i class="far fa-image"></i>
+                                            </span>
+                                            <span (click)="background._del(i)" *ngIf="item.type==0 || item.type==1"
+                                                class="del">
+                                                <i class="fas fa-times"></i>
+                                            </span>
+                                            <span (click)="background._push($event)" *ngIf="item.type==2" class="add">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </span>
+                                        </div>
+                                        <input id="background-upload" type="file"
+                                            (change)="background._onchange($event)"
+                                            accept="image/png, image/jpeg, image/svg+xml ">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="list-images" *ngIf="options.dataCheck['listimages'].enable">
+                            <label class="mb-1">{{ 'pages.listimages' | translate }}</label>
+                            <div class="imagesThumb" *ngIf="listimages" style="max-height: 118px;overflow-y: auto;">
+                                <div *ngFor="let item of listimages.data ; let i = index">
+                                    <img [src]="item.src" *ngIf="item.type==0 || item.type==1" />
+                                    <span (click)="listimages._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                        class="change">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                    <span (click)="listimages._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                        <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    <span (click)="listimages._push($event)" *ngIf="item.type==2" class="add">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="file" (change)="listimages._onchange($event)">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="options.dataCheck['link_video'].enable">
+                            <label>{{ 'pages.video' | translate }}</label>
+                            <input autocomplete="off" type="text" class="form-control" name="link_video"
+                                formControlName="link_video">
+                        </div>
+                        <!-- <div class="form-group mt-2" *ngIf="options.dataCheck['list_library'] && options.dataCheck['list_library'].enable">
+                            <label class="mb-1 d-block">{{ 'pages.listLibrary' | translate }}</label>
+                            <div *ngFor="let item of library.data" class="d-inline-flex align-items-center ml-3">
+                                <div class="form-check">
+                                    <input type="checkbox" name="item.id" [id]="item.id" [checked]="item.checked"
+                                        (click)="library._check(item, $event)" class="form-check-input">
+                                    <label class="option-name ml-2 form-check-label" [for]="item.id">
+                                        {{item.name | translate }}</label>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="form-group" *ngIf="options.dataCheck['info'].enable">
+                    <label>{{ 'pages.info' | translate }}</label>
+                    <section class="d-block position-relative"
+                        style="min-height:235px;max-height:1500px;overflow: auto;">
+                        <div [froalaEditor]="globals.configFroala" formControlName="info"></div>
+                    </section>
+                </div>
+                <div class="form-group" *ngIf="fm.value.type != 1">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <label>{{ 'lblDetail' | translate }}</label>
+                    </div>
+                    <section class="d-block position-relative">
+                        <div [froalaEditor]="globals.configFroala" formControlName="detail"></div>
+                    </section>
+                </div>
+                <!-- <div class="pt-4" *ngIf="fm.value.type != 1">
+                    <div class="row">
+                        <div class=" col-md-4">
+                            <div class="form-group">
+                                <label>{{ 'pages.position' | translate }}</label>
+                                <select formControlName="position" class="form-control ">
+                                    <option *ngFor="let item of position" [value]="item.value">
+                                        {{ item.name | translate }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="design-block d-flex align-items-center justify-content-center"
+                        (click)="pageBuilder._openModal()" *ngIf="!fm.value.builder || fm.value.builder.length == 0">
+                        <div>
+                            <h1>Page Builder</h1>
+                            <p>(click to add a design block)</p>
+                        </div>
+                    </div>
+                    <div *ngIf="fm.value.builder && fm.value.builder.length > 0"
+                        class="block-page position-relative pt-5">
+                        <div *ngIf="pageBuilder.flag == false" [innerHTML]="fm.value.builder | sanitizeHtml">
+                        </div> -->
+                        <!-- <div class="block-edit position-absolute"
+                            *ngIf="fm.value.builder && fm.value.builder.length > 0">
+                            <button type="button" class="btn-edit" (click)="pageBuilder._openModal()">
+                                <i class="fas fa-pen" style="color: #fff"></i>
+                            </button>
+                            <button type="button" class="btn-remove position-absolute" (click)="pageBuilder._clear()">
+                                <i class="fas fa-trash text-white"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div> --> 
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="lable-switch mb-0">
+                        <div class="switch">
+                            <input checked="checked" formControlName="status" type="checkbox" name="status">
+                            <span class="lever"></span>
+                        </div>
+                        <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                            {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                    </label>
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flags"
+                            class="btn  float-right mr-2" [ngClass]="fm.valid && flags ? 'btn-success' :'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="['/admin/pages/get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<ng-template #DevTemplate>
+    <div class="modal-header">
+        <h6 class="modal-title pull-left font-weight-bold">Tuỳ chọn hiển thị</h6>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body px-md-5">
+        <div class="option d-flex justify-content-between align-items-center" *ngFor="let option of options.fields"
+            style="height: 50px;">
+            <div class="option-name">{{option.name | translate }}</div>
+            <input [checked]="option.enable" (change)="options.onChange(option)" type="checkbox" name="option.field"
+                id="option.field">
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,28 @@
+.background-register{
+	background-image: url(/assets/img/login.jpg);
+	position: relative;
+	width: 432px;
+}
+
+.background-register::before{
+	position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000021;
+    z-index: 0;
+    text-align: center;
+    content: '';
+    background-size: cover;
+}
+
+.register-text{
+	position: relative;
+	z-index: 10;
+}
+
+.form{
+	box-shadow: 0 1px 7px 3px rgb(138 87 231 / 10%);
+	height: 100%;
+}

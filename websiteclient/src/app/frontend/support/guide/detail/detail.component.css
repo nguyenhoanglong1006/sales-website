@@ -1,0 +1,36 @@
+.title {
+    color: var(--color-primary);
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0.18px;
+}
+
+.box-group {
+    background: #FAFBFC;
+    border: 1px solid #F4F5F7;
+    box-sizing: border-box;
+    width: 120px;
+    height: 32px;
+    color: #505F79;
+    font-weight: 500;
+}
+
+.active {
+    color: #fff;
+    background: var(--color-primary);
+}
+
+.content {
+    margin-top: 24px;
+}
+
+.scroll-tab-mb {
+    flex-wrap: nowrap;
+    overflow: auto;
+}
+
+.scroll-tab-mb::-webkit-scrollbar {
+    height: 0;
+}

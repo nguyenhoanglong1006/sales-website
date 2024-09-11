@@ -1,0 +1,31 @@
+<div class="menu">
+    <nav class="navbar navbar-expand-md p-0">
+        <ul class="navbar-nav align-items-center w-100" *ngIf="menu && menu.length > 0">
+            <ng-template #recursiveMenu let-menu>
+                <li *ngFor="let item of menu; let i = index"
+                    class="d-flex h-100 nav-item align-items-center w-100" [ngClass]="'item-children-' + item.level"
+                    [class.py-3]="item.level == 1">
+                    <a class="nav-link pl-0 w-100 cursor-pointer d-flex align-items-center justify-content-between"
+                        [ngClass]="[ active == item.link ? 
+                        'is-active':'', 'level-' + item.level, item.level == 1 ? 'py-1 pr-0 mr-3 font-weight-500' : '']"
+                        [routerLink]="item.data.length == 0 ? ['/' + item.href] : null"
+                        (click)="item.data.length > 0 ? $event.preventDefault() : null">
+                        <span class="text-nowrap pr-1" [ngClass]="{'text-uppercase': item.level == 1}"
+                            (click)="active = item.data.length == 0 ? item.link : active  ">
+                            {{item.name}}
+                        </span>
+                        <i [ngClass]=" item.level == 1 ? 'fas fa-angle-down' : 'fa fa-angle-right'"
+                            *ngIf=" item.data.length > 0 " style="font-size: 12px;"></i>
+                    </a>
+                    <div class="dropdown-menu-item rounded-0 border-0 p-0 menu-item-child" *ngFor="let row of item.data"
+                        (click)="active = item.link">
+                        <ng-container *ngTemplateOutlet="recursiveMenu;context: { $implicit: item.data }">
+                        </ng-container>
+                    </div>
+                </li>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="recursiveMenu;  context:{ $implicit: menu }">
+            </ng-container>
+        </ul>
+    </nav>
+</div>

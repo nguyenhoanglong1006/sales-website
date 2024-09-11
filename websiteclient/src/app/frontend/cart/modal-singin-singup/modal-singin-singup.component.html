@@ -1,0 +1,10 @@
+<div class="modal-body" aria-hidden="false">
+     <div class="modal-close position-absolute" style="top: -15px; right: -15px;">
+          <button type="button" class="close pull-right" aria-label="Close" style="opacity: 1;"
+               (click)="modalRef.hide()">
+               <i class="fa fa-times text-white rounded-circle"
+                    style="background-color: #777; width: 35px; height: 35px;line-height: 35px;"></i>
+          </button>
+     </div>
+     <app-fm class="w-100" [component]="'modal'" [type]="type" (event)="eventOutput($event)"></app-fm>
+</div>

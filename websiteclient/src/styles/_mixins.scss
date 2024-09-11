@@ -1,0 +1,38 @@
+$w-sm: 425px;
+$w-md: 768px;
+$w-lg: 1024px;
+
+@mixin viewport-xl {
+    @media (min-width: #{$w-lg + 1px}) {
+        @content;
+    }
+}
+
+@mixin viewport-lg {
+    @media (max-width: $w-lg) {
+        @content;
+    }
+}
+
+@mixin viewport-md {
+    @media (max-width: $w-md) {
+        @content;
+    }
+}
+
+@mixin viewport-sm {
+    @media (max-width: $w-sm) {
+        @content;
+    }
+}
+
+// End Responsive
+
+@mixin line-clamp($line) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+}

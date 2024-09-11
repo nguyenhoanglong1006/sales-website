@@ -1,0 +1,280 @@
+<div class="bg-light">
+    <div class="container-main">
+        <div class="container-fluid">
+            <nav class="py-md-4 py-3">
+                <ol class="breadcrumb bg-transparent border-0 m-0 p-0">
+                    <li class="breadcrumb-item">
+                        <a href="">
+                            {{ 'lblHome' | translate }}
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item">
+                        <a [routerLink]="['/san-pham/' + this.detail.data.href]" style="text-decoration: none">
+                            {{this.detail.data.parent_name}}
+                        </a>
+                    </li>
+
+                    <li class="breadcrumb-item active">
+                        {{this.detail.data.name}}
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light">
+    <div class="container-main ">
+        <div class="container-fluid">
+            <div class="bg-white p-3">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-5 col-12">
+                                <div *ngIf="listImages.data.length == 0">
+                                    <div>
+                                        <a [routerLink]="['/san-pham/' + item.href +'/'+ item.link]"
+                                            class="p-0 w-100 h-100">
+                                            <img [routerLink]="['/san-pham/' + item.href +'/'+ item.link]"
+                                                [defaultImage]="('FEImagesProduct' | translate)"
+                                                [lazyLoad]="item.images" [title]="item.name" [alt]="item.name"
+                                                class="box-img w-100">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div *ngIf="listImages.data && listImages.data.length > 0">
+                                    <!-- <a data-fancybox="images-preview-desk"
+                                    [href]="globals.BASE_API_URL + 'public/products/'+item">
+                                    <img class="rounded  images-detail"
+                                        [defaultImage]="globals.BASE_API_URL + 'public/products/'+ item "
+                                        [lazyLoad]="globals.BASE_API_URL + 'public/products/'+ item " [alt]=" item "
+                                        [name]="item">
+                                </a> -->
+                                    <owl-carousel-o #owlLibrary style="overflow:hidden;" [options]=" customOptions "
+                                        class="owl-product" (changed)=" detail.getPassedData($event) "
+                                        (initialized)=" detail.getPassedData($event)">
+                                        <ng-container *ngFor=" let item of listImages.data;index as i ">
+                                            <ng-template carouselSlide [id]="'images-' + i" style="overflow:hidden; ">
+                                                <a data-fancybox="images-preview-desk" data-thumbs='{"autoStart":true}'
+                                                    [href]="globals.BASE_API_URL + 'public/products/'+item">
+                                                    <img class="rounded  images-detail"
+                                                        [defaultImage]="globals.BASE_API_URL + 'public/products/'+ item "
+                                                        [lazyLoad]="globals.BASE_API_URL + 'public/products/'+ item "
+                                                        [alt]=" item " [name]="item">
+                                                </a>
+                                            </ng-template>
+                                        </ng-container>
+                                    </owl-carousel-o>
+                                    <div class="pt-2 d-flex justify-content-center overflow-hidden">
+                                        <div *ngFor=" let item of listImages.data;let i = index"
+                                            class="position-relative">
+                                            <img class="img-child" [ngClass]="{'d-none ': i > 4 }"
+                                                (click)="detail.onClickImageChild('images-' + i + '-child');owlLibrary.to('images-' + i)"
+                                                [id]="'images-' + i + '-child'"
+                                                [defaultImage]="('FEImagesProduct' | translate)"
+                                                [lazyLoad]="globals.BASE_API_URL + 'public/products/'+ item "
+                                                [alt]="item" [name]="item">
+                                        </div>
+                                        <div class="position-relative"
+                                            *ngIf="detail.data.video_link && detail.data.video">
+                                            <img class="img-child" [defaultImage]="'../../../../assets/img/default.png'"
+                                                [lazyLoad]="globals.BASE_API_URL + 'public/products/'+ this.detail.data.video "
+                                                style="object-fit: cover;">
+                                            <a data-fancybox class="venobox vbox-item" [href]=" detail.data.video_link">
+                                                <div class="icon-video ">
+                                                    <div
+                                                        class="icon-video-circle d-flex justify-content-center align-items-center ">
+                                                        <i class="fa fa-play text-white " style="font-size: 8px;"></i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7 col-12">
+                                <h4>{{this.detail.data.name}}</h4>
+                                <div class="w-100 py-1">
+                                    <div class="d-flex align-items-baseline" *ngIf="this.detail.data.price_sale == 0">
+                                        <div class="text-danger font-weight-bold price-sale">
+                                            {{this.detail.data.price >= 0 ?
+                                            this.detail.data.price.toLocaleString('vi', {maximumFractionDigits: 5}) :
+                                            ''}} đ
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-baseline" *ngIf="this.detail.data.price_sale > 0">
+                                        <div class="text-danger font-weight-bold price-sale mr-3">
+                                            {{this.detail.data.price_sale >= 0 ?
+                                            this.detail.data.price_sale.toLocaleString('vi', {maximumFractionDigits: 5})
+                                            :
+                                            ''}} đ
+                                        </div>
+                                        <div class="price-default text-muted p-1 font-weight-bold">
+                                            {{this.detail.data.price ?
+                                            this.detail.data.price.toLocaleString('vi', {maximumFractionDigits: 5}) :
+                                            ''}} đ
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <span class="d-inline-flex align-items-center pt-4">
+                                <app-sharefb></app-sharefb>
+                            </span> -->
+                                <div class="py-3">
+                                    Trạng thái:
+                                    <span class="font-weight-bold" *ngIf="this.detail.data.status == 0">
+                                        Hết hàng
+                                    </span>
+                                    <span class="font-weight-bold" *ngIf="this.detail.data.status == 1">
+                                        Còn hàng
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <div class="mr-md-5 mr-3">
+                                        Số lượng
+                                        <div class="group-input position-relative mt-2">
+                                            <button
+                                                (click)="detail.amount = (detail.amount <=1) ? 1 : detail.amount - 1">-</button>
+                                            <input type="number" min="1" class="input pr-3" [(ngModel)]="detail.amount"
+                                                [value]="detail.amount" (focusout)="detail.changeAmount()">
+                                            <button class="position-absolute"
+                                                (click)="detail.amount = (+detail.amount > 0) ? +detail.amount + 1 : 1">+</button>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <button (click)="detail.addCart()"
+                                            class="btn btn-cart btn-outline-danger d-flex align-items-center justify-content-center text-uppercase font-weight-bold p-2">
+                                            <i class="fas fa-cart-plus mr-2"> </i>
+                                            <span>Thêm giỏ hàng</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="py-3">
+                            <div class="detail-title ">
+                                <h3 class="mb-0 font-weight-bold text-uppercase d-inline-block text-danger bg-white">
+                                    Thông tin chi tiết
+                                </h3>
+                            </div>
+                            <div class="detail-content mt-3">
+                                <h1>{{this.detail.data.name}}:</h1>
+                                <div *ngIf="detail.data.detail && detail.data.detail.length > 0">
+                                    <div class="fr-view pt-3" id="page-detail"
+                                        [innerHTML]=" detail.data.detail | sanitizeHtml">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div style="position: sticky;z-index: 0;top:0; ">
+                            <div class="bg-white">
+                                <div class="card-header text-white text-uppercase font-weight-bold border-0 text-center "
+                                    style="background-color: #ff0000;">
+                                    {{'lblContact' | translate}}
+                                </div>
+                                <div class="card-body pl-2 pr-2 border">
+                                    <div class=" d-flex align-items-center "
+                                        *ngIf="('FEPhone' | translate) != 'FEPhone' && ('FEPhone' | translate) != ''">
+                                        <div>
+                                            <a class="text-white mr-1" href="tel:{{'FEPhone'|translate}}">
+                                                <img class="mr-2" src="../../../../assets//img/phone-call.png "
+                                                    style="width: 20px ">
+                                            </a>
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class=" ml-1 text-dark" href="tel:{{'FEPhone'|translate}}">
+                                                {{'FEPhone'|translate}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 d-flex align-items-center ">
+                                        <div>
+                                            <img class="mr-2 " src="../../../assets/img/mail1.png "
+                                                style="width: 20px ">
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class="ml-1 text-dark" href="mailto:{{'FEMail'|translate}}">
+                                                {{'FEMail' | translate}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-2 d-flex ">
+                                        <div>
+                                            <img class="mr-2 " src="../../../assets/img/address.png "
+                                                style="width: 20px">
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class="ml-1 text-dark">{{'FEAddress' | translate}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                class="card-header text-white text-uppercase font-weight-bold border-0 text-center mt-3 bg-primary">
+                                HỆ THỐNG CỦA HÀNG </div>
+                            <div class="card-body pl-2 pr-2 border" style="max-height: 400px;overflow: auto;">
+                                <div *ngFor="let item of address.data" class="mb-4">
+                                    <h6 class="">{{ item.name }}</h6>
+                                    <div class=" d-flex align-items-center "
+                                        *ngIf="('FEPhone' | translate) != 'FEPhone' && ('FEPhone' | translate) != ''">
+                                        <div>
+                                            <a class="text-white mr-1" href="tel:{{'FEPhone'|translate}}">
+                                                <img class="mr-2" src="../../../../assets//img/phone-call.png "
+                                                    style="width: 20px ">
+                                            </a>
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class=" ml-1 text-dark" [href]="'tel:' +  item.phone">
+                                                {{ item.phone }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 d-flex align-items-center ">
+                                        <div>
+                                            <img class="mr-2 " src="../../../assets/img/mail1.png "
+                                                style="width: 20px ">
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class="ml-1 text-dark" [href]="'mailto:'+item.email">
+                                                {{ item.email }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class=" mt-2 d-flex " *ngIf="item.address">
+                                        <div>
+                                            <img class="mr-2 " src="../../../assets/img/address.png "
+                                                style="width: 20px">
+                                        </div>
+                                        <div style="font-size: 15px; ">
+                                            <a class="ml-1 text-dark">{{ item.address }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-light pt-4 pb-5">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="border-bottom border-primary mb-3 d-flex align-items-center justify-content-between">
+                <h5 class="text-white bg-primary d-inline-flex text-nowrap p-2 mb-0">
+                    Sản phẩm nổi bật
+                </h5>
+            </div>
+            <div class="row px-2">
+                <div class="col-6 col-md-3 col-xl-2dot4 px-2 mb-3" *ngFor="let item of product.data">
+                    <app-box-product [item]="item"></app-box-product>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

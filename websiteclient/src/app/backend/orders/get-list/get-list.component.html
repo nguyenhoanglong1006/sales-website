@@ -1,0 +1,102 @@
+<div class="card w-100">
+    <div class="card-header">
+        <strong>{{'orders.list' | translate }}</strong>
+        <div>
+            <div class="input-group input-group-sm">
+                <input type="text" (keyup)="tableService._search()" [(ngModel)]="tableService.search.value"
+                    class="form-control" placeholder="{{'search.txt'|translate}}">
+            </div>
+        </div>
+    </div>
+    <div class="w-100 overflow-auto">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                        [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                        <div [ngSwitch]="col.field">
+                            <span *ngSwitchDefault>{{col.title | translate }}</span>
+                            <i *ngIf="tableService.sorting.field==col.field" class="fa"
+                                [ngClass]="{ 'fa-long-arrow-down' : tableService.sorting.sort=='asc' , 'fa-long-arrow-up' : tableService.sorting.sort=='desc' }"></i>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tableService.data; let i= index">
+                    <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                        <div [ngSwitch]="col.field" [ngClass]="col.class || 'text-left'">
+                            <span *ngSwitchCase="'index'"> {{i+1}}
+                            </span>
+                            <span *ngSwitchCase="'code'">
+                                {{item[col.field]}}
+                            </span>
+                            <span *ngSwitchCase="'total_price'">
+                                {{ (item[col.field] || 0).toLocaleString( 'vi' , {maximumFractionDigits: 5})}}
+                            </span>
+                            <span *ngSwitchCase="'total_sale'">
+                                {{ (item[col.field] || 0).toLocaleString( 'vi' , {maximumFractionDigits: 5})}}
+
+                            </span>
+                            <span *ngSwitchCase="'total_payment'">
+                                {{ (item[col.field] || 0).toLocaleString( 'vi' , {maximumFractionDigits: 5})}}
+                            </span>
+                            <span *ngSwitchCase="'delivery_status'">
+                                <div class="btn btn-sm text-muted" *ngIf="item.delivery_status == 0"
+                                    (click)="changeStatus(+item.id,1)">
+                                    <i class="fas fa-clock"></i>
+                                    <span>
+                                        {{'orders.pending'|translate}}
+                                    </span>
+                                </div>
+                                <div class="btn btn-sm text-success" *ngIf="item.delivery_status == 1"
+                                    (click)="changeStatus(+item.id,0)">
+                                    <i class="fas fa-cube"></i>
+                                    <span>
+                                        {{'orders.success'|translate}}
+                                    </span>
+                                </div>
+                            </span>
+                            <span *ngSwitchCase="'maker_date'">
+                                {{item[col.field]| date: 'dd/MM/yyyy' }}
+                            </span>
+                            <span *ngSwitchCase="'action'" class="display-action">
+                                <button tooltip="Xem chi tiết" class="btn btn-link btn-sm"
+                                    *ngIf="validPermission(loggedAccount)" [routerLink]="['../update/', item.id]">
+                                    <i class="fas fa-eye text-dark"></i>
+                                </button>
+                                <button tooltip="Thông báo đến sale" class="btn btn-link btn-sm"
+                                    (click)="onSendMail(item)">
+                                    <i class="fas fa-mail-bulk"></i>
+                                </button>
+                                <button tooltip="Huỷ" class="btn btn-link btn-sm" (click)="onRemove(item)"
+                                    *ngIf="+item.status > 0">
+                                    <small class="text-danger"> Huỷ </small>
+                                </button>
+                            </span>
+                            <span *ngSwitchCase="'status'"
+                                [ngClass]=" item[col.field] == 1 ? 'text-success' : 'text-danger'">
+                                {{ (item[col.field] == 1 ? 'status.active' : 'Huỷ') | translate }}
+                            </span>
+                            <span *ngSwitchDefault>{{item[col.field]}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer">
+        <div class="float-md-left">
+            <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+                {{ tableService.settings.total }}</span>
+            <span>
+                <a (click)="tableService._previousnext(false)" style="padding : 3px 5px;">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+                <a (click)="tableService._previousnext(true)" style="padding : 3px 5px;">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="card">
+    <div class="card-header">
+        <strong>{{'settings.redirect.list' | translate }}</strong>
+        <div>
+            <div class="input-group input-group-sm">
+                <input type="text" (keyup)="tableService._search()" [(ngModel)]="tableService.search.value"
+                    class="form-control" placeholder="{{ 'search.txt' | translate }}">
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field" class="d-flex align-items-center">
+                        <span *ngSwitchDefault>{{col.title | translate }}</span>
+                        <i *ngIf="tableService.sorting.field==col.field" class="fas fa-sort-up ml-1"
+                            style="height: 8px;"
+                            [ngStyle]="{'transform': (tableService.sorting.sort == 'asc' ? 'rotate(0deg)' : 'rotate(180deg)') }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableService.data, let i = index">
+                <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <span *ngSwitchCase="'index'">
+                            {{i+1}}
+                        </span>
+
+                        <span *ngSwitchCase="'link'">
+                            <a [routerLink]="['../update/',item.id]" class="d-block" style="max-width: 350px;">
+                                {{item[col.field]}}
+                            </a>
+                        </span>
+                        <span *ngSwitchCase="'maker_date'">
+                            {{item[col.field]| date: 'dd/MM/yyyy' }}
+                        </span>
+
+                        <span *ngSwitchCase="'action'" class="display-action text-right">
+                            <button 
+                                tooltip="{{ 'btn.edit' | translate }}"
+                                class="btn btn-link btn-sm" 
+                                [routerLink]="['../update/',item.id]">
+                                <i class="fas fa-pencil-alt text-dark"></i>
+                            </button>
+                            <button 
+                                tooltip="{{ 'btn.remove' | translate }}"
+                                class="btn btn-link btn-sm" 
+                                (click)="onRemove(item)">
+                                <i class="fas fa-trash text-danger"></i>
+                            </button>
+                        </span>
+                        <span *ngSwitchDefault>{{item[col.field]}}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="card-footer">
+        <a (click)="tableService._previousnext(false)" class="px-2 py-1">
+            <i class="fa fa-angle-double-left"></i>
+        </a>
+        <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+            {{ tableService.settings.total }}</span>
+        <a (click)="tableService._previousnext(true)" class="px-2 py-1">
+            <i class="fa fa-angle-double-right"></i>
+        </a>
+    </div>
+</div>
+
+<div class="fixed-action-btn">
+    <a 
+        tooltip="{{ 'btn.add' | translate }}" 
+        [routerLink]="['../insert']" 
+        class="text-white" 
+        style="text-decoration: none">
+        <div class="getlistadd d-flex align-items-center justify-content-center">
+            <i class="fas fa-plus"></i>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,22 @@
+<div class="position-relative box-header place"
+    [ngStyle]="{'background': 'url(' + data.background + ') no-repeat center center'}">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="d-lg-flex align-items-center justify-content-between">
+                <div class="title m-0 text-uppercase text-white">
+                    {{data.name}}
+                </div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent border-0 m-0 p-0" *ngIf="data.name && data.name.length > 0">
+                        <li class="breadcrumb-item " aria-current="page">
+                            <a [routerLink]="['/']" routerLinkActive="is--active" class="text-dark">
+                                {{ 'lblHome' | translate }}
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active " aria-current="page">{{ data.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+<ng-template [ngIf]="page.data && page.data.name">
+    <!-- && page.data.background -->
+    <box-breadcrumb [data]="page.data" *ngIf="!globals._browser.isPageBuilder">
+    </box-breadcrumb>
+
+    <div class="container-main" *ngIf="flags">
+        <div class="container-fluid">
+            <div class="row pt-4 justify-content-center pb-5">
+                <div class="col-lg-3 col-12" [ngClass]="{'d-none': changeCol && link != ''}">
+                    <app-box-asidebar-left [data]="page.data.data" [linkPage]="linkMain">
+                    </app-box-asidebar-left>
+                </div>
+
+                <div [ngClass]="changeCol && link != '' ? 'col-12' : 'col-lg-9 col-12' ">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-main" *ngIf="!flags && !globals._browser.isPageBuilder">
+        <div class="container-fluid">
+            <div *ngIf="page.data.position == 1" class="content-page content pt-5" id="contentBuider"
+                [innerHTML]="page.data.builder | sanitizeHtml">
+            </div>
+            <div class="fr-view py-5" id="page-detail" [innerHTML]="page.data.detail | sanitizeHtml">
+            </div>
+            <div *ngIf="page.data.position == 2" class="content-page content pb-5" id="contentBuider"
+                [innerHTML]="page.data.builder | sanitizeHtml">
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!flags && globals._browser.isPageBuilder">
+        <div *ngIf="page.data.type_builder == 1 || page.data.type_builder == 3" class="fr-view" id="page-detail"
+            [innerHTML]="page.data.detail | sanitizeHtml">
+        </div>
+        <iframe id="iframe" *ngIf="page.data.type_builder == 2" title="iframe" width="100%"
+            style="height:100vh;"></iframe>
+    </div>
+</ng-template>
+
+<!-- tags -->
+<div *ngIf="tags.data && tags.data.name">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="row py-5">
+                <div class="col-md-9 pt-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title-tags">
+                                <h1><span style="color:#666">{{'FEPage.tags' | translate}}</span>
+                                    <span class="text-uppercase">{{tags.data.name}}</span>
+                                </h1>
+                            </div>
+                        </div>
+                        <div class="col-md-12" *ngFor="let item of tags.list">
+                            <app-box-content class="mb-4" [type]="1" [item]="item" *ngIf="width > 576">
+                            </app-box-content> 
+                            <app-box-content class="mb-4" [item]="item" *ngIf="width < 576">
+                            </app-box-content>
+                        </div>
+                        <div class="col-12 text-center pb-5" *ngIf="tags.lengthList > 12 && tags.finish == false">
+                            <button type=" button" class="btn btn-more" (click)="tags._viewMore(tags.list.length)">
+                                {{'FEBtn.seeMore' | translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 pt-4">
+                    <div class="right-bar">
+                        <a [href]="tags.banner.link ? tags.banner.link : '/'" target="_blank" rel="noopener noreferrer">
+                            <img [src]="tags.banner.images" class="img-fluid">
+                        </a>
+                        <!-- <div class="title-new text-uppercase text-white mt-4">
+                            {{'FEPage.postViewMore' | translate}}
+                        </div>
+                        <div class="content-new p-3 cursor-pointer">
+                            <div *ngFor="let item of tags.postViewMore; let i = index"
+                                [ngClass]="{'border-bottom mb-3 pb-3': i < tags.postViewMore.length - 1}">
+                                <h3 class="mb-1">
+                                    <a class="name"
+                                        [routerLink]="['/'+( globals.language._language == 'vn' ? '' : globals.language._language) + '/' + item.link]">{{item.name}}
+                                    </a>
+                                </h3>
+                                <div class="date">{{item.date | date : 'dd/MM/yyyy'}} </div>
+                            </div>
+                        </div> -->
+
+                        <box-sidebar-news [heading]="'FEPage.postViewMore' | translate" [dataList]="tags.postViewMore">
+                        </box-sidebar-news>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

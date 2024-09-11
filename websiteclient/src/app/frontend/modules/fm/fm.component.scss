@@ -1,0 +1,44 @@
+@import "src/styles/mixins";
+
+.form-group {
+    position: relative;
+    .icon-password {
+        position: absolute;
+        right: 10px;
+        z-index: 1;
+        top: calc(50% - 7px);
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .form-control {
+        box-shadow: none;
+
+        &:focus {
+            border-color: var(--color-secondary) !important;
+        }
+    }
+    input::placeholder {
+        opacity: 0.33;
+    }
+}
+
+.form-hover-underline {
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.fm-group {
+    width: calc(50% - 0.33rem);
+    @include viewport-sm {
+        width: 100%;
+    }
+
+    > button {
+        font-size: 12px;
+
+        > img {
+            width: 1.125rem;
+        }
+    }
+}

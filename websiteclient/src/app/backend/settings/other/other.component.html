@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header">
+        <strong>{{ page.name | translate }}</strong>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                <label>Ngôn ngữ</label>
+                <div class="d-flex mb-4" >
+                    <div *ngFor="let item of mutiLang" class="cursor-pointer" >
+                        <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38" [src]="item.icon"
+                            [title]="item.name" [alt]="item.name"
+                            [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                            [ngClass]="{'border': +item.id == +lang_id}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 " *ngFor="let item of data" [ngClass]="item.type == 0 ? 'col-md-12': 'col-md-6'">
+                <div class="d-flex justify-content-between">
+                    <label class="font-weight-500">{{ item.title }} </label>
+                    <button type="button" class="btn btn-primary btn-sm h-100" *ngIf="item.skip == true"
+                        (click)="onSubmit(item)">
+                        {{'btn.save' | translate }}</button>
+                </div>
+                <div [ngSwitch]="item.type">
+                    <div *ngSwitchCase="2">
+                        <div class="imagesThumb" *ngIf="item.images">
+                            <div class="w-50 m-0" style="height: 100px;"
+                                *ngFor="let row of item.images.data ; let i = index">
+                                <img [src]="row.src | sanitizeUrl" *ngIf="row.type==0 || row.type==1" />
+                                <span (click)="item.images._change($event,row)" *ngIf="row.type==0 || row.type==1"
+                                    class="change">
+                                    <i class="far fa-image"></i>
+                                </span>
+                                <span (click)="item.images._del(i);item.skip = true" *ngIf="row.type==0 || row.type==1" class="del">
+                                    <i class="fas fa-times-circle"></i>
+                                </span>
+                                <span (click)="item.images._push($event)" *ngIf="row.type==2" class="add">
+                                    <i class="fas fa-plus-circle"></i>
+                                </span>
+                            </div>
+                            <input id="images-upload" type="file" (change)="item.images._onchange($event);item.skip = true"
+                                accept="image/png, image/jpeg, image/svg+xml">
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="1">
+                        <div class="form-group">
+                            <input autocomplete="off" type="text" class="form-control" (change)="item.skip = true"
+                                [(ngModel)]="item.value">
+                        </div>
+                    </div>
+                    <span *ngSwitchDefault>
+                        <div class="form-group">
+                            <textarea autocomplete="off" id="chipsSetting" type="text" class="form-control"
+                                (change)="item.skip = true" [(ngModel)]="item.value"
+                                style="min-height: 50px;"></textarea>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-12 col-md-3 pr-md-0">
+        <div class="card">
+            <div class="card-header">
+                <div class="">
+                    <i class="fas fa-shopping-bag mr-2"></i>
+                    <strong> {{'products.list' | translate }}</strong>
+                </div>
+            </div>
+            <div class="list-group">
+                <button class="list-group-item list-group-item-action border-top-0 rounded-0"
+                    *ngFor="let item of list; let i = index" [disabled]="i == 0 || +id > 0 ? false : true"
+                    routerLinkActive="active" [routerLink]="[ item.link + (+this.id > 0 ? '/' + id : '') ]">
+                    {{ item.title | translate }}</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-9 ">
+        <router-outlet></router-outlet>
+    </div>
+</div>

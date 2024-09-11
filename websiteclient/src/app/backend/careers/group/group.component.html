@@ -1,0 +1,46 @@
+<div class="card position-sticky" style="top: 70px;">
+    <div class="card-header">
+        <strong>{{'careers.workplace' | translate }}</strong>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field" class="d-flex align-items-center">
+                        <span *ngSwitchDefault style="white-space: nowrap;">{{col.title | translate }}</span>
+                        <i *ngIf="tableService.sorting.field==col.field" class="fas fa-sort-up ml-1" style="height: 8px;"
+                            [ngStyle]="{'transform': (tableService.sorting.sort == 'asc' ? 'rotate(0deg)' : 'rotate(180deg)') }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableService.data" class="cursor-pointer hover-row"
+                (click)="onCheckItem(item)"
+                [ngClass]="{'status-off': item.status && item.status==0 ,'activeRows' : item.id === filterId}">
+                <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false}">
+                    <span [ngSwitch]="col.field">
+                        <div *ngSwitchCase="'count'" class="text-center">
+                            {{item[col.field]}}
+                        </div>
+                        <span *ngSwitchCase="'name'">
+                            {{item[col.field]}}
+                        </span>
+                        <span *ngSwitchDefault>{{item[col.field]}}</span>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-footer">
+        <a (click)="tableService._previousnext(false)" class="px-2 py-1">
+            <i class="fa fa-angle-double-left"></i>
+        </a>
+        <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+            {{ tableService.settings.total }}</span>
+        <a (click)="tableService._previousnext(true)" class="px-2 py-1">
+            <i class="fa fa-angle-double-right"></i>
+        </a>
+    </div>
+</div>

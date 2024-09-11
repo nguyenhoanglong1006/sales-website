@@ -1,0 +1,59 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="card-header">
+            <strong>
+                <i class="fas fa-arrow-left mr-2 cursor-pointer text-primary"
+                    [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"></i>
+                {{ ((id && id!=0)?'settings.redirect.update':'settings.redirect.add') | translate:{name : fm.value.link}
+                }}
+            </strong>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-8">
+                        <div class="form-group">
+                            <label>{{ 'settings.redirect.status_code' | translate }}<span
+                                    class="ml-2 text-red">*</span></label>
+                            <input type="text" autocomplete="off" class="form-control" name="status_code"
+                                formControlName="status_code" required>
+                            <small class="text-red"
+                                *ngIf="fm.get('status_code').invalid && fm.get('status_code').touched">{{'message.required'|translate}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'settings.redirect.link' | translate }}<span
+                                    class="ml-2 text-red">*</span></label>
+                            <input type="text" autocomplete="off" class="form-control" name="link"
+                                formControlName="link" required>
+                            <small class="text-red"
+                                *ngIf="fm.get('link').invalid && fm.get('link').touched">{{'message.required'|translate}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'settings.redirect.linkRedirect' | translate }}<span
+                                    class="ml-2 text-red">*</span></label>
+                            <input type="text" autocomplete="off" class="form-control" name="link_redirect"
+                                formControlName="link_redirect" required>
+                            <small class="text-red"
+                                *ngIf="fm.get('link_redirect').invalid && fm.get('link_redirect').touched">{{'message.required'|translate}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="container">
+                <div class="d-flex justify-content-end align-items-center">
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flags"
+                            class="btn float-right mr-2" [ngClass]="fm.valid && flags ? 'btn-success' : 'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

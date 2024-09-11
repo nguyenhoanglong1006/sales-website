@@ -1,0 +1,29 @@
+<div class="bg-white menu pt-2">
+    <nav class="navbar p-0">
+        <ul class=" navbar-nav w-100 position-relative" *ngIf="menu && menu.length > 0">
+            <ng-template #recursiveMenu let-menu>
+                <li class="nav-item pl-4 pr-4 pt-2 pb-2" *ngFor="let item of menu; let i = index" [ngStyle]="{'border-bottom': (i < menu.length -1) ?  '1px solid #c9c7c6' : 'none'}">
+                    <a class="nav-link text-dark" (click)="showMenuChild(true,item);">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <span class="">{{item.name}}</span>
+                            <i class="fa-angle-right fas " style="font-size: 20px;" *ngIf="(item.data && item.data.length > 0)"></i>
+                        </div>
+                    </a>
+                    <div *ngIf="item.data && item.data.length > 0" class="dropdown  position-static" style="height:auto">
+                        <div [id]="'dropdown-menu-child-'+item.id" class="mobile-slider menu-child">
+                            <div (click)="showMenuChild(false,item)" class="p-3 d-flex align-items-center" style="border-bottom: solid 1px #c9c7c6; background-color: var(--color-primary); color:white ;">
+                                <i class="fa-angle-left fas  mr-2" style="font-size: 20px;"></i>
+                                <span class="text-uppercase">{{item.name}}</span>
+                            </div>
+                            <ul class="p-0">
+                                <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: item.data }">
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ng-template>
+            <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: menu }"></ng-container>
+        </ul>
+    </nav>
+</div>

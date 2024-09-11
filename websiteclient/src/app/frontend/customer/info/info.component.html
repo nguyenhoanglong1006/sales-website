@@ -1,0 +1,126 @@
+<form class="form-bootrap" [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="container">
+        <div class="card w-100">
+            <div class="card-header bg-white">
+                <strong>{{ 'customer.info' | translate }}</strong>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 text-center">
+                            <div class="form-group">
+                                <label>
+                                    {{ 'customer.avatar' | translate }}
+                                </label>
+                                <div class="imagesThumb m-auto" *ngIf="avatar">
+                                    <div class="rounded-circle" *ngFor="let item of avatar.data ; let i = index">
+                                        <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                        <span (click)="avatar._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                            class="change">
+                                            <i class="far fa-image"></i>
+                                        </span>
+                                        <span (click)="avatar._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        <span (click)="avatar._push($event)" *ngIf="item.type==2" class="add">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                    </div>
+                                    <input type="file" (change)="avatar._onchange($event)"
+                                        pt="image/png, image/jpeg, image/svg+xml">
+                                </div>
+                                <div class="text-center"><small>.png / .jpg / size: 500px x 500px</small></div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    {{ 'customer.sex' | translate }}
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="male" name="sex" class="custom-control-input"
+                                        formControlName="sex" [value]="1">
+                                    <label class="custom-control-label" for="male">{{'customer.male' | translate
+                                        }}</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="female" name="sex" class="custom-control-input"
+                                        formControlName="sex" [value]="2">
+                                    <label class="custom-control-label" for="female">{{'customer.female' | translate
+                                        }}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <div class="form-group ">
+                                <label>
+                                    {{ 'lblName' | translate }}
+                                    <span class="text-danger font-lg">*</span>
+                                </label>
+                                <input autocomplete="off" formControlName="name" required type="text"
+                                        class="form-control">
+                                    <small style="color:red" *ngIf="fm.get('name').invalid && fm.get('name').touched">
+                                        {{ 'message.minLength' | translate : {num: 5} }}</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 pr-md-0">
+                                    <div class="form-group">
+                                        <label>
+                                            {{ 'lblPhone' | translate }}
+                                        </label>
+                                        <input autocomplete="off" formControlName="phone" required type="text"
+                                        class="form-control">
+                                    <small style="color:red"
+                                        *ngIf="fm.get('phone').errors && fm.get('phone').hasError('required') && fm.get('phone').touched">
+                                        {{ 'message.required' | translate }}</small>
+                                    <small style="color:red"
+                                        *ngIf="fm.get('phone').errors && fm.get('phone').hasError('pattern') && fm.get('phone').touched">
+                                        {{ 'message.phone' | translate }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group">
+                                        <label>
+                                            {{ 'lblEmail' | translate }}
+                                            <span class="text-danger font-lg">*</span>
+                                        </label>
+                                        <input autocomplete="off" formControlName="email" required type="text"
+                                            class="form-control">
+                                        <small style="color:red"
+                                            *ngIf="fm.get('email').errors && fm.get('email').hasError('required') && fm.get('email').touched">
+                                            {{ 'message.required' | translate }}</small>
+                                        <small style="color:red"
+                                            *ngIf="fm.get('email').errors && fm.get('email').hasError('pattern') && fm.get('email').touched">
+                                            {{ 'message.email' | translate }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    {{ 'customer.address' | translate }}
+                                    <span class="text-danger font-lg">*</span>
+                                </label>
+                                <div class="position-relative w-100">
+                                    <input class="form-control" name="address" formControlName="address">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <div class="d-flex justify-content-end align-items-center">
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flags "
+                            class="btn float-right mr-2" [ngClass]="fm.valid  && flags ? 'btn-success' :'btn-defaut'">
+                            {{'FEBtn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'FEBtn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

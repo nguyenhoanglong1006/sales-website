@@ -1,0 +1,98 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="card-header">
+            <strong>{{ 'settings.website.website' | translate }}</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                    <label>Ngôn ngữ</label>
+                    <div class="d-flex mb-4">
+                        <div *ngFor="let item of mutiLang" class="cursor-pointer">
+                            <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38"
+                                [src]="item.icon" [title]="item.name" [alt]="item.name"
+                                [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                                [ngClass]="{'border': +item.id == +lang_id}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col-sm-4 col-4 col-md-4">
+                            <!-- logo1 -->
+                            <div class="form-group">
+                                <label>{{ 'settings.website.logo' | translate }}</label>
+                                <div class="imagesThumb" *ngIf="logo">
+                                    <div *ngFor="let item of logo.data; let i = index" class="m-0">
+                                        <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                        <span (click)="logo._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                            class="change">
+                                            <i class="far fa-image"></i>
+                                        </span>
+                                        <span (click)="logo._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        <span (click)="logo._push($event)" *ngIf="item.type==2" class="add">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                    </div>
+                                    <input type="file" (change)="logo._onchange($event)"
+                                        accept="image/png, image/jpeg, image/svg+xml">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-4 col-md-4">
+                            <!-- Shortcut -->
+                            <div class="form-group">
+                                <label>{{ 'settings.website.shortcut' | translate }}</label>
+                                <div class="imagesThumb" *ngIf="shortcut">
+                                    <div *ngFor="let item of shortcut.data; let i = index" class="m-0">
+                                        <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                        <span (click)="shortcut._change($event,item)"
+                                            *ngIf="item.type==0 || item.type==1" class="change">
+                                            <i class="far fa-image"></i>
+                                        </span>
+                                        <span (click)="shortcut._del(i)" *ngIf="item.type==0 || item.type==1"
+                                            class="del">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        <span (click)="shortcut._push($event)" *ngIf="item.type==2" class="add">
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </div>
+                                    <input type="file" (change)="shortcut._onchange($event)"
+                                        accept="image/png, image/jpeg, image/svg+xml">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label>{{ 'settings.website.name' | translate }}
+                            <small class="text-danger"> ( tối đa 75 ký tự )</small>
+                        </label>
+                        <input autocomplete="off" type="text" class="form-control" name="name" formControlName="name"
+                            required>
+                        <small class="text-red" [ngClass]="{'invisible': fm.get('name').valid}">
+                            {{ 'message.chekSeo' | translate }}</small>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ 'lblDescription' | translate }}
+                            <small class="text-danger"> ( tối đa 325 ký tự )</small>
+                        </label>
+                        <textarea autocomplete="off" formControlName="description" class="form-control"
+                            rows="3"></textarea>
+                        <small class="text-red" [ngClass]="{'invisible': fm.get('description').valid}">
+                            {{ 'message.chekSeo' | translate }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" (click)="onSubmit()" [disabled]="!fm.valid" class="btn btn-success float-right">
+                {{ 'btn.save' | translate }}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,145 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card w-100">
+        <div class="card-header">
+            <strong>
+                <i class="fas fa-arrow-left mr-2 cursor-pointer text-primary"
+                    [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"></i>
+                {{ ('settings.menu.update') | translate : {name : fm.value.name} }}
+            </strong>
+        </div>
+        <div class="card-body p-0">
+            <div class="container bg-light p-4 mb-3">
+                <div class="row mb-3">
+                    <div class="col-md-6 pr-md-0">
+                        <div class="form-group">
+                            <label>{{ 'lblName' | translate }}<span class="text-red pl-2 font-lg">*</span></label>
+                            <input autocomplete="off" type="text" class="form-control" name="name"
+                                formControlName="name">
+                            <small *ngIf="!fm.get('name').valid && fm.get('name').touched"
+                                class="text-red">{{'message.required' | translate}}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-4 mb-3" [ngClass]="{'d-none': !select.list[page.id]}"
+                        *ngFor="let page of select.data; let i = index">
+                        <div class=" mr-2 justify-content-between">
+                            <div class="custom-control custom-checkbox mb-2">
+                                <input type="checkbox" class="custom-control-input" [value]="page.id"
+                                    (click)="select.onCheck($event)" [id]="page.id" [checked]="select.list[page.id]">
+                                <label class="custom-control-label cursor-pointer" [attr.for]="page.id">
+                                    {{page.name}}</label>
+                            </div>
+                            <div class="d-flex form-group align-items-center mb-0">
+                                <label class="text-nowrap mr-2 mb-0">{{ 'lblOrders' | translate }}</label>
+                                <input type="number" min="0" style="height: 25px;width: 60px;"
+                                    class="form-control mr-2 text-right" name="orders" [(ngModel)]="page.orders"
+                                    [ngModelOptions]="{standalone: true}" (change)="sort.onChange($event,page.id)">
+                                <button type="button" *ngIf="sort.id == page.id"
+                                    (click)="sort.onSubmit(page.id, page.orders)"
+                                    class="btn btn-success py-0 px-2 float-right mr-2" style="height: 25px;">
+                                    {{ 'btn.save'| translate }}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="d-flex justify-content-between align-itemxs-center">
+                        <label class="lable-switch mb-0">
+                            <div class="switch">
+                                <input checked="checked" formControlName="status" type="checkbox" name="status">
+                                <span class="lever"></span>
+                            </div>
+                            <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                                {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+            <div class="container p-4">
+                <div class="row mb-3 align-items-center">
+                    <div class="col-8 pr-md-0 ">
+                        <button type="button" (click)="template.onchange(1,dataPage)"
+                            class="btn btn-link mr-3 rounded-circle"
+                            [ngClass]="template.active == 1 ? 'bg-primary text-white' :'bg-light'"
+                            style="width: 40px; height: 40px;">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button type="button" (click)="template.onchange(2,dataPage)"
+                            class="btn btn-link rounded-circle"
+                            [ngClass]="template.active == 2 ? 'bg-primary text-white' : 'bg-light'"
+                            style="width: 40px; height: 40px;">
+                            <i class="fas fa-project-diagram"></i>
+                        </button>
+                    </div>
+                    <div class="col-4" *ngIf="template.active == 1">
+                        <div class="input-group input-group-sm mb-0">
+                            <input type="text" autocomplete="off" (keyup)="search._search($event)" class="form-control"
+                                placeholder="{{ 'search.txt' | translate }}">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="template.active == 1">
+                    <div class="row mt-3" *ngFor="let items of listPage">
+                        <div class="col-12 font-weight-500">
+                            <span [ngSwitch]="items['type']">
+                                <span *ngSwitchCase="'1'">{{ 'type.link' | translate }}</span>
+                                <span *ngSwitchCase="'2'">{{ 'type.page' | translate }}</span>
+                                <span *ngSwitchCase="'3'">{{ 'type.product' | translate }}</span>
+                                <span *ngSwitchCase="'4'">{{ 'type.news' | translate }}</span>
+                                <span *ngSwitchCase="'5'">{{ 'type.library' | translate }}</span>
+                                <span *ngSwitchCase="'6'">{{ 'type.service' | translate }}</span>
+                                <span *ngSwitchCase="'7'">{{ 'type.analysisCenter' | translate }}</span>
+                                <span *ngSwitchCase="'8'">{{ 'type.shareholder' | translate }}</span>
+                            </span>
+                        </div>
+                        <div class="col-4 mt-2" [ngClass]="{'d-none': select.list[page.id]}"
+                            *ngFor="let page of items.data | servicePipeFilter : search.value :  search.fields ">
+                            <div class="custom-control custom-checkbox ">
+                                <input type="checkbox" class="custom-control-input" [value]="page.id"
+                                    (click)="select.onCheck($event)" [id]="page.id" [checked]="select.list[page.id]">
+                                <label class="custom-control-label cursor-pointer" [attr.for]="page.id">
+                                    {{page.name}}</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div *ngIf="template.active == 2 && listPage && listPage.length >0">
+                    <ng-template #recursiveParent let-listPage>
+                        <div class="w-50 cursor-pointer" *ngFor="let item of listPage ">
+                            <div class="p-2  dropdown-item position-relative"
+                                [ngClass]="{'border-item pl-3': item.level > 1  }">
+                                <div class="custom-control custom-checkbox ">
+                                    <input type="checkbox" class="custom-control-input" [value]="item.id"
+                                        [disabled]="select.list[item.id]" (click)="select.onCheck($event)"
+                                        [id]="item.id" [checked]="select.list[item.id]">
+                                    <label class="custom-control-label cursor-pointer"
+                                        [attr.for]="select.list[item.id] ? 0 : item.id">
+                                        {{item.name}}</label>
+                                </div>
+                            </div>
+                            <div class="dropdown-menu-item ml-3 border-left "
+                                *ngIf="item.data && item.data.length > 0 ">
+                                <ng-container *ngTemplateOutlet="recursiveParent;context: { $implicit: item.data }">
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-container *ngTemplateOutlet="recursiveParent;  context:{ $implicit: listPage }">
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div class="fixed-action-btn">
+    <a [routerLink]="['../insert']" class="text-white " style="text-decoration: none">
+        <div class="getlistadd bg-success d-flex align-items-center justify-content-center " (click)="onSubmit()">
+            <i class="fas fa-save" style="font-size: 18px;"></i>
+        </div>
+    </a>
+</div>

@@ -1,0 +1,76 @@
+::ng-deep {
+    section.slide {
+        .owl-nav {
+            .owl-prev,
+            .owl-next {
+                opacity: 0.2;
+                margin: 0 4.6875rem !important;
+            }
+
+            .owl-prev:hover,
+            .owl-next:hover {
+                opacity: 1;
+            }
+        }
+
+        .owl-dots {
+            --dotSize: 1rem;
+            left: 50%;
+            top: 95%;
+            transform: translate(-50%, -50%);
+            span {
+                background-color: #fff !important;
+                transition: 0.25s ease-out !important;
+            }
+
+            .active > span {
+                width: var(--dotSize);
+                height: var(--dotSize);
+                background-color: transparent !important;
+            }
+        }
+    }
+    .owl-carousel.owl-theme {
+        height: 100%;
+        overflow-y: hidden;
+        position: relative;
+
+        .owl-nav {
+            width: 100%;
+            position: absolute;
+            top: 46%;
+            transform: translateY(-50%);
+
+            // @include viewport-sm {
+            //     display: none !important;
+            // }
+
+            .owl-prev,
+            .owl-next {
+                margin: 0;
+                padding: 0;
+                background-color: transparent !important;
+            }
+
+            .owl-prev {
+                float: left;
+            }
+
+            .owl-next {
+                float: right;
+            }
+        }
+
+        .owl-dots {
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            span {
+                margin: 0 6px;
+                border: 1px solid #fff;
+                border-radius: 50%;
+            }
+        }
+    }
+}

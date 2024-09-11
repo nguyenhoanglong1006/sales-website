@@ -1,0 +1,23 @@
+a {
+    text-decoration: underline;
+    $timer: 0.6s;
+    transition: $timer;
+    // &::after {
+    //     content: '»';
+    //     position: absolute;
+    //     top: -10px;
+    //     right: -24px;
+    //     font-weight: 500;
+    //     font-size: 24px;
+    //     color: inherit;
+    //     opacity: 0;
+    //     transition: $timer;
+    // }
+    // &:hover {
+    //     padding-right: 16px;
+    //     &::after {
+    //         right: 3px;
+    //         opacity: 1;
+    //     }
+    // }
+}

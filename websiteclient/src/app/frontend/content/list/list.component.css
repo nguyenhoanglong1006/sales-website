@@ -1,0 +1,103 @@
+.btn-more {
+    color: var(--color-primary);
+    background-color: #fff;
+    border: 1px solid var(--color-primary);
+}
+
+.btn-more:hover {
+    color: #fff;
+    background-color: var(--color-primary);
+}
+
+.icon-strikethrough {
+    display: flex;
+    align-items: center;
+    width: 8px;
+}
+
+.icon-strikethrough::before {
+    content: "";
+    width: 8px;
+    height: 1px;
+    background: var(--color-primary);
+    position: absolute;
+}
+
+.datepicker {
+    width: 120px;
+}
+
+.bg-datepicker {
+    background-color: red !important;
+}
+
+input, select {
+    height: 32px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+.btn-back span {
+    font-size: 12px;
+    color: var(--color-primary);
+    margin-left: 6px;
+    font-weight: 500;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.icon-strikethrough {
+    display: flex;
+    align-items: center;
+    width: 5px;
+}
+
+.icon-strikethrough::before {
+    content: "";
+    width: 5px;
+    height: 1px;
+    background: var(--color-primary);
+    position: absolute;
+}
+
+.group-name {
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--color-secondary);
+}
+
+.tag {
+    display: block;
+    padding: 2px 15px;
+    background-color: #fff;
+    border: 1px solid var(--color-primary);
+    font-size: 13px;
+    line-height: 1.69;
+}
+
+.tag:hover a {
+    color: var(--color-primary);
+    transition: .3s;
+    cursor: pointer;
+}
+
+@media (max-width:767px) {
+    .content .title {
+        font-size: 24px;
+    }
+
+    .datepicker {
+        width: 48%;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    @media(max-width: 767px) {
+        .form-control, input, select {
+            font-size: 16px !important;
+        }
+    }
+}

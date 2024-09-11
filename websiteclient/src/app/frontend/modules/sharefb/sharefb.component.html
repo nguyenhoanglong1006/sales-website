@@ -1,0 +1,11 @@
+<div class="d-flex ">
+    <div class="mr-1" *ngIf="href !== ''">
+        <div class="zalo-share-button" [attr.data-href]="href" data-oaid="2716031104932325525" data-layout="1"
+            data-color="blue" data-customize="false"></div>
+    </div>
+    <div  *ngIf="link !== ''">
+        <iframe title="messages" [bindSrc]='link' width="450" height="20"
+            style="border:none;overflow:hidden; max-width: 100%;" scrolling="no" frameborder="0"
+            allowTransparency="true" allow="encrypted-media"></iframe>
+    </div>
+</div>

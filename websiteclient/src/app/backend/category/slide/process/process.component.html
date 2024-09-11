@@ -1,0 +1,181 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <strong>
+                    <i class="fas fa-arrow-left mr-2 cursor-pointer text-primary"
+                        [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"></i>
+                    {{ ((id && id!=0)?'settings.slide.update':'settings.slide.add') | translate:{name : fm.value.name}
+                    }}
+                </strong>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                        <label>Ngôn ngữ</label>
+                        <div class="d-flex mb-4">
+                            <div *ngFor="let item of mutiLang" class="cursor-pointer">
+                                <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38"
+                                    [src]="item.icon" [title]="item.name" [alt]="item.name"
+                                    [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                                    [ngClass]="{'border': +item.id == +lang_id}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 pr-0">
+                        <div class="form-group">
+                            <label for="name">{{ 'lblName' | translate }}<span class="ml-2 text-red">*</span></label>
+                            <input type="text" autocomplete="off" class="form-control" required name="name"
+                                formControlName="name" id="name">
+                            <small *ngIf="!fm.get('name').valid && fm.get('name').touched"
+                                class="text-red">{{'message.required'
+                                | translate}}</small>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="title">{{ 'settings.slide.title' | translate }}</label>
+                            <input type="text" autocomplete="off" class="form-control" name="title" id="title"
+                                formControlName="title">
+                        </div> -->
+                        <div class="form-group">
+                            <label>Link điều hướng</label>
+                            <input type="text" autocomplete="off" class="form-control" name="link"
+                                formControlName="link">
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'lblTitle' | translate}}
+                                <small class="text-danger"> ( tối đa 75 ký tự )</small>
+                            </label>
+                            <input type="text" autocomplete="off" class="form-control" name="title_seo" id="title_seo"
+                                formControlName="title_seo">
+                        </div>
+                        <div class="form-group">
+                            <label>{{'lblDescription' | translate}}
+                                <small class="text-danger"> ( tối đa 325 ký tự )</small>
+                            </label>
+                            <textarea formControlName="description" class="form-control" rows="4"></textarea>
+                        </div>
+                        <!-- <div class="row">
+                        <div class="col-sm-12 col-md-6 pr-md-0">
+                            <div class="form-group">
+                                <label>{{ 'settings.slide.position' | translate }}</label>
+                                <select formControlName="position" class="form-control">
+                                    <option selected [value]="0">
+                                        {{ 'settings.slide.selectPosition' | translate }}
+                                    </option>
+                                    <option *ngFor="let item of position" [value]="item.value">
+                                        {{ item.name | translate }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> -->
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'lblOrders' | translate }}</label>
+                                    <input formControlName="orders" min="0" autocomplete="off" name="orders"
+                                        type="number" class="form-control" placeholder="lblOrders">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-9">
+
+                                <div class="form-group" style="height: 65px;">
+                                    <label>{{ 'type.img' | translate }}</label>
+                                    <br />
+                                    <div class="d-flex pt-2">
+                                        <div class="custom-control custom-radio mr-3">
+                                            <input type="radio" id="customRadio1" [value]="1" formControlName="type"
+                                                name="type" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio1">{{ 'type.slideImage'
+                                                |
+                                                translate }}</label>
+                                        </div>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" id="customRadio2" [value]="2" formControlName="type"
+                                                name="type" class="custom-control-input">
+                                            <label class="custom-control-label" for="customRadio2">{{ 'type.banner' |
+                                                translate }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'lblImages' | translate}}</label>
+                            <div class="imagesThumb" *ngIf="images">
+                                <div class="w-100 m-0" style="height: 100px;"
+                                    *ngFor="let item of images.data ; let i = index">
+                                    <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                    <span (click)="images._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                        class="change">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                    <span (click)="images._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                        <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    <span (click)="images._push($event)" *ngIf="item.type==2" class="add">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </span>
+                                </div>
+                                <input id="images-upload" type="file" (change)="images._onchange($event)"
+                                    accept="image/png, image/jpeg, image/svg+xml">
+                            </div>
+                            <div class="text-center" *ngIf="fm.value.type == 1">
+                                <small>.png / .jpg / size: 1440px x 450px</small>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="fm.value.type == 1">
+                            <label>{{'lblImagesMobile' | translate}}</label>
+                            <div class="imagesThumb" *ngIf="imagesMobile">
+                                <div class="w-100 m-0" style="height: 100px;"
+                                    *ngFor="let item of imagesMobile.data ; let i = index">
+                                    <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                    <span (click)="imagesMobile._change($event,item)"
+                                        *ngIf="item.type==0 || item.type==1" class="change">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                    <span (click)="imagesMobile._del(i)" *ngIf="item.type==0 || item.type==1"
+                                        class="del">
+                                        <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    <span (click)="imagesMobile._push($event)" *ngIf="item.type==2" class="add">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </span>
+                                </div>
+                                <input id="mobile-upload" type="file" (change)="imagesMobile._onchange($event)"
+                                    accept="image/png, image/jpeg, image/svg+xml">
+                            </div>
+                            <div class="text-center" *ngIf="fm.value.type == 1"><small>.png / .jpg / size: 414px x
+                                    187px</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="lable-switch mb-0">
+                        <div class="switch">
+                            <input checked="checked" formControlName="status" type="checkbox" name="status">
+                            <span class="lever"></span>
+                        </div>
+                        <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                            {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                    </label>
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flag"
+                            class="btn  float-right mr-2" [ngClass]="fm.valid ? 'btn-success' :'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="['/admin/category/slide/get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

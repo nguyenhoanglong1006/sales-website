@@ -1,0 +1,89 @@
+<ng-template [ngIf]="page.data && page.data.name">
+    <box-breadcrumb [data]="page.data"></box-breadcrumb>
+    <div class="bg-light" *ngIf="content.data && content.data.name">
+        <div class="container-main">
+            <div class="container-fluid">
+                <div class="pt-md-4 pt-3 pb-5">
+                    <div *ngIf="content.data.position == 1" id="contentBuider" [innerHTML]="content.data.builder | sanitizeHtml">
+                    </div>
+                    <div class="row" *ngIf="filter.data && filter.data.length > 0">
+                        <div class="col-md-3" *ngFor="let item of filter.data">
+                            <app-box-content [item]="item"></app-box-content>
+                        </div>
+                        <div class="col-12 text-center" *ngIf="content.lengthList > 12  && filter.finish == false">
+                            <button type=" button" class="btn btn-more" (click)="content._viewMore(filter.data.length)">
+                                {{'FEBtn.seeMore' | translate}}</button>
+                        </div>
+                    </div>
+                    <div *ngIf="content.loading == -1" class="d-flex justify-content-center align-items-center bg-white py-5">
+                        <app-box-loading></app-box-loading>
+                    </div>
+                    <div class="py-5 text-center" *ngIf="(content.data.list && content.data.list.length > 0) && (!filter.data || filter.data.length == 0)">
+                        <h4>{{'lblNotFound' | translate}}</h4>
+                        <button type=" button" class="btn btn-more" (click)="getListPageByLink()">
+                            {{'FEBtn.reload' | translate}}</button>
+                    </div>
+                    <div class="py-5 text-center" *ngIf="!content.data.list || content.data.list.length == 0">
+                        <h4>{{'lblUpdating' | translate}}</h4>
+                    </div>
+                    <div *ngIf="content.data.position == 2" id="contentBuider" [innerHTML]="content.data.builder | sanitizeHtml">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white" *ngIf="(!content.data || !content.data.name) && flag">
+        <div class="container-main">
+            <div class="container-fluid">
+                <div class="pt-md-4 pt-3 pb-5">
+                    <div class="row pt-3 justify-content-center">
+                        <div class="col-md-8">
+                            <button-back></button-back>
+                            <h1 class="title color--primary mb-1">{{ detail.data.name}}</h1>
+                            <div class="d-flex align-items-center">
+                                <a class="group-name cursor-pointer " [routerLink]="[ globals.language._language == 'vn' ? '/' +  detail.data.link : ('/' + globals.language._language + '/' +  detail.data.link)]">
+                                    {{ detail.data.parent_name}}
+                                </a>
+                                <div class="mx-md-2 mx-2 icon-strikethrough"></div>
+                                <div class="date">{{ detail.data.date | date : 'dd/MM/yyyy'}}</div>
+                            </div>
+                            <!-- detail -->
+                            <div *ngIf="detail.data.detail && detail.data.detail.length > 0">
+                                <div class="fr-view pt-3" id="page-detail" [innerHTML]=" detail.data.detail | sanitizeHtml">
+                                </div>
+                            </div>
+                            <!-- <div *ngIf="detail.data.file && detail.data.file !== ''" class="mt-4">
+                                <a class="color--primary d-flex align-items-center text-decoration-none" download style="font-size: 12px;" [href]="globals.BASE_API_URL+ detail.data.file" *ngIf="detail.data.file !=''" [ngStyle]="{'opacity': !detail.data.file ? '0.5': ''}">
+                                    <div class="mr-2">
+                                        <img src="/assets/img/icon/file-download.svg" width="24px" height="21px">
+                                    </div>
+                                    <span style="vertical-align: middle; margin-left: 5px;">
+                                        {{'FEBtn.download' | translate}} {{detail.data.name}}
+                                    </span>
+                                </a>
+                            </div> -->
+                            <!-- author -->
+                            <div class="pt-3 text-right" *ngIf=" detail.data.author &&  detail.data.author.length > 0">
+                                <i>{{'FEContent.author' | translate}}</i>
+                                <i [innerHTML]=" detail.data.author | sanitizeHtml"></i>
+                            </div>
+                            <!-- tags -->
+                            <div class=" pt-4" *ngIf=" detail.data.tags && detail.data.tags.length >0">
+                                <i class="fas fa-tags mr-3 " style="color:'#1e3c77'"></i>
+                                <div class="tag  d-inline-block mr-2" *ngFor="let item of  detail.data.tags">
+                                    <a [routerLink]="['/'+(globals.language._language == 'vn' ? '' : globals.language._language) + '/'+item.link]">
+                                        {{item.name}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 pt-5 pt-md-0">
+                            <box-sidebar-news [heading]="'FEContent.contentNew' | translate" [dataList]="detail.contentNew">
+                            </box-sidebar-news>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

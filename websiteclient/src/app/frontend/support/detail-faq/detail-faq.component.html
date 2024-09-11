@@ -1,0 +1,21 @@
+<div *ngIf="detailFaq.item.position == 1" id="contentBuider" [innerHTML]="detailFaq.item.builder | sanitizeHtml">
+</div>
+<div class="container-main detail-faq" *ngIf="detailFaq.item && detailFaq.item.name">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <a class="d-inline-flex align-items-center btn-back" [routerLink]="['../']"
+                    style="text-decoration: none;">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    {{ 'FEBtn.back' | translate }}
+                </a>
+            </div>
+            <div class="col-12 pt-3">
+                <h1 class="title mb-md-4 mb-2">{{ detailFaq.item.name }}</h1>
+                <div class="fr-view" id="page-detail" [innerHTML]="detailFaq.item.detail | sanitizeHtml"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="detailFaq.item.position == 2" id="contentBuider" [innerHTML]="detailFaq.item.builder | sanitizeHtml">
+</div>

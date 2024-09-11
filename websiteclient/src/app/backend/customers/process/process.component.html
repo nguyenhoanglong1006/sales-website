@@ -1,0 +1,164 @@
+<form class="form-bootrap" [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="container">
+        <div class="card w-100">
+            <div class="card-header">
+                <strong>{{ ((id && id !=0)?'customer.update':'customer.add') | translate : {name : fm.value.name} }}</strong>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-4 text-center">
+                            <div class="form-group">
+                                <label>
+                                    {{ 'lblAvatar' | translate }}
+                                </label>
+                                <div class="imagesThumb m-auto" *ngIf="avatar">
+                                    <div class="rounded-circle" *ngFor="let item of avatar.data ; let i = index">
+                                        <img [src]="item.src | sanitizeUrl" *ngIf="item.type==0 || item.type==1" />
+                                        <span (click)="avatar._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                            class="change">
+                                            <i class="far fa-image"></i>
+                                        </span>
+                                        <span (click)="avatar._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                            <i class="fas fa-times"></i>
+                                        </span>
+                                        <span (click)="avatar._push($event)" *ngIf="item.type==2" class="add">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                    </div>
+                                    <input type="file" (change)="avatar._onchange($event)"
+                                        pt="image/png, image/jpeg, image/svg+xml">
+                                </div>
+                                <div class="text-center"><small>.png / .jpg / size: 500px x 500px</small></div>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    {{ 'sex.title' | translate }}
+                                </label>
+                                <br />
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="male" name="sex" class="custom-control-input"
+                                        formControlName="sex" [value]="1">
+                                    <label class="custom-control-label" for="male">{{'sex.male' | translate }}</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="female" name="sex" class="custom-control-input"
+                                        formControlName="sex" [value]="2">
+                                    <label class="custom-control-label" for="female">{{'sex.female' | translate
+                                        }}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5">
+                            <div class="form-group "
+                                [ngClass]="{'was-validated': !fm.get('name').valid && fm.get('name').touched}">
+                                <label>
+                                    {{ 'lblName' | translate }}
+                                    <span class="text-danger font-lg">*</span>
+                                </label>
+                                <input type="text" class="form-control" name="name" formControlName="name" required>
+                                <small *ngIf="!fm.get('name').valid && fm.get('name').touched" style="color:red">
+                                    {{'message.required' | translate}}</small>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-md-6 pr-md-0">
+                                    <div class="form-group"
+                                        [ngClass]="{'was-validated': !fm.get('phone').valid && fm.get('phone').touched}">
+                                        <label>
+                                            {{ 'lblPhone' | translate }}
+                                        </label>
+                                        <input type="text" class="form-control" name="phone" formControlName="phone">
+                                        <small *ngIf="!fm.get('phone').valid && fm.get('phone').touched"
+                                            style="color:red">
+                                            {{'message.phone' | translate}}</small>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="form-group"
+                                        [ngClass]="{'was-validated': !fm.get('email').valid && fm.get('email').touched}">
+                                        <label>
+                                            {{ 'lblEmail' | translate }}
+                                            <span class="text-danger font-lg">*</span>
+                                        </label>
+                                        <input type="email" class="form-control" name="email" formControlName="email"
+                                            required>
+                                        <small *ngIf="!fm.get('email').valid && fm.get('email').touched"
+                                            style="color:red">{{'message.email'
+                                            | translate}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group"
+                                [ngClass]="{'was-validated': !fm.get('password').valid && fm.get('password').touched}">
+                                <div class="d-flex align-items-center"
+                                    [ngClass]="+id === 0 ? 'justify-content-between': 'justify-content-end'">
+                                    <label *ngIf="+id === 0">
+                                        {{ 'lblPassword' | translate }}
+                                        <span class="text-danger font-lg">*</span>
+                                    </label>
+                                    <button *ngIf="+id == 0" class="btn btn-link"
+                                        tooltip="{{ 'customer.randomPassword' | translate }}" (click)="randomPass()">
+                                        <i class="fas fa-sync"></i>
+                                    </button>
+                                    <button *ngIf="+id > 0" class="btn btn-link pr-0"
+                                        [routerLink]="[ '/' + globals.admin + '/customers/change-password/',id]">
+                                        {{ 'btn.changePassword' | translate }}
+                                    </button>
+                                </div>
+                                <div class="position-relative w-100" *ngIf="+id == 0">
+                                    <input [type]="type" class="form-control" name="password" required
+                                        formControlName="password">
+                                    <span (click)="type = type == 'password' ? 'text' : 'password'" id="basic-addon2">
+                                        <i class="fa"
+                                            [ngClass]="{'fa-eye': type=='password', 'fa-eye-slash': type=='text'}"
+                                            style="position: absolute;top:10px; right: 17px; z-index: 99;cursor: pointer;"
+                                            aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <small *ngIf="!fm.get('password').valid && fm.get('password').touched"
+                                    style="color:red">
+                                    {{ 'message.minLength' | translate : {num: 8 } }}</small>
+                            </div>
+                            <!-- Permission Admin -->
+                            <!-- <div *ngIf="id === 0" class="form-group d-flex">
+                            <input
+                                id="is_delete"
+                                formControlName="is_delete"
+                                type="checkbox"
+                                class="mr-2" />
+                            <label 
+                                for="is_delete" 
+                                class="d-block mb-0 cursor-pointer customer-select-none" 
+                                style="margin-top: 2px;">
+                                {{ 'permission.isAdmin' | translate }}
+                            </label>
+                        </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="lable-switch mb-0">
+                        <div class="switch">
+                            <input checked="checked" formControlName="status" type="checkbox" name="status">
+                            <span class="lever"></span>
+                        </div>
+                        <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                            {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                    </label>
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flags "
+                            class="btn float-right mr-2" [ngClass]="fm.valid  && flags ? 'btn-success' :'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

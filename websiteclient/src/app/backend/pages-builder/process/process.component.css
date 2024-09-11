@@ -1,0 +1,37 @@
+.btn-pagebuilder {
+    background: #FC466B;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--color-primary), #FC466B);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, var(--color-primary), #FC466B);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}
+
+.design-block {
+    height: 200px;
+    background: #f5f5f5;
+    border: dashed 2px #c1c1c1;
+    font-size: 18px;
+    color: #454545;
+    cursor: pointer;
+}
+
+.block-page {
+    border: groove 2px #2196f3;
+    border-radius: 6px;
+}
+
+.block-edit {
+    top: 0;
+    right: 0;
+    z-index: 5;
+}
+
+.btn-edit {
+    background: linear-gradient(to right, var(--color-primary), #FC466B);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

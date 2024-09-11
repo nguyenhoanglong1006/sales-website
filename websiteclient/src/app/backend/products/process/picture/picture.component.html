@@ -1,0 +1,95 @@
+<form  [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="card-header">
+            <strong>{{'products.images' | translate}}</strong>
+        </div>
+        <div class="card-body">
+            <div class="bg-light py-3 px-2 rounded">
+                <span translate>products.name</span>: <h6 class="d-inline mb-0">{{ items.name }} </h6>
+            </div>
+            <div class="w-75 mx-auto mt-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{ 'products.image' | translate }} (500 x 500) px</label>
+                            <div class="imagesThumb" *ngIf="images">
+                                <div *ngFor="let item of images.data ; let i = index">
+                                    <img [src]="item.src" *ngIf="item.type==0 || item.type==1" />
+                                    <span (click)="images._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                        class="change">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                    <span (click)="images._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                        <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    <span (click)="images._push($event)" *ngIf="item.type==2" class="add">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="file" (change)="images._onchange($event)">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{ 'products.video' | translate }} (500 x 500) px</label>
+                            <div class="imagesThumb" *ngIf="video">
+                                <div *ngFor="let item of video.data ; let i = index">
+                                    <img [src]="item.src" *ngIf="item.type==0 || item.type==1" />
+                                    <span (click)="video._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                        class="change">
+                                        <i class="far fa-image"></i>
+                                    </span>
+                                    <span (click)="video._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                        <i class="fas fa-times-circle"></i>
+                                    </span>
+                                    <span (click)="video._push($event)" *ngIf="item.type==2" class="add">
+                                        <i class="fa fa-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="file" (change)="video._onchange($event)">
+                            </div>
+                            <div class="form-group">
+                            <!-- <label>{{ 'library.linkvideo' | translate }}</label> -->
+                            <input
+                                   (keyup)="changeUrlVideo($event)"
+                                   name="video_link" formControlName="video_link"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Nhập link video">
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>{{ 'products.listimages' | translate }} (500 x 500) px</label>
+                        <div class="imagesThumb" *ngIf="listimages" style="max-height: 118px;overflow-y: auto;">
+                            <div *ngFor="let item of listimages.data ; let i = index">
+                                <img [src]="item.src" *ngIf="item.type==0 || item.type==1" />
+                                <span (click)="listimages._change($event,item)" *ngIf="item.type==0 || item.type==1"
+                                    class="change">
+                                    <i class="far fa-image"></i>
+                                </span>
+                                <span (click)="listimages._del(i)" *ngIf="item.type==0 || item.type==1" class="del">
+                                    <i class="fas fa-times-circle"></i>
+                                </span>
+                                <span (click)="listimages._push($event)" *ngIf="item.type==2" class="add">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                            </div>
+                            <input type="file" (change)="listimages._onchange($event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="float-md-right">
+                <button type="button" [routerLink]="['../../../get-list']" class="btn btn-primary mr-2">{{'btn.back' |
+                    translate }}</button>
+                <button (click)="onSubmit()" class="btn btn-success" type="button">{{'btn.save'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</form>

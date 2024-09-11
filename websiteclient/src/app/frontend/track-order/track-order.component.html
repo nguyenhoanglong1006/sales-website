@@ -1,0 +1,93 @@
+<box-breadcrumb [data]="page.data"></box-breadcrumb>
+<div class="bg-light py-3">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="p-4 bg-white" >
+                <div class="d-inline-block w-100" style="max-width: 400px">
+                    <h6 class="text-left">
+                        Nhập mã đơn hàng của bạn
+                    </h6>
+                    <div class="d-flex text-center">
+                        <input type="text" [(ngModel)]="this.search.value" (keyup.enter)="search.onSearch()"
+                            class="form-control mr-1 w-75" placeholder="{{'orders.searchorder'|translate}}"
+                            style="height: 40px;">
+                        <button class="btn btn-success text-nowrap w-25" (click)="search.onSearch()">
+                            {{ 'orders.search' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-light py-3" *ngIf="search.data && search.data.list?.length >0">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 style="font-size: 16px;" class="mb-3 font-weight-bold">
+                                {{ 'FECart.order'| translate }}: {{ search.data.code }}
+                            </h5>
+                            <div class="mb-1">
+                                <span class="name-total">{{ 'FECart.priceTotal' | translate }}:</span>
+                                <span class="text-danger" style="font-size: 15px;font-weight: 600;">
+                                    {{ search.data.total_payment.toLocaleString('vi') }}đ</span>
+                            </div>
+                            <div class="mb-1">
+                                <div class=" d-inline-block">
+                                    <div class=" text-muted" *ngIf="search.data.delivery_status == 0">
+                                        <i class="fas fa-clock"></i>
+                                        <span>
+                                            {{'orders.pending'|translate}}
+                                        </span>
+                                    </div>
+                                    <div class=" text-success" *ngIf="search.data.delivery_status == 1">
+                                        <i class="fas fa-cube"></i>
+                                        <span>
+                                            {{'orders.success'|translate}}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-12">
+                    <div class="">
+                        <h4>{{ 'FECart.productList' | translate }}</h4>
+                        <div class="card-body bg-white border-bottom"
+                            *ngFor="let item of search.data.list; let i = index">
+                            <div class="d-flex flex-nowrap">
+                                <div class="images mr-3">
+                                    <a [routerLink]="[ '/san-pham/' + item.parent_link + '/' + item.link ]">
+                                        <img [routerLink]="['/san-pham/' + item.href +'/'+ item.link]"
+                                            [defaultImage]="('FEImagesProduct' | translate)" [lazyLoad]="item.images"
+                                            [title]="item.name" [alt]="item.name" class="box-img" width="80px">
+                                    </a>
+                                </div>
+                                <div class="content d-flex justify-content-between flex-nowrap">
+                                    <div class="description">
+                                        <a class="name text-dark mb-2"
+                                            [routerLink]="[ '/san-pham/' + item.parent_link + '/' + item.link ]">
+                                            <h6> {{item.name}}</h6>
+                                        </a>
+                                        <div *ngIf="item.total > 0">
+                                            <div class="price font-weight-bold mr-4">
+                                                {{ item.price.toLocaleString('vi') + ' đ' }}
+                                                x {{ item.amount }}
+                                                = {{ item.total.toLocaleString('vi') + ' đ' }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

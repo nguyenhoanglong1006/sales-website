@@ -1,0 +1,43 @@
+ul li {
+    list-style: none;
+}
+
+.title {
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn:focus {
+    color: #e24861;
+}
+
+.active, .item-title:hover, input {
+    cursor: pointer;
+}
+
+#mobile-filter {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+#mobile-filter .content {
+    position: relative;
+    top: 0%;
+    width: 100%;
+    text-align: center;
+}
+
+/* .item-title {} */
+
+/* .active {
+    border-bottom: 1px solid var(--hover-text-color);
+    border-left: 2px solid var(--hover-text-color);
+    color: var(--hover-text-color);
+} */

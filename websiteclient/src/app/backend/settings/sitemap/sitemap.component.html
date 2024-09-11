@@ -1,0 +1,65 @@
+<div class="position-relative">
+    <div *ngIf="sitemap.loading == -1" class="design-block d-flex align-items-center justify-content-center" style="border: unset;">
+        <div class="text-center">
+            <h1>Rebuild Sitemap</h1>
+            <p>(enter your website URL to rebuild a sitemap)</p>
+            <div class="mb-3 ">
+                <div class="d-flex align-items-center justify-content-center">
+                    <h5 class="mb-0 mr-3" *ngIf="!domain.skip">{{domain.name}}</h5>
+                    <input type="text" class="form-control mr-3" name="domain" autocomplete="off" *ngIf="domain.skip" [(ngModel)]="domain.name" [ngModelOptions]="{standalone: true}" autofocus id="domain">
+                    <i class="fas fa-pen" (click)="domain.skip = true" *ngIf="!domain.skip"></i>
+                    <button type="button" class="btn btn-success btn-sm h-100" *ngIf="domain.skip" (click)="domain.submit()">
+                        {{'btn.save' | translate }}</button>
+                </div>
+                <small class="text-danger font-weight-500" *ngIf="!domain.flags">ULR không chính xác!</small>
+            </div>
+
+            <div>
+                <button class="btn bg-primary text-white px-4 font-weight-500 mr-4" [disabled]="domain.name == ''" (click)="sitemap.create('change')"> SITEMAP</button>
+                <button class="btn bg-primary text-white px-4 font-weight-500 mr-4" [disabled]="domain.name == ''" (click)="sitemap.create('page')"> PAGE</button>
+                <button class="btn bg-primary text-white px-4 font-weight-500" [disabled]="domain.name == ''" (click)="sitemap.create('post')">POST</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="sitemap.loading == 1" class="loading  position-absolute">
+        <div class="loading d-flex align-items-center justify-content-center ">
+            <div class="position-relative d-flex align-items-center justify-content-center">
+                <img src="../../../../assets/img/loading.gif" width="40">
+                <img src="../../../../assets/img/icon/search.svg" class="position-absolute" width="16" height="16">
+            </div>
+            <h5 class="mb-0 ml-2"> Please wait, we are crawling your website</h5>
+        </div>
+
+        <div class="progress" style="height: 5px;">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sitemap.percent + '%'}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+    <div *ngIf="sitemap.loading == 0 ">
+        <button class="btn font-weight-500" (click)="sitemap.loading = -1">
+            <i class="fas fa-long-arrow-alt-left mr-1"></i>
+            Trở về
+        </button>
+        <div class="loading d-flex align-items-center justify-content-center ">
+            <div class="text-center" *ngIf="sitemap.type != 'change'">
+                <h6 class="mb-4"> Đã quét <strong>{{sitemap.length}}</strong> link</h6>
+                <a *ngIf="displayViButton" [href]="sitemap.href + (sitemap.type == 'page' ?  'page-sitemap.xml' : 'post-sitemap.xml')" target="_blank" style="text-decoration: none;">
+                    <button class="btn bg-primary px-4 font-weight-500 text-white mr-4">
+                        Kiểm tra VN
+                    </button>
+                </a>
+                <a *ngIf="displayEnButton" [href]="sitemap.href + (sitemap.type == 'page' ?  'page-en-sitemap.xml' : 'post-en-sitemap.xml')" target="_blank" style="text-decoration: none;">
+                    <button class="btn bg-primary px-4 font-weight-500 text-white">
+                        Kiểm tra EN
+                    </button>
+                </a>
+            </div>
+            <div class="text-center" *ngIf="sitemap.type == 'change'">
+                <a [href]="sitemap.href" target="_blank" style="text-decoration: none;">
+                    <button class="btn bg-primary px-4 font-weight-500 text-white">
+                        Kiểm tra
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

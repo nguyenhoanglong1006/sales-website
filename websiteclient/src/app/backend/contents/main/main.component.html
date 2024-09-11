@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-sm-12 col-md-3 pr-md-0">
+        <app-group-contents (filter)="filterId = $event"></app-group-contents>
+    </div>
+    <div class="col-sm-12 col-md-9">
+        <app-get-list-content [filter]="filterId"></app-get-list-content>
+    </div>
+</div>

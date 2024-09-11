@@ -1,0 +1,61 @@
+<form class="form-bootrap" [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="row">
+        <div class="container mx-0">
+            <div class="card">
+                <div class="card-header">
+                    <strong>
+                        {{ 'products.settingsPrice' | translate }}
+                    </strong>
+                </div>
+                <div class="card-body">
+                    <div class="bg-light py-3 px-2 rounded">
+                        <span translate>products.name</span>: <h6 class="d-inline mb-0">{{ fm.value.name }} </h6>
+                    </div>
+                    <div class="w-75 mx-auto mt-4">
+                        <div class="row ">
+                            <div class="col-md-4 col-sm-12">
+                                <div class="form-group font-weight-600">
+                                    <label for="price">
+                                        {{ 'products.PromotionPrice' | translate }}
+                                    </label>
+                                    <input symbolNumber name="price" formControlName="price" class="form-control"
+                                        id="price" (change)="percent(true)" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <div class="form-group font-weight-600">
+                                    <label for="price_sale">
+                                        {{ 'products.PriceSaleProduct' | translate }}
+                                    </label>
+                                    <input symbolNumber name="price_sale" formControlName="price_sale"
+                                        class="form-control" id="price_sale" (change)="percent(false)" value="true"  />
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group font-weight-600"
+                                    [ngClass]="{'was-validated': !fm.get('percent').valid && fm.get('percent').touched}">
+                                    <label for="percent"> {{ 'products.percent' | translate }} </label>
+                                    <input type="number" formControlName="percent" name="percent" id="percent"
+                                    class="form-control text-center " min="0" max="100" (change)="percent(true)"
+                                    [ngClass]="{'border-danger': !fm.get('percent').valid}"  readonly  />
+                             
+                                </div>
+                            </div>
+                        </div>
+                        <div class="alert alert-danger" role="alert"
+                            *ngIf="globals.price.format(fm.value.price_sale) > globals.price.format(fm.value.price)">
+                            <small>Giá Kuyến mãi đang lớn hơn giá bán</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="float-md-right">
+                        <button (click)="onSubmit()" [disabled]="!checkValidtor()" class="btn btn-success"
+                            type="button"> {{ 'btn.save' | translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

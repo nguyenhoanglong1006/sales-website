@@ -1,0 +1,90 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="p-2 card-header bg-light border-bottom d-flex w-100 justify-content-between align-items-center">
+            <strong>{{'products.information' | translate }}</strong>
+        </div>
+        <div class=" p-3">
+            <div class="row">
+                <div class="col-md-8 pr-md-0">
+                    <div class="form-group">
+                        <label>{{'products.name' | translate }}</label>
+                        <input name="name" (keyup)="onChangeLink($event)" formControlName="name" type="text"
+                            class="form-control" placeholder="{{'products.name' | translate }}" />
+                        <small style="color:red"
+                            *ngIf="fm.get('name').invalid && fm.get('name').touched && fm.value.name == ''">{{'message.required'|translate}}</small>
+                        <small style="color:red"
+                            *ngIf="fm.get('name').invalid && fm.get('name').touched && fm.value.name !== ''">
+                            {{ 'message.lengthMin' | translate : { length : 6 } }}</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>{{'products.listgroup'|translate}}</label>
+                        <div>
+                            <select name="page_id" formControlName="page_id" class="form-control">
+                                <option *ngFor="let row of group" [value]="+row.id">
+                                    {{row.name}}</option>
+                            </select>
+                            <small style="color:red"
+                                *ngIf="fm.get('page_id').invalid && fm.get('page_id').touched">{{'message.required'|translate}}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>{{'products.link' | translate }}</label>
+                        <input name="link" (keyup)="link._keyup($event)" [(ngModel)]="fm.value.link" formControlName="link"
+                            type="text" class="form-control" />
+                        <small style="color:red"
+                            *ngIf="fm.get('link').invalid && fm.get('link').touched">{{'message.required'|translate}}</small>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>{{'product.typeProduct'|translate}}</label><br>
+                        <div class="d-inline-block mr-4" *ngFor="let item of listtype">
+                            <div class="custom-control custom-checkbox ">
+                                <input type="checkbox" class="custom-control-input" [checked]="item.check" name="type"
+                                    [attr.id]="item.value" (change)="item.check = ((item.check == false) ?  true : false)">
+                                <label class="custom-control-label" [attr.for]="item.value">{{item.title |
+                                    translate}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <!-- <div class="form-group">
+                <label>{{'products.info' | translate }}</label>
+                <section class="d-block position-relative">
+                    <div id="info" [froalaEditor]="globals.configFroala" formControlName="info"></div>
+                </section>
+            </div> -->
+            <div class="form-group">
+                <label>{{'products.detail' | translate }}</label>
+                <section class="d-block position-relative">
+                    <div [froalaEditor]="globals.configFroala" formControlName="detail"></div>
+                </section>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="float-left">
+                <label class="lable-switch pull-left">
+                    <div class="switch">
+                        <input formControlName="status" type="checkbox" name="status">
+                        <span class="lever"></span>
+                    </div>
+                    <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                        {{ (fm.value.status == 1 ? 'status.on' : 'status.off') | translate}}</span>
+                </label>
+            </div>
+            <div class="float-md-right">
+                <button type="button" [routerLink]="['/admin/products/get-list']"
+                    class="btn btn-primary mr-2">{{'btn.back' |
+                    translate }}</button>
+                <button (click)="onSubmit()" [disabled]="!fm.valid" class="btn btn-success"
+                    type="button">{{'btn.save'|translate}}</button>
+            </div>
+        </div>
+    </div>
+</form>

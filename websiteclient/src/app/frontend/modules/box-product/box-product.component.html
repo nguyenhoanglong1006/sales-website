@@ -1,0 +1,35 @@
+<div class="bg-white box-product border">
+    <div class="overflow-hidden bg-light images d-flex">
+        <a [routerLink]="['/san-pham/' + item.href +'/'+ item.link]" class="p-0 w-100 h-100">
+            <img [routerLink]="['/san-pham/' + item.href +'/'+ item.link]" [lazyLoad]="item.images" [defaultImage]="('FEImagesProduct' | translate)" 
+            [title]="item.name" [alt]="item.name" class="box-img w-100" loading="lazy">
+        </a>
+    </div>
+    <div class="px-2 mt-2">
+        <h4 class="name text-capitalize mb-1">
+            <a [routerLink]="['/san-pham/' + item.href +'/'+ item.link]" class="nav-link p-0" >
+                {{item.name}}
+            </a>
+        </h4>
+        <div class="small text-muted">
+            {{item.views}} lượt xem
+        </div>
+        <div class="price mb-2">
+            <div *ngIf="item.percent > 0" class="text-danger font-weight-bold price-sale">
+                {{item.price_sale >= 0 ? item.price_sale.toLocaleString(item.price_sale == 'VND' ? 'vi' :
+                            'en', {maximumFractionDigits: 5}) : ''}} đ
+            </div>
+            <div *ngIf="item.percent == 0 || item.percent == null" class="text-danger font-weight-bold price-sale">
+                {{item.price ? item.price.toLocaleString(item.price == 'VND' ? 'vi' :
+                'en', {maximumFractionDigits: 5}) : ''}} đ
+            </div>
+            <div class="d-flex align-items-center"  *ngIf="item.percent > 0">
+                <span  class="badge bg-danger font-weight-normal p-1 text-white mr-1 mr-md-2"> Giảm {{item.percent}}%</span>
+                <div class="price-default text-muted p-1 font-weight-bold">
+                    {{item.price ? item.price.toLocaleString(item.price == 'VND' ? 'vi' :
+                'en', {maximumFractionDigits: 5}) : ''}} đ
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>

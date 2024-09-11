@@ -1,0 +1,41 @@
+@keyframes shine {
+    100% {
+        left: 100%;
+    }
+}
+@keyframes slide-down {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+@keyframes video-circle-anim {
+    0% {
+        transform: rotate(0) scale(0.5) skew(1deg);
+        opacity: 0.1;
+    }
+    30% {
+        transform: rotate(0) scale(0.7) skew(1deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: rotate(0) scale(1) skew(1deg);
+        opacity: 0.1;
+    }
+}
+@keyframes video-circle-fill-anim {
+    0% {
+        transform: rotate(0) scale(0.7) skew(1deg);
+        opacity: 0.2;
+    }
+    50% {
+        transform: rotate(0) scale(1) skew(1deg);
+        opacity: 0.2;
+    }
+    100% {
+        transform: rotate(0) scale(0.7) skew(1deg);
+        opacity: 0.2;
+    }
+}

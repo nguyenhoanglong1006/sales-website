@@ -1,0 +1,75 @@
+<div class="card">
+    <div class="card-header">
+        <strong>{{ 'contactsale.title' | translate }}</strong>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th *ngFor="let col of table.cols" (click)="table._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : table.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <div *ngSwitchCase="'action'" class="text-right">{{col.title | translate }}</div>
+                        <span *ngSwitchDefault>{{col.title | translate }}</span>
+                        <i *ngIf="table.sorting.field==col.field" class="fa"
+                            [ngClass]="{ 'fa-long-arrow-down' : table.sorting.sort=='asc' , 'fa-long-arrow-up' : table.sorting.sort=='desc' }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of table.data; let i = index">
+                <td *ngFor="let col of table.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <span *ngSwitchCase="'index'">
+                            {{ i+1}}
+                        </span>
+                        <span *ngSwitchCase="'name'">
+                            <a [routerLink]="['../update/',item.id]">
+                                {{ item[col.field] }}
+                            </a>
+                        </span>
+                        <span *ngSwitchCase="'maker_date'">
+                            {{ item[col.field]| date: 'dd/MM/yyyy' }}
+                        </span>
+                        <span *ngSwitchCase="'status'"
+                            [ngClass]="item[col.field] == 1 ? 'text-success' : 'text-danger'">
+                            {{ (item[col.field] == 1 ? 'status.active' : 'status.disabled') | translate }}
+                        </span>
+                        <span *ngSwitchCase="'action'" class='display-action text-right'>
+                            <button class="btn btn-link btn-sm " [routerLink]="['../update/',item.id]">
+                                <i class="fas fa-pencil-alt text-dark"></i>
+                            </button>
+                            <button class="btn btn-link btn-sm " (click)="onRemove(item)">
+                                <i class="fas fa-trash text-danger"></i>
+                            </button>
+                        </span>
+                        <span *ngSwitchDefault>{{ item[col.field] }}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="card-footer">
+        <div class="float-md-left">
+            <span>{{ table.settings.first }}-
+                {{ table.settings.last }}of{{ table.settings.total }}
+            </span>
+            <span>
+                <a (click)="table._previousnext(false)" style="padding: 3px 5px;">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+                <a (click)="table._previousnext(true)" style="padding: 3px 5px;">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-action-btn text-center">
+    <a [routerLink]="['../insert']" class="text-white " style="text-decoration: none">
+        <div class="getlistadd d-flex align-items-center justify-content-center">
+            <i class="fas fa-plus text-white"></i>
+        </div>
+    </a>
+</div>

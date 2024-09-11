@@ -1,0 +1,12 @@
+<div *ngIf="data && data.name">
+    <div *ngIf="data.position == 1" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+    </div>
+    <div class="mt-3 mt-lg-0">
+        <heading-box-page [heading]="data.name"></heading-box-page>
+
+        <div class="fr-view" id="page-detail" [innerHTML]="data.detail | sanitizeHtml">
+        </div>
+    </div>
+    <div *ngIf="data.position == 2" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+    </div>
+</div>

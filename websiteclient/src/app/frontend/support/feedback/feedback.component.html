@@ -1,0 +1,151 @@
+<div class="feed-back">
+    <div class="container-main">
+        <div class="container-fluid">
+            <!-- <a class="d-inline-flex align-items-center btn-back color--primary text-decoration-none font-weight-500"
+                [routerLink]="['/'+(globals.language._language == 'vn' ? '' :globals.language._language) +'/'+ link]">
+                <i class="fas fa-arrow-left mr-2"></i>
+                {{ 'FEBtn.back' | translate }}
+            </a> -->
+            <button-back></button-back>
+
+            <div class="text-center subtitle">
+                <div>
+                    {{ 'FESupport.note1' | translate }}
+                </div>
+                <div>
+                    {{ 'FESupport.note2' | translate }}
+                </div>
+            </div>
+
+            <div class="row justify-content-center position-relative feed-back--bg rounded-sm py-3">
+                <div class="col-lg-5 px-0">
+                    <form
+                        class="w-100"
+                        [formGroup]="fm"
+                        *ngIf="fm"
+                        (submit)="$event.stopPropagation()">
+                        <div class="form-group">
+                            <label for="name" class="title">
+                                {{ 'FESupport.name' | translate }}
+                                <span class="text-danger">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                formControlName="name"
+                                required
+                                autocomplete="off"
+                                placeholder="{{ 'FESupport.namePlaceholder' | translate }}" />
+                            <small
+                                class="text-red"
+                                *ngIf="fm.get('name').invalid && fm.get('name').touched">
+                                {{ 'message.name' | translate }}
+                            </small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="email" class="title">
+                                        {{ 'lblEmail' | translate }}
+                                    </label>
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="email"
+                                        formControlName="email"
+                                        autocomplete="off"
+                                        placeholder="{{
+                                            'FESupport.emailPlaceholder' | translate
+                                        }}" />
+                                    <small
+                                        class="text-red"
+                                        *ngIf="fm.get('email').invalid && fm.get('email').touched">
+                                        {{ 'message.emailError' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="phone" class="title">
+                                        {{ 'FESupport.phone' | translate }}
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <input
+                                        type="tel"
+                                        class="form-control"
+                                        id="phone"
+                                        formControlName="phone"
+                                        required
+                                        autocomplete="off"
+                                        placeholder="{{
+                                            'FESupport.phonePlaceholder' | translate
+                                        }}" />
+                                    <small
+                                        class="text-red"
+                                        *ngIf="fm.get('phone').invalid && fm.get('phone').touched">
+                                        {{ 'message.phone' | translate }}
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="title">
+                                {{ 'FESupport.detail' | translate }}
+                            </label>
+                            <textarea
+                                class="form-control"
+                                id="message"
+                                formControlName="message"
+                                autocomplete="off"
+                                placeholder="{{ 'FESupport.detailPlaceholder' | translate }}"
+                                rows="5"></textarea>
+                        </div>
+
+                        <div class="text-right">
+                            <button
+                                type="submit"
+                                [disabled]="!fm.valid"
+                                (click)="onSubmit()"
+                                class="btn-submit">
+                                {{ 'FESupport.send' | translate }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-5"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div
+    class="modal fade"
+    id="submitSuccessModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="submitSuccessModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <img src="/assets/img/icon/icon-check.png" alt="" />
+                <div class="font-weight-500 title">
+                    {{ 'FESupport.alert1' | translate }}
+                </div>
+                <div class="subtitle">
+                    {{ 'FESupport.alert2' | translate }}
+                </div>
+                <div class="subtitle">
+                    {{ 'FESupport.alert3' | translate }}
+                </div>
+                <button type="button" data-dismiss="modal">
+                    {{ 'FESupport.agree' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

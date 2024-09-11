@@ -1,0 +1,40 @@
+@import "src/styles/mixins";
+
+.heading {
+    $mb: 32px;
+    $fontSize: 28px;
+    margin-bottom: $mb;
+    letter-spacing: 1.5px;
+    font-family: var(--font-secondary);
+    font-size: $fontSize;
+    @include viewport-sm {
+        margin-bottom: calc(#{$mb} / 2);
+        font-size: calc(#{$fontSize} / 1.5);
+    }
+    > span {
+        color: var(--color-secondary);
+        z-index: 0;
+
+        // &::after {
+        //     content: '';
+        //     background-color: rgba(255, 102, 50, 0.2);
+        //     position: absolute;
+        //     left: 0;
+        //     right: -2px;
+        //     bottom: 0;
+        //     height: 16px;
+        //     z-index: -1;
+        // }
+    }
+    /* &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background: var(--gradient-primary);
+        transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s,
+        background-color 0.5s ease-in-out 0.8s;
+    } */
+}

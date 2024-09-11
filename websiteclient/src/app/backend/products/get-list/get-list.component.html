@@ -1,0 +1,95 @@
+<div class="card">
+    <div class="card-header" style="cursor: pointer;">
+        <strong>{{'products.title' | translate }}</strong>
+        <div class="float-md-right d-flex">
+            <div class="input-group input-group-sm">
+                <input type="text" (keyup)="tableService._search()" [(ngModel)]="tableService.search.value"
+                    class="form-control" placeholder="{{'search.txt'|translate}}">
+            </div>
+
+        </div>
+    </div>
+    <div style="overflow-x:auto;">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="pointer" *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                        [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                        <div [ngSwitch]="col.field">
+                            <div *ngSwitchCase="'action'">{{col.title | translate }}</div>
+                            <span *ngSwitchDefault>{{col.title | translate }}</span>
+                            <i *ngIf="tableService.sorting.field==col.field" class="fa"
+                                [ngClass]="{ 'fa-long-arrow-down' : tableService.sorting.sort=='asc' , 'fa-long-arrow-up' : tableService.sorting.sort=='desc' }"></i>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tableService.data ; let v = index"
+                    [ngClass]="{'status-off': item.status && item.status==0 }">
+                    <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                        <div [ngSwitch]="col.field">
+                            <div *ngSwitchCase="'index'" class="text-center">{{v+1}}</div>
+                            <a *ngSwitchCase="'name'" class="nav-link p-0"
+                                [routerLink]="['../process/update/',item.id]">{{item[col.field]}}
+                            </a>
+                            <a *ngSwitchCase="'images'" class="nav-link p-0"
+                                [routerLink]="['../process/picture/',item.id]">
+                                <img style="width:50px;" [src]="item.images">
+                            </a>
+                            <div *ngSwitchCase="'maker_date'" class='display-action '>
+                                {{item[col.field]| date: 'dd/MM/yyyy' }}
+                            </div>
+                            <div *ngSwitchCase="'orders'" class='display-action '>
+                                {{item[col.field] }}
+                            </div>
+                            <div *ngSwitchCase="'action'" class='display-action'>
+                                <button
+                                    tooltip="{{ (+item.status == 1 ? 'status.disabled' : 'status.active') | translate }}"
+                                    class="btn btn-link btn-sm" (click)="changeStatus(+item.id)"
+                                    [ngClass]="+item.status == 1 ?'text-success':'text-danger'">
+                                    <i [ngClass]="+item.status == 1 ? 'fas fa-circle' : 'far fa-circle'"> </i>
+                                </button>
+                                <button tooltip="{{ 'btn.edit' | translate }}" class="btn btn-link btn-sm"
+                                    [routerLink]="['../process/update/',item.id]">
+                                    <i class="fas fa-pencil-alt text-dark"></i>
+                                </button>
+                                <button class="btn btn-link btn-sm text-danger" (click)="onRemove(item.id,item.name)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                            <div *ngSwitchCase="'status'"
+                                [ngClass]=" item[col.field]  == 1 ? 'text-success' : 'text-danger' ">
+                                {{ (item[col.field] == 1 ? 'status.active' : 'status.disabled') | translate }}
+                            </div>
+                            <span *ngSwitchDefault>{{item[col.field]}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-footer">
+        <div class="float-md-left">
+            <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+                {{ tableService.settings.total }}</span>
+            <span>
+                <a (click)="tableService._previousnext(false)" style="padding : 3px 5px;">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+                <a (click)="tableService._previousnext(true)" style="padding : 3px 5px;">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-action-btn text-center">
+    <a [routerLink]="['../process']" class="text-white " style="text-decoration: none">
+        <div class="getlistadd d-flex align-items-center justify-content-center">
+            <i class="fas fa-plus"></i>
+        </div>
+    </a>
+</div>

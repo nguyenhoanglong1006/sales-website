@@ -1,0 +1,88 @@
+<div class="box-white pt-3 pb-3">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row justify-content-center d-flex" style="padding-top: 30px; padding-bottom: 30px;">
+                    <div class="col-md-4 col-12 pl-md-0">
+                        <div class="bg-white form p-4">
+                            <form [formGroup]="fm" *ngIf="fm">
+                                <h2 class="color-primary font-weight-bold">Đăng ký</h2>
+                                <div class="form-group">
+                                    <label for="name">Họ và tên</label>
+                                    <input autocomplete="off" formControlName="name" required type="text"
+                                        class="form-control">
+                                    <small style="color:red" *ngIf="fm.get('name').invalid && fm.get('name').touched">
+                                        {{ 'message.minLength' | translate : {num: 5} }}</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Điện thoại</label>
+                                    <input autocomplete="off" formControlName="phone" required type="text"
+                                        class="form-control">
+                                    <small style="color:red"
+                                        *ngIf="fm.get('phone').errors && fm.get('phone').hasError('required') && fm.get('phone').touched">
+                                        {{ 'message.required' | translate }}</small>
+                                    <small style="color:red"
+                                        *ngIf="fm.get('phone').errors && fm.get('phone').hasError('pattern') && fm.get('phone').touched">
+                                        {{ 'message.phone' | translate }}</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input autocomplete="off" formControlName="email" required type="text"
+                                        class="form-control">
+                                    <small style="color:red"
+                                        *ngIf="fm.get('email').errors && fm.get('email').hasError('required') && fm.get('email').touched">
+                                        {{ 'message.required' | translate }}</small>
+                                    <small style="color:red"
+                                        *ngIf="fm.get('email').errors && fm.get('email').hasError('pattern') && fm.get('email').touched">
+                                        {{ 'message.email' | translate }}</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <div class="position-relative">
+                                        <input autocomplete="off" formControlName="password" required [type]="type"
+                                            class="form-control">
+                                        <span (click)="type = type == 'password' ? 'text' : 'password'"
+                                            id="basic-addon2">
+                                            <i class="fa"
+                                                [ngClass]="{'fa-eye': type=='password', 'fa-eye-slash': type=='text'}"
+                                                style="position: absolute;top:10px; right: 17px; z-index: 99;cursor: pointer;"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                        <small style="color:red"
+                                            *ngIf="fm.get('password').errors && fm.get('password').hasError('required') && fm.get('password').touched">
+                                            {{ 'message.required' | translate }}</small>
+                                        <small style="color:red"
+                                            *ngIf="fm.get('password').errors && fm.get('password').invalid && fm.get('password').touched">
+                                            {{ 'message.minLength' | translate : {num: 8} }}</small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="sex" class="mr-3">Giới tính: </label>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="male" name="sex" class="custom-control-input"
+                                            formControlName="sex" [value]="1">
+                                        <label class="custom-control-label" for="male">{{'FEPage.male' | translate
+                                            }}</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="female" name="sex" class="custom-control-input"
+                                            formControlName="sex" [value]="2">
+                                        <label class="custom-control-label" for="female">{{'FEPage.female' |
+                                            translate}}</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flag "
+                                        class="btn float-right mr-2 mb-3"
+                                        [ngClass]="fm.valid  && flag ? 'btn-success' :'btn-defaut'">
+                                        {{'FEBtn.sign_up' | translate}}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

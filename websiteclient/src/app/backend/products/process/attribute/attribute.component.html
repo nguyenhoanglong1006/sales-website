@@ -1,0 +1,53 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="card-header">
+            <strong>{{ ((id && id!=0)?'settings.attributeEdit':'settings.attributeAdd') | translate:{name : fm.value.name} }}</strong>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 pr-0">
+                    <div class="form-group">
+                        <label>{{ 'settings.attributeName' | translate }} * </label>
+                        <input type="text" autocomplete="off" class="form-control" required name="name"
+                            formControlName="name">
+                        <small *ngIf="!fm.get('name').valid && fm.get('name').touched" style="color:red">{{'message.required'
+                            | translate}}</small>
+                    </div>
+                    <div class="form-group ">
+                        <label for="exampleFormControlTextarea1">{{'settings.note' | translate}}</label>
+                        <textarea formControlName="note" class="form-control" id="exampleFormControlTextarea1"
+                            rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{'product.typeProduct'|translate}}</label><br>
+                    <div class="d-inline-block mr-4" *ngFor="let item of listtype">
+                        <div class="custom-control custom-checkbox ">
+                            <input type="checkbox" class="custom-control-input"  [checked]="item.check"
+                               name="type" [attr.id]="item.value" (change)="item.check = ((item.check == false) ?  true : false)">
+                            <label class="custom-control-label" [attr.for]="item.value">{{item.title |
+                                translate}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="float-left">
+                <label class="lable-switch pull-left">
+                    <div class="switch">
+                        <input checked="checked" formControlName="status" type="checkbox" name="status">
+                        <span class="lever"></span>
+                    </div>
+                    <span ng-bind="lang.lbl_status_on"
+                        class="ng-binding">{{ (fm.value.status == 1 ? 'status.on' : 'status.off') | translate }}</span>
+                </label>
+            </div>
+            <button type="button" (click)="onSubmit()" [disabled]="!fm.valid" class="btn btn-success float-right">{{'btn.save'
+                | translate }}</button>
+            <button type="button" [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"
+                class="btn btn-primary mr-2  float-right">{{'btn.back'
+                | translate }}</button>
+        </div>
+    </div>
+</form>

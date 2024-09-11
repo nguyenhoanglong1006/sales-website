@@ -1,0 +1,178 @@
+<ng-template [ngIf]="contact.data && contact.data.name">
+    <box-breadcrumb [data]="contact.data"></box-breadcrumb>
+    <div class="place-contact position-relative">
+        <div class="container-main">
+            <div class="container-fluid">
+                <!-- <div *ngIf="('FEMap' | translate) != ''">
+                    <div [innerHTML]="'FEMap' | translate | sanitizeHtml"></div>
+                </div> -->
+
+                <div *ngIf="('FEMap' | translate)!='FEMap'" style="padding-top: 70px; padding-bottom: -70px;">
+                <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.718482165329!2d106.7668529146231!3d10.832842592283253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175273fe1e37281%3A0xcf4bca3bdeedc0c3!2s2Nmart.vn!5e0!3m2!1sen!2s!4v1676356205041!5m2!1sen!2s" width="100%"
+                 height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+            </div>
+                <div class="row justify-content-center" style="margin-top: -40px">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="box-contact text-center bg-white rounded">
+                            <img src="/assets/img/location.png" width="39" [alt]="'lblAddress' | translate" />
+                            <h6 class="my-3" style="font-size: 20px">
+                                {{ 'lblAddress' | translate }}
+                            </h6>
+                            <div>
+                                {{ 'FEAddress' | translate }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="box-contact text-center bg-white rounded">
+                            <img src="/assets/img/phone.png" width="39" alt="{{ 'lblPhone' | translate }}" />
+                            <h6 class="my-3" style="font-size: 20px">
+                                {{ 'lblPhone' | translate }}
+                            </h6>
+                            <div>
+                                <a href="tel:{{ 'FEHotline' | translate }}">
+                                    {{ 'FEHotline' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box-contact text-center bg-white rounded">
+                            <img src="/assets/img/mail.png" width="39" alt="{{ 'lblEmail' | translate }}" />
+                            <h6 class="my-3" style="font-size: 20px">
+                                {{ 'lblEmail' | translate }}
+                            </h6>
+                            <div>
+                                <a href="mailto:{{ 'FEMail' | translate }}">
+                                    {{ 'FEMail' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-md-4 mt-3 pb-md-4 pb-3 justify-content-center">
+                    <div class="col-md-8">
+                        <div class="title-block text-center">
+                            <!-- Title -->
+                            <!-- <h2>Liên hệ với chúng tôi</h2> -->
+                            <!-- Title -->
+                            <!-- content -->
+                            <heading-box [heading]="'FEContact.title' | translate" [isPaddingLeft]="false">
+                            </heading-box>
+
+                            <div class="mb-2">
+                                {{'FEContact.description' | translate}}
+                            </div>
+                            <!-- content -->
+                        </div>
+
+                        <form [formGroup]="fm" *ngIf="fm" class="pt-md-2">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" autocomplete="off" class="form-control" name="name"
+                                            formControlName="name" placeholder="{{
+                                                'FESupport.namePlaceholder' | translate
+                                            }} " />
+                                        <small class="text-red" *ngIf="
+                                                fm.get('name').invalid && fm.get('name').touched
+                                            ">
+                                            {{ 'message.name' | translate }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" autocomplete="off" class="form-control" name="email"
+                                            formControlName="email" placeholder="{{ 'lblEmail' | translate }} *" />
+                                        <small class="text-red" *ngIf="
+                                                fm.get('email').invalid && fm.get('email').touched
+                                            ">
+                                            {{ 'message.emailError' | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" autocomplete="off" class="form-control" name="phone"
+                                            formControlName="phone" placeholder="{{
+                                                'FESupport.phonePlaceholder' | translate
+                                            }}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea type="text" autocomplete="off" name="message" rows="5"
+                                            formControlName="message" class="form-control h-4" placeholder="{{
+                                                'FESupport.detail' | translate
+                                            }} *"></textarea>
+                                        <small class="text-red" *ngIf="
+                                                fm.get('message').invalid &&
+                                                fm.get('message').touched
+                                            ">
+                                            {{ 'message.required' | translate }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-right">
+                                <!-- || (width > 768 ? !checkCaptcha : '') -->
+                                <button type="submit" [disabled]="!fm.valid" (click)="onSubmit()"
+                                    class="cursor-pointer btn-submit">
+                                    {{ 'FESupport.send' | translate }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row mt-md-5 mt-4 pb-md-4 pb-3 justify-content-center">
+                    <div class="col-md-12">
+                        <!-- <div class="col-md-12"> -->
+                        <div class="title-block text-center">
+                            <heading-box [heading]="'FEContact.branch' | translate" [isPaddingLeft]="false">
+                            </heading-box>
+                        </div>
+                        <!-- </div> -->
+                        <div class="row justify-content-lg-center" id="accordion">
+                            <div class="col-md-5 mb-3" *ngFor="let item of address.data">
+                                <div class="box-address rounded p-3 bg-white mt-2 mt-md-0 pr-0">
+                                    <div class="title d-flex align-items-center justify-content-between"
+                                        (click)="address._onShow(item.id)" [attr.data-target]="'#address' + item.id"
+                                        [attr.aria-controls]="'address' + item.id"
+                                        [attr.data-toggle]="width <= 576 ? 'collapse' : ''" [id]="'heading' + item.id">
+                                        {{ item.name }}
+                                        <span *ngIf="width <= 576">
+                                            <img [src]="address.show == item.id ? '/assets/img/icon/down-footer.svg' : '/assets/img/icon/right.svg'"
+                                                [alt]="address.show == item.id ? 'down' : 'right'"
+                                                [attr.width]="address.show == item.id ? '6px' : '4px'"
+                                                [attr.height]="address.show == item.id ? '4px' : '6px'" />
+                                        </span>
+                                    </div>
+                                    <div [ngClass]="{ collapse: width <= 576 }" [id]="'address' + item.id"
+                                        [attr.aria-labelledby]="'heading' + item.id" data-parent="#accordion">
+                                        <div class="address">{{ item.address }}</div>
+                                        <ul class="contact pl-3 mb-0 cursor-pointer d-flex">
+                                            <li class="mr-4" *ngIf="item.phone && item.phone.length > 0">
+                                                <a href="tel:{{ item.phone }}">
+                                                    <span>{{ 'lblPhone' | translate }}:</span>
+                                                    {{ item.phone }}
+                                                </a>
+                                            </li>
+                                            <li *ngIf="item.fax && item.fax.length > 0">
+                                                <a [href]="sanitize('fax:' + item.fax)">
+                                                    <span>{{ 'lblFax' | translate }}:</span>
+                                                    {{ item.fax }}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</ng-template>

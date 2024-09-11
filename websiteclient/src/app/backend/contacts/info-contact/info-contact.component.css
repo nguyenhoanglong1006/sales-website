@@ -1,0 +1,32 @@
+.box-feedback {
+    border-radius: 4px;
+    height: 90px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    cursor: pointer;
+    padding: 12px;
+    color: var(--color-primary);
+    background-color: #DEEBFF;
+    width: 75px;
+}
+
+.box-feedback .title {
+    font-size: 12px;
+    width: 60px;
+}
+
+.label {
+    opacity: 0.7;
+    width: 100px;
+}
+
+.btn-pagebuilder {
+    background: #FC466B;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--color-primary), #FC466B);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, var(--color-primary), #FC466B);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}

@@ -1,0 +1,70 @@
+<div class="pb-2">
+    <h3 style="font-size: 24px;" class="mt-2">{{'forget.title' | translate}}</h3>
+    <form [formGroup]="fmSendMail" *ngIf="index==0">
+        <div class="w-100 text-center">
+            <img style="width:100px" src="../../../assets/img/iconstep1.png">
+        </div>
+        <div class="mt-2 ">
+            <div class="form-group mb-0"
+                [ngClass]="{'was-validated': !fmSendMail.get('email').valid && fmSendMail.get('email').touched}">
+                <label>{{ 'lblEmail' | translate }} <span class="text-danger font-lg">*</span></label>
+                <input autocomplete="off" type="email" formControlName="email" name="email" class="form-control"
+                    required>
+                <small style="color:red;"
+                    [ngClass]="{'invisible': !fmSendMail.get('email').invalid || !fmSendMail.get('email').touched}">
+                    {{ 'message.email' | translate }}</small>
+            </div>
+            <button class="mt-2 w-100 btn btn-success" type="button" [disabled]="flag === false && !fmSendMail.valid"
+                (click)="_sendOTPMail()" color="primary">{{'FEBtn.next' | translate }}</button>
+        </div>
+    </form>
+    <form [formGroup]="fmOtpCheckMail" *ngIf="index==1">
+        <div class="w-100 text-center">
+            <img style="width:100px" src="../../../assets/img/iconstep2.png">
+        </div>
+        <div class="form-group mb-0"
+            [ngClass]="{'was-validated': !fmOtpCheckMail.get('otp').valid && fmOtpCheckMail.get('otp').touched}">
+            <label>{{'login.otp' | translate }} <span class="text-danger font-lg">*</span></label>
+            <div class="input-group">
+                <span class="input-group-text font-weight-bold"
+                    style="border-radius:unset;border:unset;color: #2d4272">C-</span>
+                <input type="number" formControlName="otp" name="otp" class="form-control" autocomplete="off" required>
+            </div>
+            <small style="color:red;"
+                [ngClass]="{'invisible': !fmOtpCheckMail.get('otp').invalid || !fmOtpCheckMail.get('otp').touched}">
+                {{ 'message.otp' | translate }}</small>
+        </div>
+        <button class="mt-2 w-100 btn btn-success" type="button" [disabled]="!fmOtpCheckMail.valid "
+            (click)="_submitOTPMail()" color="primary">{{'FEBtn.next' | translate }}</button>
+    </form>
+    <form [formGroup]="resetPassword" *ngIf="index==2">
+        <div class="w-100 text-center">
+            <img style="width:100px" src="../../../assets/img/iconstep3.png">
+        </div>
+        <div class="form-group mb-0"
+            [ngClass]="{'was-validated': !resetPassword.get('password').valid && resetPassword.get('password').touched}">
+            <label>
+                {{ 'lblPassword' | translate }} <span class="text-danger font-lg">*</span>
+            </label>
+            <div class="d-flex" style="position: relative;"
+                [ngClass]="{'was-validated': resetPassword.get('password').valid && resetPassword.get('password').touched}">
+                <input [type]="type" class="form-control" name="password" formControlName="password" autocomplete="off"
+                    required>
+                <span (click)="type = type == 'password' ? 'text' : 'password'" id="basic-addon2">
+                    <i class="fa" [ngClass]="{'fa-eye': type=='password', 'fa-eye-slash': type=='text'}"
+                        style="position: absolute;top:10px; right: 17px; z-index: 99;cursor: pointer;"
+                        aria-hidden="true"></i>
+                </span>
+            </div>
+            <small class="d-inline" style="color:red"
+                [ngClass]="{'invisible': !resetPassword.get('password').invalid || !resetPassword.get('password').touched}">
+                {{ 'message.required' | translate }}
+            </small>
+        </div>
+        <button class="mt-2 w-100 btn btn-success" type="button" [disabled]="!resetPassword.valid "
+            (click)="_resetPassword()" color="primary">{{'FEBtn.next' | translate }}</button>
+    </form>
+    <div class="text-center pt-2">
+        <a [routerLink]="['/browsers/login']" style="font-size: 12px;">{{'login.backlogin' | translate }}</a>
+    </div>
+</div>

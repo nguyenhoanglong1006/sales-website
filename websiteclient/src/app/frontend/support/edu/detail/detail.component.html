@@ -1,0 +1,17 @@
+<div *ngIf="data.position == 1" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+</div>
+<div *ngIf="data && data.name" class="pt-3 pt-md-0">
+    <!--  [link]="'/'+(globals.language._language =='vn' ? '' : globals.language._language) +'/'+ data.link" -->
+    <button-back></button-back>
+
+    <div class="row pt-2 justify-content-center">
+        <div class="col-md-12">
+            <h1 class="title mb-1">{{data.name}}</h1>
+            <div class="fr-view pt-3" *ngIf="data.detail && data.detail.length > 0" id="page-detail"
+                [innerHTML]="data.detail | sanitizeHtml">
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="data.position == 2" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+</div>

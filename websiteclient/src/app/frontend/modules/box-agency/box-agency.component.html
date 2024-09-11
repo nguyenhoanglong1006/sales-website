@@ -1,0 +1,15 @@
+<a 
+    [ngStyle]="{ 'background-image': 'url(' + item.images + ')' }" 
+    [routerLink]="['/' + (globals.language._language == 'vn' ? '' : globals.language._language + '/') + item.link]"
+    class="box position-relative rounded d-flex flex-column justify-content-end text-decoration-none overflow-hidden">
+    <div class="box-detail position-relative d-flex flex-column overflow-hidden ml-2 p-3">
+        <h3 class="box-heading text-white mb-0">{{ item.name }}</h3>
+        <!-- <div class="seperate"></div> -->
+        <div class="box-description detail" [innerHTML]="item.info">
+        </div>
+    </div>
+
+    <!-- <div class="box-btn position-absolute">
+        <button class="btn position-relative"></button>
+    </div> -->
+</a>

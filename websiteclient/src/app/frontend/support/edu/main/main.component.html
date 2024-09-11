@@ -1,0 +1,15 @@
+<div *ngIf="edu.data.length">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="row pt-md-4 pt-3 pb-5 justify-content-center">
+                <div class="col-lg-3">
+                    <app-box-asidebar-left [data]="edu.data" [linkPage]="linkMain">
+                    </app-box-asidebar-left>
+                </div>
+                <div class="col-lg-9">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

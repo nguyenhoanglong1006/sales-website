@@ -1,0 +1,84 @@
+<!-- desktop -->
+<div class="w-100 menu-desktop" *ngIf="menu && menu.length > 0 && width > 992">
+    <ng-template #recursiveMenu let-menu>
+        <div *ngFor="let item of menu; let i = index "
+            [ngClass]="{'menu-item-child': item.level > 1 && (!item.data || item.data.length == 0), 'border-top': item.level == 1 && i != 0 && changeActive == 1 }"
+            [ngStyle]="{'margin': item.level > 1 ? '2px 0 0 10px' : '0', 'padding': item.level == 1 && changeActive == 1 ? '8px 0px' : '0px' }">
+            <div class="d-flex align-items-center justify-content-between menu-item position-relative pr-2" role="button"
+                [ngClass]="{'active': (menu1 == item.link || menu2 == item.link || menu3 == item.link) && (!item.data || item.data.length == 0) }"
+                (click)="changeIcon(item)" [attr.data-target]="'#s' + item.link + '-' + item.level"
+                [attr.aria-controls]="item.link + '-' + item.level" data-toggle="collapse">
+                <a [ngClass]="{'item-text-child': item.level > 1 && showIcon ,'title': !item.data || item.data.length == 0}"
+                    (click)="configMenu.routerLink(item)" class="w-100 position-relative" style="padding: 8px;">
+                    <span [ngStyle]="{'font-weight': changeActive == 2 && item.level > 1 ? '400' : '500'}"
+                        [ngClass]="{'active': menu1 == item.link || menu2 == item.link || menu3 == item.link }"
+                        *ngIf="!item.data || item.data.length == 0">
+                        {{item.name}}</span>
+                    <span *ngIf="item.data && item.data.length > 0"
+                        [ngClass]="{'active': menu1 == item.link || menu2 == item.link || menu3 == item.link }">{{item.name}}</span>
+                </a>
+
+                <i *ngIf="item.data && item.data.length > 0" class="fas icon-more"
+                    [ngClass]="{'fa-plus': !item.expanded, 'fa-minus': item.expanded }"></i>
+            </div>
+
+            <div class="collapse" [id]="'s' + item.link + '-' + item.level" *ngIf="item.data && item.data.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveMenu;context: { $implicit: item.data }">
+                </ng-container>
+            </div>
+        </div>
+    </ng-template>
+    <ng-container *ngTemplateOutlet="recursiveMenu;  context:{ $implicit: menu }">
+    </ng-container>
+</div>
+
+<div class="menu-mobile menu-desktop p-0 position-relative" *ngIf="menu && menu.length > 0 && width <= 992">
+    <button class="btn w-100 btn-main text-left" type="button" (click)="flagOpenMenu = !flagOpenMenu">
+        <div class="title d-inline-block">
+            {{ itemSelected == '' ? 'Menu' : itemSelected }}
+        </div>
+    </button>
+    <div class="menu-list" [ngClass]="{'open': flagOpenMenu }">
+        <ng-template #recursiveMenu let-menu>
+            <div *ngFor="let item of menu; let i = index "
+                [ngClass]="{'menu-item-child': item.level > 1 && (!item.data || item.data.length == 0), 'border-top': item.level == 1 && i != 0 && changeActive == 1 }"
+                [ngStyle]="{'margin': item.level > 1 ? '2px 0 0 10px' : '0', 'padding': item.level == 1 && changeActive == 1 ? '8px 0px' : '0px' }">
+                <div class="d-flex align-items-center justify-content-between menu-item pr-2" role="button"
+                    [ngClass]="{'active': (menu1 == item.link || menu2 == item.link || menu3 == item.link) && (!item.data || item.data.length == 0) }"
+                    (click)="changeIcon(item)" [attr.data-target]="'#s' + item.link + '-' + item.level"
+                    [attr.aria-controls]="item.link + '-' + item.level" data-toggle="collapse">
+                    <a [ngClass]="{'item-text-child': item.level > 1 && showIcon}" class="w-100" style="padding: 8px;"
+                        (click)="configMenu.routerLink(item)">
+                        <span [ngStyle]="{'font-weight': changeActive == 2 && item.level > 1 ? '400' : '500'}"
+                            [ngClass]="{'active': menu1 == item.link || menu2 == item.link || menu3 == item.link }"
+                            *ngIf="!item.data || item.data.length == 0">{{item.name}}</span>
+                        <span *ngIf="item.data && item.data.length > 0"
+                            [ngClass]="{'active': menu1 == item.link || menu2 == item.link || menu3 == item.link }">{{item.name}}</span>
+                    </a>
+
+                    <i *ngIf="item.data && item.data.length > 0" class="fas icon-more"
+                        [ngClass]="{'fa-plus': !item.expanded, 'fa-minus': item.expanded }"></i>
+                </div>
+
+                <div class="collapse" [id]="'s' + item.link + '-' + item.level"
+                    *ngIf="item.data && item.data.length > 0">
+                    <ng-container *ngTemplateOutlet="recursiveMenu;context: { $implicit: item.data }">
+                    </ng-container>
+                </div>
+            </div>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="recursiveMenu;  context:{ $implicit: menu }">
+        </ng-container>
+    </div>
+</div>
+
+<!-- Banner -->
+<!-- <a 
+    *ngIf="banner.data.images" 
+    [href]="banner.data.link || 'javascript:'"
+    class="d-block mt-3">
+    <img 
+        [src]="banner.data.images" 
+        [alt]="banner.data.title || banner.data.name" 
+        class="img-fluid" />
+</a> -->

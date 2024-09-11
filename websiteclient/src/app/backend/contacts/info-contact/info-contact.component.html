@@ -1,0 +1,120 @@
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            <div class="card rounded-0">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <div class="font-weight-500">
+                        {{ 'contact.contacts' | translate }}
+                        <!-- <span *ngIf="infoContact.type == 1">{{ 'contact.feeback' | translate }}</span>
+                        <span *ngIf="infoContact.type == 2">{{ 'contact.error' | translate }}</span>
+                        <span *ngIf="infoContact.type == 3">{{ 'contact.other' | translate }}</span> -->
+                    </div>
+                    <div class="acction">
+                        <button class="btn-primary btn btn-sm mr-2" [routerLink]="['../../../contacts']">
+                            <i class="fas fa-arrow-left mr-2"></i>
+                            <span translate>btn.back</span>
+                        </button>
+                        <button class="btn-success btn btn-sm" *ngIf="!hidden || hidden == false" (click)="skip = true">
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            <span translate>contact.answer</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body question">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'contact.maker_date' | translate }}:</div>
+                                <div>{{ infoContact.maker_date | date:'dd/MM/yyyy'}}</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'lblName' | translate }}: </div>
+                                <div>{{ infoContact.name}}</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'lblEmail' | translate }}: </div>
+                                <div>{{ infoContact.email}}</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'lblPhone' | translate }}: </div>
+                                <div>{{ infoContact.phone}}</div>
+                            </div>
+                            <!-- <div class="d-flex align-items-center mb-3"
+                                *ngIf="infoContact.content_name && infoContact.content_name != ''">
+                                <div class="label">{{ 'contact.content' | translate }}: </div>
+                                <div>{{ infoContact.content_name}}</div>
+                            </div> -->
+                        </div>
+                        <!-- <div class="col-4 d-flex align-items-center">
+                            <div>
+                                <div class="font-weight-500 mb-2">{{ 'FESupport.feedback.title' | translate }}</div>
+                                <div class="box-feedback d-flex align-items-center text-center ml-2"
+                                    *ngIf="level.item && level.item.title">
+                                    <div>
+                                        <div><img [src]="level.item.image" alt=""></div>
+                                        <div class="title" style="margin-top: 8px">{{ level.item.title | translate }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+
+
+                    <div class="bg-light border p-2">
+                        <div class="font-weight-500">{{ 'contact.info_send' | translate }}: </div>
+                        <div>{{ infoContact.message }}</div>
+                    </div>
+                </div>
+
+                <div *ngIf="infoContact.message_send && infoContact.subject_send">
+                    <hr>
+                    <div class="answer card-body">
+                        <div class="mb-3">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'contact.subject-send' | translate }}:</div>
+                                <div>{{ infoContact.subject_send}}</div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="label">{{ 'contact.day_send' | translate }}:</div>
+                                <div>{{ infoContact.day_send | date:'dd/MM/yyyy'}}</div>
+                            </div>
+                        </div>
+                        <div class="bg-light border p-2">
+                            <div class="font-weight-500 mb-2">{{ 'contact.message-send' | translate }}:</div>
+                            <div [innerHTML]="infoContact.message_send | sanitizeHtml"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card rounded-0 mt-3" *ngIf="skip">
+                <div class="card-header">
+                    <h6 class="m-0">{{ 'contact.contactReply' | translate }} {{fm.value.name}}</h6>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="fm" *ngIf="fm">
+                        <div class="form-group">
+                            <label>{{ 'contact.subject' | translate }}<span class="ml-2 text-red">*</span></label>
+                            <div class="input-group">
+                                <input type="text" autocomplete="off" name="subject_send" formControlName="subject_send"
+                                    class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <label>{{ 'contact.message' | translate }}<span class="ml-2 text-red">*</span></label>
+                            </div>
+                            <section class="d-block position-relative"
+                                style="min-height:235px;max-height:1500px;overflow: auto;">
+                                <div [froalaEditor]="globals.configFroala" formControlName="message_send"></div>
+                            </section>
+                        </div>
+                        <button (click)="onSubmit()" type="button" [disabled]="!fm.valid"
+                            class="btn btn-primary mb-2 float-md-right">{{ 'btn.send' | translate }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

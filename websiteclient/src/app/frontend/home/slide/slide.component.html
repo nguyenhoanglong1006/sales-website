@@ -1,0 +1,9 @@
+<section class="slide position-relative">
+    <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide *ngFor="let item of slider">
+            <a [href]="[item.link]" target="_blank">
+                <img class="slide-image w-100 h-100" [src]="item.images" loading="lazy" />
+            </a>
+        </ng-template>
+    </owl-carousel-o>
+</section>

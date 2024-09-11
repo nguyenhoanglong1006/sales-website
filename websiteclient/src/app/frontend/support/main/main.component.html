@@ -1,0 +1,74 @@
+<div class="main">
+    <div class="m-auto" style="max-width: 1000px">
+        <div class="container-fluid">
+            <div id="fag" class="row box-support mt-lg-4 mt-3" *ngIf="support.data && support.data.data">
+                <div class="col-md-4 col-12 item-support" *ngFor="let item of support.data.data; let i = index"
+                    [ngClass]="{
+                            'border-bottom pb-3 mb-3':
+                                width <= 640 && i < support.data.data.length - 1,
+                            'border-right item-support--borderRight':
+                                width > 640 && i < support.data.data.length - 1
+                        }">
+                    <div class="h-100 d-flex">
+                        <a class="d-flex flex-column align-items-center w-100 position-relative"
+                            style="text-decoration: none" [routerLink]="[
+                                    '/' +
+                                        (globals.language._language == 'vn'
+                                            ? ''
+                                            : globals.language._language) +
+                                        item.href
+                                ]">
+                            <img class="img-fluid" [src]="item.images" [alt]="item.name" />
+                            <h2 class="title-support mb-0 mt-2">{{ item.name }}</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-lg-5 mt-4">
+                <heading-box [isPaddingLeft]="false" [heading]="'FESupport.titleSearchFaq' | translate "></heading-box>
+
+                <div class="box-input mt-n2">
+                    <div class="text-center frame position-relative">
+                        <input type="text" placeholder="Nhập nội dung cần tìm..." [(ngModel)]="search.value"
+                            (keyup)="search._hide()" (keyup.enter)="search._getValue()" />
+                        <button class="button-search text-uppercase" type="button" (click)="search._getValue()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="frame font-weight-500 mt-3" *ngIf="!search.hide">
+                        {{ 'FESearch.result' | translate }} "{{ search.value }}"
+                    </div>
+                    <div class="frame font-weight-500 mt-3 text-center" *ngIf="tableFaq.data.length == 0">
+                        {{ 'FESearch.notfound' | translate }}
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list row py-lg-5 py-4 mb-0">
+                <li *ngFor="let item of tableFaq.data" class="col-md-6 pl-0 mb-2">
+                    <a class="list__link" [routerLink]="[
+                                '/' +
+                                    (globals.language._language == 'vn'
+                                        ? ''
+                                        : globals.language._language) +
+                                    '/' +
+                                    link[globals.language._language == 'vn' ? 1 : 2] +
+                                    '/' +
+                                    item.link
+                            ]">
+                        {{ item.name }}
+                    </a>
+                </li>
+            </ul>
+
+            <div *ngIf="tableFaq.cached.length > Pagination.itemsPerPage" style="margin-bottom: 12px;">
+                <pagination class="d-flex justify-content-center" previousText="&lsaquo;" nextText="&rsaquo;"
+                    firstText="&laquo;" lastText="&raquo;" [totalItems]="tableFaq.cached.length"
+                    [itemsPerPage]="Pagination.itemsPerPage" [maxSize]="Pagination.maxSize"
+                    (pageChanged)="Pagination.changeFaq($event)">
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>

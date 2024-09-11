@@ -1,0 +1,50 @@
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-9 col-lg-6">
+        <div class="card p-2 border-0">
+            <form [formGroup]="fm" *ngIf="fm">
+                <div class="card-header d-flex bg-white align-items-center h-100">
+                    <h2 class="color-primary m-0 text-center" style="font-size: 16px;">Thay đổi mật khẩu</h2>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="email">Mật khẩu hiện tại</label>
+                    <div class="position-relative">
+                        <input autocomplete="off" formControlName="old_pass" required [type]="type"
+                            class="form-control">
+                        <span (click)="type = type == 'password' ? 'text' : 'password'" id="basic-addon2">
+                            <i class="fa" [ngClass]="{'fa-eye': type=='password', 'fa-eye-slash': type=='text'}"
+                                style="position: absolute;top:10px; right: 17px; z-index: 99;cursor: pointer;"
+                                aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu mới</label>
+                    <div class="position-relative">
+                        <input autocomplete="off" formControlName="pass" required [type]="type1" class="form-control">
+                        <span (click)="type1 = type1 == 'password' ? 'text' : 'password'" id="basic-addon2">
+                            <i class="fa" [ngClass]="{'fa-eye': type1=='password', 'fa-eye-slash': type1=='text'}"
+                                style="position: absolute;top:10px; right: 17px; z-index: 99;cursor: pointer;"
+                                aria-hidden="true"></i>
+                        </span>
+                        <small style="color:red"
+                            *ngIf="fm.get('pass').errors && fm.get('pass').hasError('required') && fm.get('pass').touched">
+                            {{ 'message.required' | translate }}</small>
+                        <small style="color:red"
+                            *ngIf="fm.get('pass').errors && fm.get('pass').invalid && fm.get('pass').touched">
+                            {{ 'message.minLength' | translate : {num: 8} }}</small>
+                        <small style="color:red"
+                            *ngIf="fm.get('pass').errors && fm.get('pass').hasError('pattern') && fm.get('pass').touched">
+                            {{ 'message.password_special' | translate }}</small>
+                    </div>
+                </div>
+
+                <div class="d-flex w-100 justify-content-end">
+                    <button type="button" (click)="onSubmit()" [disabled]="!fm.valid" class="btn float-right mr-2"
+                        [ngClass]="fm.valid ? 'btn-success' :'btn-defaut'">
+                        {{'FEBtn.sign_in' | translate}}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

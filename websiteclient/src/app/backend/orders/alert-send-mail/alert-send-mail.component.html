@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="my-auto">Thông báo Đơn hàng đến Sale</h4>
+</div>
+<div class="modal-body" aria-hidden="false">
+    <div>
+        <h6>Danh sách sale</h6>
+        <div class=" p-2 mb-1" [ngClass]="+items.id == +item.id ? 'bg-primary text-white' : 'bg-light'"
+            *ngFor="let item of list; let i = index" (click)="items = item">
+            {{ i + 1 }}. {{ item.name }}
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="text-right">
+        <button type="button" class="btn btn-default mr-2 border" (click)="modalRef.hide()">
+            {{ 'btn.close' | translate }}</button>
+        <button type="button" class="btn btn-danger" (click)="onConfirm()">{{ 'btn.ok' | translate }}</button>
+    </div>
+</div>

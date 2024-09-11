@@ -1,0 +1,57 @@
+<div *ngIf="edu.data.position == 1" class="row" id="contentBuider" [innerHTML]="edu.data.builder | sanitizeHtml">
+</div>
+<div>
+    <div class="content d-md-flex align-items-center justify-content-between mt-3 mt-lg-0 mb-lg-2" *ngIf="edu.data && edu.data.name">
+        <h1 class="title mb-0 py-md-3 py-4">{{edu.data.name}}</h1>
+
+        <div class="filter d-flex align-items-center">
+            <div class="form-group position-relative mb-0 datepicker">
+                <input type="text" [(ngModel)]="filter.date.start"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-color date-left' ,showWeekNumbers:false}"
+                    class="form-control" #start="bsDatepicker" [maxDate]="filter.date.end" bsDatepicker>
+                <img src="/assets/img/icon/date-picker.svg" alt="date-picker" title="date-picker"
+                    class="position-absolute cursor-pointer" style="right: 10px;top:8px; image-rendering: pixelated;"
+                    (click)="start.toggle()" [attr.aria-expanded]="start.isOpen">
+            </div>
+            <div class="mx-md-2 mx-3"> - </div>
+            <div class="form-group position-relative mb-0 datepicker ">
+                <input type="text" [(ngModel)]="filter.date.end"
+                    [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' , containerClass: 'theme-color date-right',showWeekNumbers:false}"
+                    class="form-control" #end="bsDatepicker" [minDate]="filter.date.start" bsDatepicker>
+                <img src="/assets/img/icon/date-picker.svg" alt="date-picker" title="date-picker"
+                    class="position-absolute cursor-pointer" style="right: 10px;top:8px; image-rendering: pixelated;"
+                    (click)="end.toggle()" [attr.aria-expanded]="end.isOpen">
+            </div>
+            <button type="button" class="btn  btn-filter text-uppercase ml-md-2" *ngIf="width >= 768"
+                (click)="filter._search()">{{'FEBtn.search' | translate}}</button>
+        </div>
+        <button type="button" class="btn  btn-filter mt-3 mb-4 w-100 text-uppercase " *ngIf="width < 768"
+            (click)="filter._search()">{{'FEBtn.search'
+            | translate}}</button>
+    </div>
+    <div class="row pt-2" *ngIf="filter.data && filter.data.length > 0">
+        <div class="col-md-6" *ngFor="let item of filter.data">
+            <app-box-analysis [item]="item" [length]="filter.data.length" [type]="3" [images]="edu.data.images">
+            </app-box-analysis>
+        </div>
+
+        <div class="col-12 text-center" *ngIf="edu.lengthList > 8  && filter.finish == false">
+            <button type=" button" class="btn btn-more" (click)="edu._viewMore(filter.data.length)">
+                {{'FEBtn.seeMore' | translate}}</button>
+        </div>
+    </div>
+    <div *ngIf="edu.loading == -1" class="d-flex justify-content-center align-items-center bg-white py-5">
+        <app-box-loading></app-box-loading>
+    </div>
+    <div class="py-5 text-center"
+        *ngIf="(edu.data.list && edu.data.list.length > 0) && (!filter.data || filter.data.length == 0)">
+        <h4>{{'lblNotFound' | translate}}</h4>
+        <button type=" button" class="btn btn-more" (click)="getListPageByLink()">
+            {{'FEBtn.reload' | translate}}</button>
+    </div>
+    <div class="py-5 text-center" *ngIf="!edu.data.list || edu.data.list.length == 0">
+        <h4>{{'lblUpdating' | translate}}</h4>
+    </div>
+</div>
+<div *ngIf="edu.data.position == 2" class="row" id="contentBuider" [innerHTML]="edu.data.builder | sanitizeHtml">
+</div>

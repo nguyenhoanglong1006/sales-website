@@ -1,0 +1,111 @@
+/* img:not([alt]) {
+    border: 2px solid yellow;
+} */
+
+:root,
+::after,
+::before {
+    --font-primary: Roboto;
+    --color-primary: #a26454;
+    --color-secondary: #016f1b;
+    --font-secondary: Merriweather;
+    --color-text: #4d5156;
+    --bg-section: #f5f6fa;
+    --gradient-primary: linear-gradient(to left, rgb(255 102 50 / 20%) 0%, var(--color-secondary) 100%);
+    --border-color-primary: rgba(229, 231, 235, 1);
+    --wrapper: 1920px;
+}
+*,
+*::after,
+*::before {
+    border: 0 solid var(--border-color-primary);
+}
+body {
+    font-family: var(--font-primary), sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeSpeed;
+    background-color: whitesmoke;
+}
+// scrollbar
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+    .productCategory & {
+        height: 0px;
+        
+    }
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #c1c1c1;
+    .productCategory & {
+        background-color: #6e6b6b;
+    }
+}
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+.scrollbar--hide::-webkit-scrollbar {
+    display: none;
+}
+.wrapper {
+    max-width: var(--wrapper);
+    margin: 0 auto;
+    // overflow: hidden;
+}
+.container-main {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+button:disabled {
+    color: rgba(0, 0, 0, 0.26) !important;
+    background-color: gainsboro !important;
+    border: rgba(0, 0, 0, 0.26) !important;
+}
+.btn:focus,
+button:focus,
+a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+.table {
+    margin: 0 !important;
+}
+#page-detail {
+    overflow: hidden !important;
+    *:not(img, iframe, [class^="fa"]) {
+        font-family: var(--font-primary) !important;
+    }
+    img,
+    iframe {
+        max-width: 100% !important;
+    }
+    img {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: auto;
+    }
+    .table {
+        width: unset;
+    }
+}
+.color--primary {
+    color: var(--color-primary) !important;
+}
+.is--active {
+    color: var(--color-secondary);
+}
+.font-weight-500 {
+    font-weight: 500;
+}
+a,
+a:hover {
+    color: inherit;
+    font-size: 15px;
+}
+small {
+    font-size: 11px !important;
+}
+.cursor-pointer {
+    cursor: pointer;
+}

@@ -1,0 +1,159 @@
+<form class="form-bootrap" [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card w-100 mb-3">
+        <div class="card-header">
+            <strong>
+                {{ ((id && id !=0)?'careers.update':'careers.add') | translate : {name : fm.value.name} }}
+            </strong>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                        <label>Ngôn ngữ</label>
+                        <div class="d-flex mb-4">
+                            <div *ngFor="let item of mutiLang" class="cursor-pointer">
+                                <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38"
+                                    [src]="item.icon" [title]="item.name" [alt]="item.name"
+                                    [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                                    [ngClass]="{'border': +item.id == +lang_id}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 pr-md-0">
+                        <div class="form-group">
+                            <label>{{ 'lblName' | translate }}<span class="ml-2 text-red">*</span></label>
+                            <input type="text" (keyup)="onChangeLink($event)" class="form-control" name="name"
+                                formControlName="name" autocomplete="off" required>
+                            <small class="text-red"
+                                *ngIf="fm.get('name').invalid && fm.get('name').touched">{{'message.required'|translate}}</small>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'lblLink' | translate }}<span class="ml-2 text-red">*</span></label>
+                            <input type="text" (keyup)="link._keyup($event)" autocomplete="off"
+                                [(ngModel)]="fm.value.link" class="form-control" name="link" formControlName="link"
+                                required>
+                            <small class="text-red"
+                                *ngIf="fm.get('link').invalid && fm.get('link').touched">{{'message.required'|translate}}</small>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-7 col-12 pr-md-0">
+                                <div class="form-group">
+                                    <label>{{ 'careers.workplace' | translate }}<span
+                                            class="ml-2 text-red">*</span></label>
+                                    <div>
+                                        <select name="workplace_id" formControlName="workplace_id" class="form-control"
+                                            required>
+                                            <option *ngFor="let workplace of dataWorkplace" [value]="workplace.id">
+                                                {{workplace.name}}</option>
+                                        </select>
+                                        <small class="text-red"
+                                            *ngIf="fm.get('workplace_id').invalid && fm.get('workplace_id').touched">{{'message.required'|translate}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-12">
+                                <div class="form-group">
+                                    <label translate>careers.deadline<span class="ml-2 text-red">*</span></label>
+                                    <input type="text" autocomplete="off" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        formControlName="deadline" class="form-control" bsDatepicker>
+                                    <small class="text-red"
+                                        *ngIf="fm.get('deadline').invalid && fm.get('deadline').touched">{{'message.required'|translate}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group mb-0">
+                            <label>{{ 'lblTitle' | translate }}
+                                <small class="text-danger"> ( tối đa 75 ký tự )</small>
+                            </label>
+                            <input autocomplete="off" type="text" class="form-control" name="title"
+                                formControlName="title"
+                                [ngStyle]="{'border-color': !fm.get('title').valid ? '#dc3545' : ''}">
+                            <small class="text-red" [ngClass]="{'invisible': fm.get('title').valid}">{{
+                                'message.chekSeo' | translate }}</small>
+                        </div>
+                        <div class="form-group ">
+                            <label>{{ 'lblDescription' | translate }}
+                                <small class="text-danger"> ( tối đa 325 ký tự )</small>
+                            </label>
+                            <textarea autocomplete="off" formControlName="description" class="form-control"
+                                style="height: 102px;"
+                                [ngStyle]="{'border-color': !fm.get('description').valid ? '#dc3545' : ''}"></textarea>
+                            <small class="text-red" [ngClass]="{'invisible': fm.get('description').valid}">{{
+                                'message.chekSeo' | translate }}</small>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>{{'lblDetail' | translate }}</label>
+                            <div [froalaEditor]="globals.configFroala" formControlName="detail"></div>
+                        </div>
+                        <div class="pt-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>{{'pages.position' | translate }}</label>
+                                        <select formControlName="position" class="form-control ">
+                                            <option *ngFor="let item of position" [value]="item.value">
+                                                {{item.name | translate }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="design-block d-flex align-items-center justify-content-center"
+                                (click)="pageBuilder._openModal()"
+                                *ngIf="!fm.value.builder || fm.value.builder.length == 0">
+                                <div>
+                                    <h1>Page Builder</h1>
+                                    <p>(click to add a design block)</p>
+                                </div>
+                            </div>
+                            <div *ngIf="fm.value.builder && fm.value.builder.length > 0"
+                                class="block-page position-relative pt-5">
+                                <div *ngIf="pageBuilder.flag == false" [innerHTML]="fm.value.builder | sanitizeHtml">
+                                </div>
+                                <div class="block-edit position-absolute"
+                                    *ngIf="fm.value.builder && fm.value.builder.length > 0">
+                                    <button type="button" class="btn-edit" (click)="pageBuilder._openModal()">
+                                        <i class="fas fa-pen" style="color: #fff"></i>
+                                    </button>
+                                    <button type="button" class="btn-remove position-absolute"
+                                        (click)="pageBuilder._clear()">
+                                        <i class="fas fa-trash text-white"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="lable-switch mb-0">
+                        <div class="switch">
+                            <input checked="checked" formControlName="status" type="checkbox" name="status">
+                            <span class="lever"></span>
+                        </div>
+                        <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                            {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                    </label>
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid || !flags"
+                            class="btn  float-right mr-2" [ngClass]="fm.valid && flags ? 'btn-success' :'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="['/admin/careers/get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,34 @@
+.hidden {
+    transform: translateY(-20%);
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.active-detail {
+    transform: translateY(0);
+    opacity: 1;
+    height: auto;
+    overflow: auto;
+    transition-delay: 0s;
+}
+
+.title-tags h1 {
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.right-bar {
+    position: sticky;
+    top: 110px
+}
+
+@media (max-width:576px) {
+    .right-bar {
+        position: unset;
+        top: 0
+    }
+}

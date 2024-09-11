@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-12 col-md-3 pr-md-0">
+        <div class="card">
+            <div class="card-header font-weight-500">
+                <div>
+                    <i class="fas fa-cogs"></i>
+                    {{ 'settings.settings' | translate }}
+                </div>
+            </div>
+            <div class="input-group input-group-sm p-2">
+                <input type="text" (keyup)="search._keyup($event)" class="form-control"
+                    placeholder="{{'search.txt'|translate}}">
+            </div>
+
+            <div class="list-group">
+                <div *ngFor="let item of list  | servicePipeFilter : search.value :  search.fields">
+                    <div class="bg-dark text-white px-4 py-1" *ngIf="item.group">
+                        <small class="font-weight-500"> {{ item.group }} </small>
+                    </div>
+                    <a class="list-group-item list-group-item-action rounded-0 border-left-0 border-right-0 border-bottom-0 py-2"
+                        *ngIf="!item.group" routerLinkActive="active" [routerLink]="[ item.link ]">
+                        {{ item.title }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-9">
+        <router-outlet></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="sidebar">
+    <nav class="p-1">
+        <ul class="nav w-100">
+            <ng-container *ngFor="let item of authorizationList">
+                <li *ngIf="item['isChecked']" class="nav-item w-100">
+                    <a class="nav-link navs" routerLinkActive="active" [routerLink]="[item.link]">
+                        <i class="{{item.icon}}"></i>
+                        {{ item.title | translate }}
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+    </nav>
+    <div class="copyright text-white position-fixed">
+        <small>Powered by Chips</small>
+    </div>
+</div>

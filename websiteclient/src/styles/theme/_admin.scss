@@ -1,0 +1,64 @@
+.admin-theme {
+    font-size: 14.5px;
+    background-color: #f5f6f8;
+    .app-header {
+        border-bottom-width: 1px;
+        border-bottom-color: #e9ebec;
+        box-shadow: unset !important;
+    }
+    .card {
+        box-shadow: 0 1px 2px rgb(56 65 74 / 15%);
+        border: unset !important;
+        overflow: hidden;
+        &-header {
+            border-bottom: 1px dashed;
+            color: #212529;
+            background-color: #fff !important;
+            min-height: 56px!important;
+            input {
+                box-shadow: unset;
+                transition: border .4s;
+                &:focus {
+                    border: 1px dashed #333 !important;
+                }
+            }
+        }
+        &-footer {
+            background-color: #f3f6f9;
+        }
+        .list-group {
+            margin-top: 0 !important;
+            &-item {
+                &.active {
+                    background-color: #007bff !important;
+                }
+                &:hover {
+                    background-color: rgba(0, 123, 255, 0.1);
+                }
+            }
+        }
+        *:not(button) {
+            border-color: #e9ebec !important;
+        }
+        .table {
+            thead th {
+                border-top-width: 0;
+                border-bottom-width: 1px;
+                background-color: #f3f6f9;
+                span {
+                    font-weight: 500;
+                    font-size: 15px;
+                    white-space: nowrap;
+                }
+            }
+            tbody tr {
+                .display-action {
+                    white-space: nowrap;
+                }
+                &:hover {
+                    background-color: rgba(0, 123, 255, 0.05);
+                }
+            }
+        }
+    }
+}

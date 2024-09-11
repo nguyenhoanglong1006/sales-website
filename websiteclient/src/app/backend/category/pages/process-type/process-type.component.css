@@ -1,0 +1,9 @@
+.border-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+    background: #dee2e6;
+}

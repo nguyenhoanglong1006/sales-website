@@ -1,0 +1,85 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card w-100">
+        <div class="card-header">
+            <strong>
+                {{ ((id && id > 0) ? 'contactsale.update':'contactsale.add') | translate : {name : fm.value.name} }}
+            </strong>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8">
+                        <div class="row px-2">
+                            <div class="col-md-10 px-2">
+                                <div class="form-group">
+                                    <label>{{ 'lblName' | translate }}</label>
+                                    <input type="text" class="form-control" name="name" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="col-md-2 px-2">
+                                <div class="form-group">
+                                    <label>{{ 'lblOrders' | translate }}</label>
+                                    <input type="number" min="0" class="form-control" name="orders"
+                                        formControlName="orders">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row px-2">
+                            <div class="col-md-6 px-2">
+                                <div class="form-group">
+                                    <label>Phone </label>
+                                    <input type="text" class="form-control" name="phone" formControlName="phone">
+                                    <small *ngIf="!fm.get('phone').valid && fm.get('phone').touched" style="color:red">
+                                        {{'message.phone' | translate }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-2">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" name="email" formControlName="email">
+                                    <small *ngIf="!fm.get('email').valid && fm.get('email').touched" style="color:red">
+                                        {{ 'message.email' | translate }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-2">
+                                <div class="form-group">
+                                    <label>Link Facebook</label>
+                                    <input type="text" class="form-control" name="link_fb" formControlName="link_fb">
+                                </div>
+                            </div>
+                            <div class="col-md-6 px-2">
+                                <div class="form-group">
+                                    <label>Link Zalo</label>
+                                    <input type="text" class="form-control" name="link_zalo"
+                                        formControlName="link_zalo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{ 'lblNote' | translate }}</label>
+                            <textarea class="form-control" name="note" formControlName="note"
+                                placeholder="{{ 'lblNote' | translate }}" rows="5" style="height: 115px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="float-left">
+                <label class="lable-switch pull-left">
+                    <div class="switch">
+                        <input checked="checked" formControlName="status" type="checkbox" name="status">
+                        <span class="lever"></span>
+                    </div>
+                    <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                        {{ (fm.value.status == 1 ? 'status.on' : 'status.off') | translate }}</span>
+                </label>
+            </div>
+            <button type="button" (click)="onSubmit()" class="btn btn-success float-right">
+                {{ 'btn.save' | translate }}</button>
+            <button type="button" [routerLink]="[ (id && id > 0) ? '../../get-list' : '../get-list' ] "
+                class="btn btn-primary float-right mr-2">
+                {{ 'btn.back' | translate }} </button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <strong>
+                    {{ 'user.titlePermission' | translate: { name: data.name } }}
+                </strong>
+            </div>
+            <div class="card-body">
+                <div class="mx-auto w-75 mt-2">
+                    <div class="">
+                        <label for="checkAll" class="user-select-none cursor-pointer mb-0">
+                            {{ 'user.permission.selectAll' | translate }}
+                        </label>
+                        <input (change)="authorization.handleCheckAllChange($event)"
+                            [checked]="authorization.handleCheckAll()" type="checkbox" class="ml-2" id="checkAll" />
+                    </div>
+                    <ul class="list-unstyled mt-2 mb-0" style="margin-left: 5.1rem">
+                        <li *ngFor="let item of authorization.list">
+                            <input (change)="item['isChecked'] = authorization.handleCheck($event)"
+                                [checked]="item['isChecked']" id="{{ item.key }}" type="checkbox" class="mr-3" />
+                            <label for="{{ item.key }}" class="user-select-none cursor-pointer">
+                                <i [class.text-black-50]="!item['isChecked']" class="{{ item.icon }} mr-1"
+                                    style="font-size: 15px"></i>
+                                {{ item.title | translate }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <button type="button" [routerLink]="[id && id != 0 ? '../../get-list' : '../get-list']"
+                    class="btn btn-primary mr-2">
+                    {{ 'btn.back' | translate }}
+                </button>
+                <button type="button" (click)="onSubmit()" [disabled]="flags" class="btn"
+                    [ngClass]="!flags ? 'btn-success' : 'btn-default'">
+                    {{ 'btn.save' | translate }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

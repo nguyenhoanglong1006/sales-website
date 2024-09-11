@@ -1,0 +1,127 @@
+.menu-desktop {
+    padding: 8px;
+    background: #F5F6FA;
+    border-radius: 4px;
+    position: sticky;
+    top: 108px;
+}
+
+
+.menu-desktop .menu-item {
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    color: #505F79;
+    cursor: pointer;
+    /* color: var(--color-primary);
+    border-radius: 4px; */
+    -webkit-user-select: none;
+    /* Safari */
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    user-select: none;
+    /* Non-prefixed version*/
+}
+
+.menu-desktop .menu-item a {
+    color: #505F79 !important;
+    text-decoration: none;
+}
+
+/* .menu-desktop .item-text-child::before {
+    content: '| ';
+} */
+
+.menu-desktop .menu-item:hover, .menu-desktop .menu-item:hover a, .menu-desktop .menu-item .active {
+    color: var(--color-secondary) !important;
+}
+
+.menu-desktop .icon-more {
+    font-size: 7px;
+    color: var(--color-secondary);
+}
+
+.menu-desktop .title:hover::before, .menu-desktop .menu-item.active::before {
+    content: '';
+    width: 2px;
+    height: 19px;
+    background-color: var(--color-secondary);
+    position: absolute;
+    left: 0;
+    top: 9px;
+
+}
+
+.active {
+    font-weight: 500 !important;
+}
+
+.menu-desktop .margin-left-child .menu-item {
+    margin-left: 10px;
+}
+
+/* mobile */
+
+.menu-mobile .btn-main {
+    background-color: #EBECF0;
+    color: #505F79;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    display: flex;
+    align-items: center;
+}
+
+.menu-mobile .btn-main::after {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: .255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid !important;
+    border-right: .3em solid transparent !important;
+    border-bottom: .3em solid transparent !important;
+    border-left: .3em solid transparent !important;
+}
+
+.menu-mobile .btn-main .title {
+    width: 95%;
+    font-weight: 500;
+}
+
+.menu-mobile .menu-list {
+    position: absolute;
+    width: 100%;
+    background-color: #F5F6FA;
+    box-shadow: 0px 0px 10px rgba(0, 55, 123, 0.1);
+    z-index: 8;
+    /* top: 50px; */
+    padding: 8px;
+    display: none;
+    top: 40px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-mobile .menu-list.open {
+    display: block;
+    animation: fadeIn 0.3s;
+}
+
+@media(max-width: 992px) {
+    .menu-desktop {
+        position: unset;
+        top: 0;
+    }
+
+    .menu-desktop .title:hover::before, .menu-desktop .menu-item.active::before {
+        content: unset;
+
+    }
+}

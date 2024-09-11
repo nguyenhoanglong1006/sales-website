@@ -1,0 +1,23 @@
+<!-- <div class="wrapper"> -->
+<div>
+    <app-header class="app-header" *ngIf="!globals._browser.isPageBuilder"></app-header>
+
+    <main id="typePage" style="min-height: calc(100vh - 350px)" class="bg-light">
+        <router-outlet></router-outlet>
+    </main>
+
+    <app-footer *ngIf="!globals._browser.isPageBuilder"></app-footer>
+
+    <div class="icon-contact text-center text-lg-right">
+        <a class="icon-contact-zalo nav-link p-0" href="{{ 'FEHrefZalo' | translate }}" target="_blank"
+            *ngIf="('FEHrefZalo' | translate) !== 'FEHrefZalo' && ('FEHrefZalo' | translate) !== ''">
+            <img class="img-fluid" src="../../assets/img/zalo.png" alt="">
+        </a>
+    </div>
+
+    <div id="scroll-top">
+        <div class="scroll-top d-flex align-items-center justify-content-center cursor-pointer" (click)="scrollTop()">
+            <img src="/assets/img/icon/top.svg" width="12" height="auto" alt="top" />
+        </div>
+    </div>
+</div>

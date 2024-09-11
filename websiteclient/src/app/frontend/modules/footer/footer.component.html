@@ -1,0 +1,153 @@
+<div class="footer pt-lg-4 pb-lg-3 pt-3 pb-2">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2dot4 col-md-4 col-6">
+                    <div class="box-footer">
+                        <div class="title position-relative">
+                            {{ 'FEFooter.about' | translate }}
+                        </div>
+                        <div class="content mt-2" *ngFor="let item of about.data">
+                            <a *ngIf="item.type && item.type == 1; else link_self" [href]="item.href"
+                                [attr.target]="item.target_blank ? '_blank' : ''" rel="noopener noreferrer">
+                                {{ item.name }}
+                            </a>
+                            <ng-template #link_self>
+                                <a [routerLink]="['/' + item.href]">
+                                    {{ item.name }}
+                                </a>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2dot4 col-md-4 col-6">
+                    <div class="box-footer">
+                        <div class="title position-relative">
+                            {{ 'FEFooter.productService' | translate }}
+                        </div>
+                        <div class="content mt-2" *ngFor="let item of service.data">
+                            <a *ngIf="item.type && item.type == 1; else link_self" [href]="item.href"
+                                [attr.target]="item.target_blank ? '_blank' : ''" rel="noopener noreferrer">
+                                {{ item.name }}
+                            </a>
+                            <ng-template #link_self>
+                                <a [routerLink]="['/' + item.href]">
+                                    {{ item.name }}
+                                </a>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2dot4 col-md-4 col-6 pt-4 pt-md-0">
+                    <div class="box-footer">
+                        <div class="title position-relative">{{ 'FEFooter.policy' | translate }}</div>
+                        <div class="content mt-2" *ngFor="let item of content.data">
+                            <a *ngIf="item.type && item.type == 1; else link_self" [href]="item.href"
+                                [attr.target]="item.target_blank ? '_blank' : ''" rel="noopener noreferrer">
+                                {{ item.name }}
+                            </a>
+                            <ng-template #link_self>
+                                <a [routerLink]="['/' + item.href]">
+                                    {{ item.name }}
+                                </a>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 pt-4 pt-lg-0">
+                    <div class="box-footer">
+                        <div class="title position-relative">
+                            {{ 'FEFooter.contact' | translate }}
+                        </div>
+                        <div class="pl-0 contact cursor-pointer" style="list-style: none">
+                           <span class="footer-address">
+                            <div class="my-1"><span>{{ 'FEFooter.address' | translate }}: </span>
+                                {{ 'FEAddress' | translate }}</div>
+                           </span>
+                            <a class="d-table-row my-1" *ngIf="
+                                    ('FEHotline' | translate) != 'FEHotline' &&
+                                    ('FEHotline' | translate) != ''
+                                " href="tel:{{ 'FEHotline' | translate }}">
+                                <span>{{ 'lblHotline' | translate }}:</span>
+                                {{ 'FEHotline' | translate }}
+                            </a>
+                            <a class="my-1" *ngIf="
+                                    ('FEMail' | translate) != 'FEMail' &&
+                                    ('FEMail' | translate) != ''
+                                " href="mailto:{{ 'FEMail' | translate }}">
+                                <span>{{ 'lblEmail' | translate }}:</span>
+                                {{ 'FEMail' | translate }}
+                            </a>
+                        </div>
+                        <div class="footer_social d-md-flex align-items-center pt-3">
+                            <a class="mr-3" target="_blank" [href]="'FEHrefFacebook' | translate"
+                                *ngIf="('FEHrefFacebook' | translate) != 'FEHrefFacebook'" rel="noopener noreferrer">
+                                <img src="/assets/img/icon/facebook.svg" width="10px" height="16px" alt="facebook" />
+                            </a>
+
+                            <a class="mr-3" target="_blank" [href]="'FEHrefTwitter' | translate"
+                                *ngIf="('FEHrefTwitter' | translate) != 'FEHrefTwitter'" rel="noopener noreferrer">
+                                <img src="/assets/img/icon/twitter.svg" width="16px" height="14px" alt="twitter" />
+                            </a>
+                            <!-- <a class="mr-3" target="_blank" [href]="'FEHrefZalo' | translate"
+                                *ngIf="('FEHrefZalo' | translate) != 'FEHrefZalo'" rel="noopener noreferrer">
+                                <img src="/assets/img/icon/in.svg" width="16px" height="16px" alt="linkedin" />
+                            </a> -->
+                            <a target="_blank" [href]="'FEHrefYoutube' | translate"
+                                *ngIf="('FEHrefYoutube' | translate) != 'FEHrefYoutube'" rel="noopener noreferrer">
+                                <img src="/assets/img/icon/youtube.svg" width="16px" height="12px" alt="youtube" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <hr *ngIf="width > 768" style="border-color: #373f49" /> -->
+
+            <!-- <div class="row" id="accordion">
+                <div class="col-md-6" *ngFor="let item of address.data | slice: 0:2">
+                    <div class="box-address mt-2 mt-md-0">
+                        <div class="title d-flex align-items-center justify-content-between"
+                            (click)="address._onShow(item.id)" [attr.data-target]="'#address' + item.id"
+                            [attr.aria-controls]="'address' + item.id"
+                            [attr.data-toggle]="width <= 576 ? 'collapse' : ''" [id]="'heading' + item.id">
+                            {{ item.name }}
+                            <span *ngIf="width <= 576">
+                                <i class="fas icon-more" style="font-size: 8px;"
+                                    [ngClass]="{'fa-plus':  address.show != item.id, 'fa-minus':  address.show == item.id }"></i>
+                                <!-- <img [src]="
+                                        address.show == item.id
+                                            ? '/assets/img/icon/down-footer.svg'
+                                            : '/assets/img/icon/right.svg'
+                                    " [alt]="address.show == item.id ? 'down' : 'right'"
+                                    [attr.width]="address.show == item.id ? '6px' : '4px'"
+                                    [attr.height]="address.show == item.id ? '4px' : '6px'" /> -->
+                            <!-- </span>
+                        </div>
+                        <div [ngClass]="{ collapse: width <= 576 }" [id]="'address' + item.id"
+                            [attr.aria-labelledby]="'heading' + item.id" data-parent="#accordion">
+                            <div class="address">{{ item.address }}</div>
+                            <ul class="contact pl-3 mb-0 cursor-pointer d-flex">
+                                <li *ngIf="item.phone && item.phone.length > 0" class="mr-4">
+                                    <a href="tel:{{ item.phone }}">
+                                        <span>{{ 'lblPhone' | translate }}:</span>
+                                        {{ item.phone }}
+                                    </a>
+                                </li>
+                                <li *ngIf="item.fax && item.fax.length > 0">
+                                    <a [href]="sanitize('fax:' + item.fax)"><span>{{ 'lblFax' | translate }}:</span> {{
+                                        item.fax }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> --> 
+            <hr class="my-2" *ngIf="width > 768" style="border-color: #a3a3a7" />
+            <div class="footer-end">
+                {{ 'copyright' | translate }} <span> | Powered by <a class="text-white" href="https://chips.vn">Chips</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-sm-12 col-md-3 pr-md-0">
+        <app-group-careers (filter)="filterId = $event"></app-group-careers>
+    </div>
+    <div class="col-sm-12 col-md-9">
+        <app-get-list-careers [filter]="filterId"></app-get-list-careers>
+    </div>
+</div>

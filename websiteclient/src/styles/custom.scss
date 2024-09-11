@@ -1,0 +1,405 @@
+@import "src/styles/animations";
+
+.asidebar {
+    position: fixed;
+    top: 55px;
+    padding-top: 5px;
+    z-index: 9;
+    width: 200px;
+    height: 100%;
+    animation: 0.7s sidebar;
+    background: #0f172a;
+}
+.fixed-action-btn {
+    position: fixed;
+    bottom: 65px;
+    right: 24px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 2;
+}
+.fixed-action-btn .getlistadd {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: red;
+}
+.navbar-fixed {
+    z-index: 999;
+    position: fixed !important;
+    width: 100%;
+    top: 0px;
+    box-shadow: 0 0 15px 0 rgba(41, 61, 88, 0.1);
+    background-color: #fff;
+    animation: slide-down 0.7s;
+}
+
+#slide .item {
+    width: 100%;
+    height: 100%;
+}
+// chips video -- tien.nv 5.3.2020
+// .icon-video {
+//     position: relative;
+//     left: calc(50% - 20px);
+//     top: calc(50% - 20px);
+// }
+.icon-video-circle {
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    background-color: red;
+    border: 2px solid transparent;
+    position: relative;
+}
+.icon-video-circle::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    -webkit-animation: video-circle-fill-anim 2.3s infinite ease-in-out;
+    animation: video-circle-fill-anim 2.3s infinite ease-in-out;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.icon-video-circle::before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 100%;
+    border: 2px solid rgba(243, 12, 12, 0.71);
+    -webkit-animation: video-circle-anim 1.2s infinite ease-in-out;
+    animation: video-circle-anim 1.2s infinite ease-in-out;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.carousel:focus {
+    outline: none !important;
+}
+.chips-carousel .carousel .carousel-control {
+    display: none !important;
+}
+.chips-slide div.item {
+    height: 100% !important;
+}
+.modal-dialog {
+    height: 98vh;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.modal-open .modal {
+    overflow-y: hidden;
+}
+.col-2dot4,
+.col-sm-2dot4,
+.col-md-2dot4,
+.col-lg-2dot4,
+.col-xl-2dot4 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.col-2dot4 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 20%;
+    flex: 0 0 19% !important;
+    max-width: 20% !important;
+}
+@media (min-width: 540px) {
+    .col-sm-2dot4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20% !important;
+        max-width: 20% !important;
+    }
+}
+@media (min-width: 720px) {
+    .col-md-2dot4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20% !important;
+        max-width: 20% !important;
+    }
+}
+@media (min-width: 960px) {
+    .col-lg-2dot4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20% !important;
+        max-width: 20% !important;
+    }
+}
+@media (min-width: 1140px) {
+    .col-xl-2dot4 {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20% !important;
+        max-width: 20% !important;
+    }
+}
+#contentDetail h5 {
+    font-size: 24px;
+    color: var(--color-primary);
+    letter-spacing: 0.18px;
+    line-height: 24px;
+    font-weight: normal;
+}
+// calendar month view - calendar angular npm
+.cal-month-view .cal-cell-row .cal-cell:hover {
+    background-color: #deebff !important;
+    color: var(--color-primary) !important;
+}
+.cal-month-view .cal-cell-row .cal-cell:hover .cal-day-number {
+    color: var(--color-primary) !important;
+}
+.cal-month-view .cal-header .cal-cell {
+    font-weight: 500;
+    text-align: left;
+    padding-left: 8px;
+}
+.cal-month-view .cal-day-number {
+    font-weight: 500;
+    font-size: 15px;
+    opacity: 1;
+    margin: 0;
+    color: var(--color-primary) !important;
+}
+.cal-day-selected {
+    background-color: #deebff !important;
+}
+.cal-day-selected .cal-day-number {
+    color: var(--color-primary) !important;
+}
+.cal-month-view .cal-day-cell.cal-today {
+    background-color: transparent;
+}
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 15px;
+}
+.cal-month-view .cal-cell {
+    align-items: start;
+    cursor: pointer;
+}
+.cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+    color: var(--color-primary) !important;
+    opacity: 0.5;
+}
+.cal-month-view .cal-cell-top {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding: 8px;
+}
+// customize dropdown menu
+.customize-dropdown-menu {
+    position: relative;
+}
+.customize-dropdown-menu button {
+    font-family: Roboto;
+    border: 1px solid #dfe1e6;
+    font-size: 15px;
+    color: var(--color-primary);
+    border-radius: 2px;
+    height: 36px;
+    width: 100%;
+    background-color: #fff;
+    text-align: left;
+    color: var(--color-primary);
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    background: no-repeat right 0.75rem center;
+    // background-image: url("../assets/img/tamp/icon-select-down.png");
+    cursor: pointer;
+}
+.customize-dropdown-menu .dropdown-menu {
+    background: #ffffff !important;
+    box-shadow: 0px 0px 10px rgb(0 55 123 / 10%) !important;
+    border-radius: 4px !important;
+    border: none !important;
+    top: 4px !important;
+    width: 100%;
+    padding: 0;
+    max-height: 300px;
+    overflow: auto;
+}
+.customize-dropdown-menu .dropdown-menu .dropdown-item {
+    padding: 8px 16px !important;
+    color: var(--color-primary);
+    cursor: pointer;
+}
+.customize-dropdown-menu .dropdown-menu .dropdown-item:hover,
+.customize-dropdown-menu .dropdown-menu .dropdown-item.active {
+    background: #deebff;
+    color: var(--color-primary);
+}
+.customize-menu-pagebuilder.dropdown-menu {
+    top: 5px !important;
+    left: -10px !important;
+}
+.card-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+.card-header strong {
+    font-weight: 500 !important;
+}
+.text-red {
+    color: red;
+}
+// backend
+.form-control,
+button {
+    font-size: 14px !important;
+}
+.icon-remove {
+    right: 10px;
+    top: 10px;
+}
+.container-search {
+    max-height: 250px;
+    overflow: auto;
+    overflow-x: hidden;
+    font-size: 15px;
+}
+// active group admin
+.activeRows {
+    z-index: 2;
+    color: #fff !important;
+    background-color: #007bff !important;
+    // border-color: #2c3344;
+}
+/* .activeRows:hover {
+    background-color: #2c3344 !important;
+    border-color: #2c3344 !important;
+} */
+/* .box-agency .detail ul {
+    padding-left: 16px !important;
+} */
+.bootstrap-select {
+    border: 1px solid #dee2e6 !important;
+}
+// froala position sticky
+.fr-sticky-on {
+    top: 51px !important;
+}
+// color bsDatepicker
+.theme-color .bs-datepicker-head {
+    background-color: var(--color-primary) !important;
+}
+.theme-color .bs-datepicker-body table td span.selected,
+.theme-color .bs-datepicker-body table td.selected span,
+.theme-color .bs-datepicker-body table td span[class*="select-"]:after,
+.theme-color .bs-datepicker-body table td[class*="select-"] span:after {
+    background-color: var(--color-primary);
+}
+.theme-color .bs-datepicker-body table td.week span {
+    color: var(--color-primary);
+}
+// builder
+.btn-pagebuilder {
+    background: #fc466b;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--color-primary), #fc466b);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, var(--color-primary), #fc466b);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}
+.border-item::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+    background: #dee2e6;
+}
+.btn-pagebuilder {
+    background: #fc466b;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, var(--color-primary), #fc466b);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, var(--color-primary), #fc466b);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #fff;
+}
+.design-block {
+    height: 230px;
+    background: #f5f5f5;
+    border: dashed 2px #c1c1c1;
+    font-size: 18px;
+    color: #454545;
+    cursor: pointer;
+}
+.block-page {
+    border: groove 2px #2196f3;
+    border-radius: 6px;
+}
+.block-edit {
+    top: 0;
+    right: 0;
+    z-index: 5;
+}
+.block-edit > .btn-edit {
+    background: linear-gradient(to right, var(--color-primary), #fc466b);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.block-edit > .btn-remove {
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 2px;
+    height: 40px;
+    padding: 0 16px;
+    top: 43px;
+    right: 0;
+    display: none;
+    i {
+        color: red !important;
+    }
+}
+.block-page:hover .btn-remove {
+    display: block;
+}
+/* .btn-remove:hover i {
+    color: red !important;
+} */
+// class static
+.static {
+    padding: 1px 6px;
+    background: #ff9800;
+    border-radius: 16px;
+    color: #fff;
+    font-size: 12px;
+}
+// slide of product list
+.card-body .ng5-slider .ng5-slider-pointer {
+    width: 15px;
+    height: 15px;
+    top: -6px;
+    outline: none;
+}
+.card-body .ng5-slider .ng5-slider-pointer.ng5-slider-active::after {
+    background-color: transparent !important;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #b6e6bb;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(36 221 25 / 25%);
+
+}

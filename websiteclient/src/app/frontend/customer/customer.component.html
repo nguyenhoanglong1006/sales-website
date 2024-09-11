@@ -1,0 +1,57 @@
+<div class="py-5 bg-light">
+    <div class="container-main">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-12 pr-md-0">
+                    <div class="card border-0">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <span class="font-weight-light" style="color: rgb(51, 51, 51, 0.8)">
+                                    Tài khoản
+                                </span>
+                                <h6 class="mb-0">
+                                    {{ user.name }}
+                                </h6>
+                            </div>
+
+                            <a [routerLink]="['/khach-hang/thong-tin/']" routerLinkActive="btn--active"
+                                class="btn text-truncate btn-defaut py-2 rounded-0 w-100 d-flex align-items-center shadow-none"
+                                style="font-size: 14px">
+                                <i class="far fa-user mr-2"></i>
+                                <span class="text-truncate"> Thông tin tài khoản </span>
+                            </a>
+
+                            <a class="btn btn-defaut py-2 rounded-0 w-100 d-flex align-items-center shadow-none"
+                                style="font-size: 14px" [routerLink]="['/khach-hang/danh-sach/']"
+                                routerLinkActive="btn--active">
+                                <i class="far fa-clipboard mr-2"></i>
+                                Danh sách đơn hàng
+                            </a>
+
+                            <a [routerLink]="['/khach-hang/mat-khau/']" routerLinkActive="btn--active"
+                                class="btn text-truncate btn-defaut py-2 rounded-0 w-100 d-flex align-items-center shadow-none"
+                                style="font-size: 14px"><i class="fas fa-lock mr-2"></i>
+                                <span class="text-truncate">
+                                    Đổi mật khẩu
+                                </span>
+                            </a>
+
+                            <a (click)="globals.CUSTOMERS.remove()" href="" class="btn text-truncate btn-defaut py-2 rounded-0 w-100 d-flex align-items-center shadow-none"
+                                style="font-size: 15px"><i class="fas fa-sign-out-alt mr-1"></i>
+                                <span class="text-truncate">
+                                    Đăng xuất
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-9 col-md-8 col-12 mt-3 mt-md-0">
+                    <div class="bg-white p-3">
+                        <router-outlet></router-outlet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

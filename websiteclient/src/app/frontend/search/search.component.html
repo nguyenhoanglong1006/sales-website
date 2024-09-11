@@ -1,0 +1,45 @@
+<box-breadcrumb [data]="search.page"></box-breadcrumb>
+
+<div class="container-main">
+    <div class="container-fluid">
+        <div class="row pt-4">
+            <div class="col-md-12">
+                <h1 class="title">{{'FESearch.result' | translate}} "{{search.nameSearch}}"</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-main">
+    <div class="container-fluid">
+       
+        <div class="row">
+            <div class="col-md-9">
+                <div  *ngIf="search.show == 0">
+                    <div class=" text-center">
+                        <h4>{{'FESearch.notfound' | translate}}</h4>
+                    </div>
+                </div>
+                <div class="row px-2" *ngIf="search.show == 1">
+                    <div class="col-6 col-md-3 px-2 mb-3" *ngFor="let item of search.data">
+                        <app-box-product [item]="item"></app-box-product>
+                    </div>
+                    <div class="col-12 text-center pb-5 mt-2 mt-lg-3"
+                        *ngIf="search.lengthList > 12 && search.finish == false">
+                        <button type="button" class="btn btn-more" (click)="search._viewMore(search.data.length)">
+                            {{'FEBtn.seeMore' | translate}}
+                        </button>
+                    </div>
+                </div>
+                <div *ngIf="search.show == -1" class="d-flex justify-content-center align-items-center bg-white py-5">
+                    <app-box-loading></app-box-loading>
+                </div>
+            </div>
+            <div class="col-md-3 pb-5">
+                <div class="right-bar">
+                    <box-sidebar-news [heading]="'FEContent.contentNew' | translate" [dataList]="contentNew">
+                    </box-sidebar-news>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

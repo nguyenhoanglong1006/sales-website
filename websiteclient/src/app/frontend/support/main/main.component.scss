@@ -1,0 +1,159 @@
+/* MAIN */
+.box-support {
+    position: relative;
+    margin-top: -10px;
+    box-shadow: 0 27px 50px 35px rgb(0 0 0 / 5%);
+    background-color: #fff;
+    z-index: 3;
+    padding: 35px 20px;
+}
+.title-support {
+    font-family: var(--font-secondary);
+    font-size: 20px;
+    color: #222;
+    font-weight: 500;
+}
+.item-support img {
+    width: 56px;
+    opacity: 0.6;
+    transition: all 0.3s;
+}
+.item-support:hover img {
+    opacity: 1;
+}
+.item-support--borderRight {
+    border-color: var(--border-color-primary) !important;
+}
+.main {
+    margin-top: 32px;
+}
+.main .box-input .frame {
+    max-width: 600px;
+    margin: auto;
+}
+.main .box-input input {
+    width: 100%;
+    border: 1px solid #dfe1e6;
+    border-radius: 4px;
+    padding: 14px 14px 14px 17px;
+    font-weight: normal;
+    height: 48px;
+}
+.main .box-input input:focus-visible {
+    outline: none !important;
+}
+.main .box-input input::placeholder {
+    color: #a5adba;
+    opacity: 1;
+    font-weight: normal;
+}
+.main .box-input input:-ms-input-placeholder {
+    color: #a5adba;
+    font-weight: normal;
+}
+.main .box-input input::-ms-input-placeholder {
+    color: #a5adba;
+    font-weight: normal;
+}
+.main .box-input .icon-search {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 14px;
+    left: 14px;
+}
+.main .box-input .button-search {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    background-color: transparent;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 12px !important;
+    width: 40px;
+    height: 40px;
+}
+.main .list h1 {
+    font-size: 34px;
+}
+.main .list .line {
+    width: 80px;
+    height: 3px;
+    background-color: var(--color-secondary);
+}
+.main .list .content {
+    margin-top: 26px;
+}
+.main .list .faq li {
+    list-style: none;
+}
+.main .list .faq li a {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    color: var(--color-primary);
+    margin: 0 0 15px 30px;
+}
+.main .list .faq li .item::before {
+    content: '';
+    width: 21px;
+    height: 21px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 9.5px;
+    position: absolute;
+}
+.main .list .faq li .item:hover a {
+    color: var(--color-primary);
+    cursor: pointer;
+    text-decoration: none;
+}
+input::placeholder {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    color: #a5adba;
+}
+@media (max-width: 767px) {
+    .main .list h1 {
+        font-size: 24px;
+    }
+    .main {
+        margin-top: 16px;
+    }
+    .main .box-input {
+        margin-top: 24px;
+    }
+}
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 576px) {
+        .form-control,
+        input,
+        select {
+            font-size: 16px !important;
+        }
+    }
+}
+@media (max-width: 640px) {
+    .box-support {
+        padding: 20px;
+    }
+    .item-support img {
+        width: 40px;
+    }
+    .title-support {
+        font-size: 20px;
+    }
+}
+.list__link {
+    transition: .2s;
+    &:hover {
+        color: var(--color-primary) !important;
+    }
+}

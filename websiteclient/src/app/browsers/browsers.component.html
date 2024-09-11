@@ -1,0 +1,23 @@
+<div class="align-items-center d-flex justify-content-center bg-container" style="height: 100vh;">
+    <div class="bg-image justify-content-between d-flex">
+        <div></div>
+        <div class="card border-0 margin-mobile" style="width: 340px;font-size: 13px;border-radius: 0%;">
+            <div class="card-body">
+                <router-outlet></router-outlet>
+
+                <div class="mt-2">
+                    <strong style="font-size:11px">
+                        {{ 'copyright' | translate }} 
+                        <br />
+                        Powered by 
+                        <a target="_blank"
+                            href="https://chips.vn/" 
+                            style="color:#f7941e;font-size:11px">
+                            Chips
+                        </a>
+                    </strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

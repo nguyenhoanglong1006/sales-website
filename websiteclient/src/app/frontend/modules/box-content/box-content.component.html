@@ -1,0 +1,21 @@
+<a class="nav-link px-0 text-dark" [title]="item.name" rel="follow, index"
+[routerLink]="['/tin-tuc/' + item.link]">
+    <div class="box-content rounded-bottom">
+        <div class="images position-relative rounded-top">
+            <a [routerLink]="['/tin-tuc/' + item.link]">
+                <img [defaultImage]="('FEImagesContent' | translate)" [lazyLoad]="item.images"  style="object-fit: cover;"
+                [title]="item.name" [alt]="item.name" />
+            </a>
+        </div>
+        <div class="p-2 bg-white">
+            <div class="d-flex h-100 align-items-center pl-0" style="color: #999999;font-size: 14px;">
+                <span class="card-title author pr-3"><i class="fa fa-folder mr-2" style="color: var(--color-secondary)!important;"
+                        aria-hidden="true"></i>{{item.parent_name}}</span>
+                <span class="card-title"><i class="fa fa-eye mr-2" style="color: var(--color-secondary)"
+                        aria-hidden="true"></i>{{item.views}} Lượt xem</span>
+            </div>
+            <a class="title title-text" [routerLink]="['/tin-tuc/' + item.link]">{{item.name}}</a>
+            <p class="news-text mt-2">{{ item.description}}</p>
+        </div>
+    </div>
+</a>

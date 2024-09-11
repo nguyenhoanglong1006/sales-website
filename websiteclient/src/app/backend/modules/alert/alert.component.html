@@ -1,0 +1,11 @@
+<div class="modal-body" aria-hidden="false">
+    <div class="d-flex">
+        <i class="far fa-question-circle text-left text-red" style="font-size: 100px"></i>
+        <p class="my-auto ml-2">{{ messages | translate : { name : name } }}</p>
+    </div>
+    <div class="text-right">
+        <button type="button" class="btn btn-default mr-2"
+            (click)="modalRef.hide()">{{ 'btn.close' | translate }}</button>
+        <button type="button" class="btn btn-danger" (click)="onConfirm()">{{ 'btn.ok' | translate }}</button>
+    </div>
+</div>

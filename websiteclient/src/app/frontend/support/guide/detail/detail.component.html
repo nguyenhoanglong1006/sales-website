@@ -1,0 +1,28 @@
+<div *ngIf="data.position == 1" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+</div>
+<div *ngIf="data && data.name" class="mt-md-0 mt-3">
+    <heading-box-page [heading]="data.name"></heading-box-page>
+
+    <!-- <h1 class="title mb-md-4 mb-2">{{ data.name }}</h1> -->
+    <div *ngIf="data.list.length == 0" [innerHTML]="data.detail | sanitizeHtml" id="page-detail" class="fr-view">
+    </div>
+
+    <div class="d-flex scroll-tab-mb">
+        <div class=" d-flex align-items-center justify-content-center">
+            <div class="box-group d-flex align-items-center justify-content-center  cursor-pointer"
+                [ngClass]="{'active': list.active == item.link}" *ngFor="let item of data.list; let i = index"
+                [ngStyle]="{'border-radius': i == 0 ? '4px 0 0 4px' : ( (i == data.list.length - 1) ? '0 4px 4px 0' : '' )  }"
+                (click)="list._change(item)">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="data.list.length > 0" class="content">
+        <div *ngIf="list.detail == ''">{{ 'lblUpdating' | translate }}</div>
+        <div *ngIf="list.detail != ''" class="fr-view" [innerHTML]="list.detail | sanitizeHtml" id="page-detail">
+        </div>
+    </div>
+</div>
+<div *ngIf="data.position == 2" id="contentBuider" [innerHTML]="data.builder | sanitizeHtml">
+</div>

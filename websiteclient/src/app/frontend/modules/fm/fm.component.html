@@ -1,0 +1,171 @@
+<fieldset class="form">
+	<form [formGroup]="fm" *ngIf="fm && type == 1">
+		<h4 class="lead text-uppercase mb-3">{{ 'FEBtn.sign_in' | translate }}</h4>
+		<div class="form-group">
+			<label for="email">{{ 'lblEmail' | translate }}</label>
+			<input type="email" required formControlName="email" name="email" class="form-control  rounded border"
+				autocomplete="off">
+			<small class="text-danger" style="font-size: 12px"
+				*ngIf="fm.get('email').invalid && fm.get('email').touched">
+				{{ 'message.email' | translate }}</small>
+		</div>
+		<div class="form-group">
+			<label for="password">{{ 'lblPassword' | translate }}</label>
+			<input autocomplete="off" required (keyup.enter)="login.onSubmit()" [type]="login.type"
+				placeholder="********" class="form-control  rounded border" name="password" formControlName="password">
+			<span (click)="login.type = (login.type == 'password') ? 'text' : 'password'" id="basic-addon2">
+				<i class="fa mt-3 icon-password text-muted"
+					[ngClass]="{'fa-eye': login.type =='password', 'fa-eye-slash': login.type == 'text'}"
+					aria-hidden="true"></i>
+			</span>
+			<small class="d-inline" class="text-danger" style="font-size: 12px"
+				*ngIf="fm.get('password').invalid && fm.get('password').touched">
+				{{ 'message.required' | translate }}</small>
+		</div>
+		<div class="d-flex">
+			<a href="javascript:;" class="form-hover-underline cursor-pointer small mr-2" (click)="onChange(2)">
+				{{ 'FELogin.forgotpass' | translate }}
+			</a>
+			<a href="javascript:;" (click)="onChange(3)" class="d-none d-md-block text-decoration-none small">
+				{{ 'FEBtn.sign_up' | translate }}
+			</a>
+		</div>
+		<div class="pt-3 text-right">
+			<button type="button" (click)="login.onSubmit()" [disabled]="!fm.valid && flag"
+				class="btn bg-primary text-white">
+				<i class="fas fa-paper-plane mr-1"></i>
+				{{ 'FEBtn.sign_in' | translate }}
+			</button>
+		</div>
+	</form>
+
+	<form [formGroup]="fmresetPassword" *ngIf="fmresetPassword && type == 2">
+		<h4 class="lead text-uppercase mb-3">{{ 'FELogin.forgotpass' | translate }}</h4>
+		<div *ngIf="resetpassword.loading == true"
+			class="position-relative d-flex justify-content-center pt-lg-5 pt-4 pb-lg-5 pb-4">
+			<img src="../../../../assets/img/loading.gif" width="85px" height="100%">
+		</div>
+		<div *ngIf="resetpassword.loading == false">
+			<div class="form-group">
+				<label for="email">{{ 'lblEmail' | translate }}</label>
+				<input type="text" class="form-control  rounded border" name="email" formControlName="email"
+					autocomplete="off" (keyup.enter)="resetpassword.onSubmit()"
+					[placeholder]="'FELogin.checkEmail' | translate" required>
+				<small class="text-danger" style="font-size: 12px"
+					*ngIf="fmresetPassword.get('email').invalid && fmresetPassword.get('email').touched">
+					{{ 'message.email' | translate }}</small>
+			</div>
+			<a href="javascript:;" class="form-hover-underline cursor-pointer small" (click)="onChange(1)">
+				<i class="fal fa-long-arrow-left mr-1"></i>
+				{{ 'FEBtn.sign_in' | translate }}
+			</a>
+			<div class="pt-3 text-right">
+				<button type="button" (click)="resetpassword.onSubmit()" [disabled]="!fmresetPassword.valid && flag"
+					class="btn  px-4 bg-primary text-white">
+					<i class="fas fa-paper-plane mr-1"></i>{{ 'FEBtn.send' | translate }}
+				</button>
+			</div>
+		</div>
+	</form>
+
+	<form [formGroup]="fmRegistration" *ngIf="fmRegistration && type == 3">
+		<h4 class="lead text-uppercase mb-3">
+			{{ 'FEBtn.sign_up' | translate }}
+		</h4>
+		<div class="d-md-flex justify-content-between">
+			<div class="form-group w-100 mr-md-2">
+				<label for="name">{{ ('customer.name' | translate) }}
+					<span class="text-danger mr-1">*</span></label>
+				<input type="text" autocomplete="off" class="form-control" name="name" formControlName="name">
+				<small class="text-danger" style="font-size: .625rem"
+					*ngIf="fmRegistration.get('name').invalid && fmRegistration.get('name').touched">
+					{{ 'message.required' | translate }}
+				</small>
+			</div>
+			<div class="form-group w-100 mr-md-2">
+				<label for="email">{{ 'customer.email' | translate }}
+					<span class="text-danger mr-1">*</span></label>
+				<input type="email" autocomplete="off" class="form-control" name="email" formControlName="email">
+				<small class="text-danger" style="font-size: .625rem"
+					*ngIf="fmRegistration.get('email').invalid && fmRegistration.get('email').touched">
+					{{ 'message.email' | translate }}
+				</small>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="address">{{ ('customer.address' | translate) }}
+				<span class="text-danger mr-1">*</span></label>
+			<input type="text" autocomplete="off" name="address" rows="1" formControlName="address"
+				class="form-control  h-4" />
+			<small class="text-danger" style="font-size: .625rem"
+				*ngIf="fmRegistration.get('address').invalid && fmRegistration.get('address').touched">
+				{{ 'message.required' | translate }}
+			</small>
+		</div>
+		<div class="d-md-flex justify-content-between">
+			<div class="form-group w-100 mb-0 position-relative">
+				<label for="password">{{ ('customer.password' | translate) }}
+					<span class="text-danger mr-1">*</span></label>
+				<input autocomplete="off" required (keyup.enter)="login.onSubmit()"
+					[type]="!registration.type.password ? 'text' : 'password'" class="form-control rounded border"
+					name="password" formControlName="password">
+				<span (click)="registration.type.password = !registration.type.password" id="basic-addon2">
+					<i class="fa mt-3 icon-password text-muted"
+						[ngClass]="!registration.type.password ? 'fa-eye-slash' : 'fa-eye'" aria-hidden="true"></i>
+				</span>
+			</div>
+		</div>
+		<div>
+			<small class="text-danger" style="font-size: .625rem"
+				*ngIf="fmRegistration.get('password').invalid && fmRegistration.get('password').touched">
+				{{ 'message.minLength' |translate : {num: '8'} }}</small>
+			<small class="text-danger" style="font-size: .625rem" *ngIf="fmRegistration.get('password').invalid && fmRegistration.get('password').touched">
+				{{ 'message.password' | translate }}</small>
+		</div>
+		<p class="text-danger small mb-0 d-inline-block mt-3">{{ 'customer.passRemind' | translate }}</p>
+		<a href="javascript:;" class="cursor-pointer d-inline-block my-2 small" (click)="onChange(1)">
+			<i class="fas fa-long-arrow-left mr-2"></i>
+			<span>{{ 'FEBtn.sign_in' | translate }}</span>
+		</a>
+		<button class="w-100 btn  d-block mx-auto w-50 text-white bg-primary" (click)="registration.onSubmit()"
+			[disabled]="!fmRegistration.valid && flag ">
+			{{ 'FEBtn.sign_up' | translate }}
+		</button>
+	</form>
+	<!-- <div *ngIf="type != 2">
+		<hr />
+		<p class="small text-center text-muted">Hoặc tiếp tục bằng</p>
+		<div class="d-md-flex justify-content-between">
+			<div class="fm-group mb-2 w-100  mr-md-2 d-block d-md-none">
+				<button type="button" [routerLink]="['/dang-nhap']"
+					[queryParams]=" checkcart ? { checkcart: checkcart} : {}" *ngIf="+type == 3"
+					class="btn  bg-transparent btn-block border-secondary text-uppercase text-center">
+					<i class="fal fa-long-arrow-left mr-1"></i>
+					{{ 'lblLogin' | translate }}
+				</button>
+				<button type="button" [routerLink]="['/dang-ky']"
+					[queryParams]=" checkcart ? { checkcart: checkcart} : {}" *ngIf="+type == 1"
+					class=" btn  bg-transparent btn-block border-secondary text-uppercase text-center">
+					<i class="fal fa-long-arrow-left mr-1"></i>
+					{{ 'FEbtn.registration' | translate }}
+				</button>
+			</div>
+			<div class="fm-group mb-2 w-100 mr-md-2">
+				<button type="button" (click)="loginFB._socialSignIn('facebook')"
+					class="btn bg-transparent btn-block border-secondary text-uppercase text-center">
+					<img src="../../../../assets/img/facebook.png" alt="Signin with facebook" class="mx-1" width="100%"
+						height="100%" />
+					{{ 'customer.facebook' | translate }}
+				</button>
+			</div>
+			<div class="fm-group mb-2 w-100">
+				<button type="button" (click)="loginFB._socialSignIn('google')"
+					class="btn  bg-transparent btn-block border-secondary text-uppercase text-center">
+					<img src="../../../../assets/img/google.png" alt="Signin with google" class="mx-1" width="100%"
+						height="100%" />
+					{{ 'customer.google' | translate }}
+				</button>
+			</div>
+		</div>
+	</div> -->
+</fieldset>

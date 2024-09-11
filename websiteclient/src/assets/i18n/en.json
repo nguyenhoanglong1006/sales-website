@@ -1,0 +1,174 @@
+{
+    "lblHome": "Home",
+    "lblName": "Name",
+    "lblAddress": "Address",
+    "lblPassword": "Password",
+    "lblHotline": "Hotline",
+    "lblEmail": "Email",
+    "lblAcountStock": "Username",
+    "lblRegister": "Don't you have account?",
+    "lblSupport": "Do you need support?",
+    "lblContact": "Contact",
+    "lblNotFound": "No results were found!!!",
+    "lblUpdating": "Updating!!!",
+    "lblAll": "All",
+    "copyright": "© 2022 NATIONAL SECURITIES JOINT STOCK COMPANY - NSI",
+    "license": "Established under Decision No. 27/UBCK-GPHDKD dated December 15, 2006 of the State Securities Commission",
+    "lblPhone": "Tel",
+    "lblFax": "Fax",
+    "message": {
+        "minLength": "Please enter at least {{num}} characters and the field must not be empty!",
+        "email": "Incorrect email address or blank. Please re-enter!",
+        "phone": "Incorrect phone number or blank. Please re-enter!",
+        "length": "Please enter minimum {{min}} and maximum {{max}} characters!",
+        "required": "The information of this field must not be empty. Please re-enter!",
+        "lengthMax": "Please enter less than {{length}} characters!",
+        "lengthMin": "Please enter more than {{length}} characters!",
+        "otp": "OTP cannot be empty and must contains 6 characters!",
+        "password": "Password must not be empty!",
+        "login": "Your Email or Password is incorrect. Please try again!",
+        "emailError": "Incorrect email address. Please re-enter!"
+    },
+    "FESearch": {
+        "titleSearch": "Search results for:",
+        "notfound": "No results. Please try again with another keyword!",
+        "error": "Sorry, but nothing matched your search. Please try again with some other keywords.",
+        "text": "Search...",
+        "keyWord": "Keywords",
+        "have": "Have",
+        "result": "Search results by keyword: "
+    },
+    "NotFound": {
+        "message": "Sorry, your page was not found. Or the system denies your access.",
+        "reHome": "Go back to the main page.",
+        "title": "404"
+    },
+    "FEBtn": {
+        "check": "Check",
+        "share": "Share",
+        "home": "Go back to the main page.",
+        "all": "All",
+        "signup": "Sign Up",
+        "search": "Search",
+        "support": " Submit a Ticket ",
+        "learnMore": "Learn More",
+        "seeMore": "View more",
+        "download": "Download",
+        "back": "Back",
+        "login": "Login",
+        "forgetPass": "Forgot password?",
+        "next": "Continue",
+        "filter": "Filter",
+        "reload": "Reload",
+        "register": "Register to open account to receive reports"
+    },
+    "FEFooter": {
+        "about": "About NSI",
+        "productService": "Product & Service",
+        "service": "Service",
+        "news": "News",
+        "investors": "Support",
+        "contact": "Contact",
+        "contactLink": "contact"
+    },
+    "FEHome": {
+        "onTrading": "Online Trading",
+        "hotNews": "Hot news"
+    },
+    "FELibrary": {},
+    "FEHeader": {
+        "openAccount": "OPEN ACCOUNT",
+        "connectElectricPanel": "Electrical panel connection"
+    },
+    "FEPage": {
+        "male": "Mr.",
+        "female": "Ms.",
+        "recruitment": "Apply",
+        "position": "Location:",
+        "address": "Work place:",
+        "endDate": "Deadline for application:",
+        "contentRecruitment": "Job description:",
+        "otherCareers": "Other Jobs You Will Love",
+        "image": "IMAGE",
+        "tags": "Latest articles about ",
+        "postViewMore": "Most read"
+    },
+    "FEContent": {
+        "contentNew": "News",
+        "orderNews": "Other news",
+        "author": "Author: "
+    },
+    "FEAnalysis": {
+        "industryFilter": "Sector...",
+        "industry": "Sector",
+        "company": "Company",
+        "titleLogin": "Please login to view this report",
+        "market": "Market",
+        "enterprise": "Enterprise",
+        "share": "Stock",
+        "allIndustry": "All Sector",
+        "allCompany": "All Company",
+        "financialReport": "Financial report"
+    },
+    "FEShareholder": {
+        "audit": "Financial Statements"
+    },
+    "FESupport": {
+        "contact": "Contact us",
+        "guide": "User guide",
+        "faqList": "Frequently Asked Questions (FAQs)",
+        "note1": "Your feedback is valuable to us, as we work to improve both our products and our services to you.",
+        "note2": "Thank you for sharing your opinion!",
+        "purpose": "Plese select:",
+        "content": "Categories:",
+        "feedback": {
+            "title": "Satisfaction level",
+            "emotion1": "Very Satisfied",
+            "emotion2": "Satisfied",
+            "emotion3": "Normal",
+            "emotion4": "Dissatisfied ",
+            "emotion5": "Very Dissatisfied"
+        },
+        "name": "Full name",
+        "namePlaceholder": "Enter name",
+        "emailPlaceholder": "Enter email",
+        "phone": "Phone",
+        "phonePlaceholder": "Enter phone",
+        "detail": "Detail",
+        "detailPlaceholder": "Enter detail",
+        "send": "SEND",
+        "alert1": "Thank you for submitting your comments.",
+        "alert2": "Your feedback has been sent to the relevant department.",
+        "alert3": "We will have a response as soon as possible.",
+        "agree": "AGREE",
+        "purposeFeedback": "Feedback",
+        "purposeError": "Report errors",
+        "purposeOther": "Other",
+        "titleSearchFaq": "What are you looking for?"
+    },
+    "FEContact": {
+        "title": "Contact us",
+        "description": "We listen to every feedback from our customers to help us improve. Sincerely thank!",
+        "branch": "Branch"
+    },
+    "forget": {
+        "title": "Forgot password",
+        "timeup": "Time up. "
+    },
+    "login": {
+        "email": "Enter email",
+        "password": "Enter password",
+        "forget": "Password retrieval",
+        "title": "Login",
+        "otp": "Code C-OTP",
+        "resetPassword": "Reset Password",
+        "timeOtp": "Time remaining",
+        "getOtp": "Re-send OTP",
+        "backlogin": "Back to login"
+    },
+    "recruitment": {
+        "position": "Position",
+        "workplace": "Work place",
+        "expirationDate": "Deadline for application"
+    }
+}

@@ -1,0 +1,78 @@
+<div class="card">
+    <div class="card-header">
+        <strong>{{ 'contact.lblContact' | translate }}</strong>
+        <div>
+            <div class="input-group input-group-sm">
+                <input type="text" (keyup)="tableService._search()" [(ngModel)]="tableService.search.value"
+                    class="form-control" placeholder="{{ 'search.txt' | translate }}">
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field" class="d-flex align-items-center">
+                        <span *ngSwitchDefault>{{col.title | translate }}</span>
+                        <i *ngIf="tableService.sorting.field==col.field" class="fas fa-sort-up ml-1"
+                            style="height: 8px;"
+                            [ngStyle]="{'transform': (tableService.sorting.sort == 'asc' ? 'rotate(0deg)' : 'rotate(180deg)') }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableService.data; let i= index">
+                <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <span *ngSwitchCase="'index'">{{ i+1}}</span>
+
+                        <a *ngSwitchCase="'email'" class="text-primary" [routerLink]="['../info-contact/',item.id]">
+                            {{ item[col.field] }}
+                        </a>
+
+                        <div *ngSwitchCase="'maker_date'">
+                            {{ item.maker_date |date:'dd/MM/yyyy' }}
+                        </div>
+                        <div *ngSwitchCase="'message'">
+                            <span style="width: 200px;
+                                overflow: hidden;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 2;
+                                -webkit-box-orient: vertical;">
+                                {{ item.message }}
+                            </span>
+                        </div>
+                        <div *ngSwitchCase="'checked'" class="t">
+                            <div class="d-inline-block px-1 text-center" style="width: 70px;"
+                                [ngClass]="item.checked == 1 ? 'bg-success text-white' : 'bg-warning'">
+                                <small> {{ (item.checked == 1 ? 'contact.sended' : 'contact.notSend') | translate }}
+                                </small>
+                            </div>
+                        </div>
+                        <span *ngSwitchCase="'action'" class="display-action">
+                            <button  class="btn btn-link btn-sm text-danger"
+                                (click)="onRemove(item)">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </span>
+                        <span *ngSwitchDefault>{{ item[col.field] }}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="card-footer">
+        <a (click)="tableService._previousnext(false)" class="px-2 py-1">
+            <i class="fa fa-angle-double-left"></i>
+        </a>
+        <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+            {{ tableService.settings.total }}</span>
+        <a (click)="tableService._previousnext(true)" class="px-2 py-1">
+            <i class="fa fa-angle-double-right"></i>
+        </a>
+    </div>
+</div>

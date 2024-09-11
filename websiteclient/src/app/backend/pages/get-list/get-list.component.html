@@ -1,0 +1,121 @@
+<div class="row">
+    <div class="col-sm-12 col-md-3 pr-md-0">
+        <div class="card bg-white border position-sticky" style="top:71px">
+            <div class="card-header p-3 font-weight-500" style="background-color: rgba(0,0,0,.03);">Sitemap</div>
+            <div class="py-3" style="overflow-y: auto; height: calc(100vh - 145px);">
+                <ng-template #recursiveParent let-data>
+                    <div class="cursor-pointer" *ngFor="let item of data">
+                        <div class="page-item py-2 px-3 position-relative" (click)="filter.onfilter(item.id)"
+                            [ngClass]="{'border-item pl-3': item.level > 1 , 'bg-primary text-white' : filter.id == item.id}">
+                            <span style="white-space: normal;"
+                                [ngStyle]="{'font-weight': item.level == 1 ? 500 :''}">{{item.name}} </span>
+                            <span *ngIf="item.is_delete == 1" class="static ml-2">static</span>
+                        </div>
+                        <div class="ml-3 border-left" *ngIf="item.data && item.data.length > 0">
+                            <ng-container *ngTemplateOutlet="recursiveParent;context: { $implicit: item.data }">
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-container *ngTemplateOutlet="recursiveParent;  context:{ $implicit: data }">
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-9">
+        <div class="card">
+            <div class="card-header">
+                <strong>{{ 'pages.list' | translate }}</strong>
+                <div>
+                    <div class="input-group input-group-sm">
+                        <input type="text" (keyup)="tableService._search()" [(ngModel)]="tableService.search.value"
+                            class="form-control" placeholder="{{ 'search.txt' | translate }}">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th *ngFor="let col of tableService.cols"
+                            (click)="tableService._sorting(col.field, '',filter.id > 0 ? true : false )"
+                            [ngClass]="{ 'sorting' : tableService.sorting.field==col.field, 'cursor-pointer': col.filter==true, 'd-none' : col.show==false }">
+                            <div [ngSwitch]="col.field" class="d-flex align-items-center">
+                                <span *ngSwitchDefault>{{col.title | translate }}</span>
+                                <i *ngIf="tableService.sorting.field==col.field" class="fas fa-sort-up ml-1"
+                                    style="height: 8px;"
+                                    [ngStyle]="{'transform': (tableService.sorting.sort == 'asc' ? 'rotate(0deg)' : 'rotate(180deg)') }"></i>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of tableService.data, let i=index">
+                        <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show==false }">
+                            <div [ngSwitch]="col.field">
+                                <span *ngSwitchCase="'index'">
+                                    {{ i+1}}
+                                </span>
+                                <span *ngSwitchCase="'name'">
+                                    <a [routerLink]="['../update/',item.id]">
+                                        {{ item[col.field] }}
+                                    </a>
+                                </span>
+                                <span *ngSwitchCase="'type'">
+                                    {{ item[col.field]== 1 ? 'Link' : 'Page' }}
+                                </span>
+                                <span *ngSwitchCase="'maker_date'">
+                                    {{ item[col.field]| date: 'dd/MM/yyyy' }}
+                                </span>
+                                <span *ngSwitchCase="'action'" class="display-action text-right">
+                                    <!-- <button 
+                                        tooltip="{{ 'btn.pin' | translate }}"
+                                        class="btn btn-link btn-sm" 
+                                        (click)="changePin(item)"
+                                        [ngClass]="+item.pin == 1 ?'text-success':'text-danger'">
+                                        <i class="fas fa-thumbtack" style="transform: rotate(45deg)"></i>
+                                    </button> -->
+                                    <button
+                                        tooltip="{{ (+item.status == 1 ? 'status.disabled' : 'status.active') | translate }}"
+                                        class="btn btn-link btn-sm" (click)="changeStatus(+item.id,+item.status)"
+                                        [ngClass]="+item.status == 1 ?'text-success':'text-danger'">
+                                        <i [ngClass]="+item.status == 1 ? 'fas fa-circle' : 'far fa-circle'"> </i>
+                                    </button>
+                                    <button tooltip="{{ 'btn.edit' | translate }}" class="btn btn-link btn-sm"
+                                        [routerLink]="['../update/',item.id]">
+                                        <i class="fas fa-pencil-alt text-dark"></i>
+                                    </button>
+                                    <button tooltip="{{ 'btn.remove' | translate }}" class="btn btn-link btn-sm"
+                                        *ngIf="item.is_delete == 0" (click)="onRemove(item)">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </button>
+                                </span>
+                                <span *ngSwitchDefault>{{ item[col.field] }}</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card-footer">
+                <a (click)="tableService._previousnext(false)" class="px-2 py-1">
+                    <i class="fa fa-angle-double-left"></i>
+                </a>
+                <span>{{ tableService.settings.first }} - {{ tableService.settings.last }} of
+                    {{ tableService.settings.total }}</span>
+                <a (click)="tableService._previousnext(true)" class="px-2 py-1">
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="fixed-action-btn">
+    <a tooltip="{{ 'btn.add' | translate }}" class="text-white" [routerLink]="['../insert']"
+        style="text-decoration: none">
+        <div class="getlistadd d-flex align-items-center justify-content-center">
+            <i class="fas fa-plus text-white"></i>
+        </div>
+    </a>
+</div>

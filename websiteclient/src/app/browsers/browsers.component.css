@@ -1,0 +1,47 @@
+.card {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+}
+
+.bg-container {
+    background: #eee;
+}
+
+.bg-image {
+    max-width: 750px;
+}
+
+@media (min-width: 769px) {
+    .bg-image {
+        background-image: url('../../assets/img/login.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        /* background-position: center; */
+        /* width: 50%; */
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-container {
+        background-image: url('../../assets/img/login.jpg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: #fff;
+    }
+    .margin-mobile {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16)!important;
+        margin-top: 150px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .bg-image {
+        width: 67%;
+    }
+}
+
+@media (width: 450px) {
+    .margin-mobile {
+        margin-top: 220px;
+    }
+}

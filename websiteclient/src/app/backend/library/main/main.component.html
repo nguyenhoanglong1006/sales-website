@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-12 col-md-3 ">
+        <app-group (filter)="filterEvent($event)"></app-group>
+    </div>
+    <div class="col-12 col-md-9 pl-md-0">
+        <app-getlist [filter]="filter" [change]="changes"></app-getlist>
+    </div>
+</div>

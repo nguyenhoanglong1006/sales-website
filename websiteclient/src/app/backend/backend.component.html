@@ -1,0 +1,14 @@
+<div class="admin-theme">
+    <admin-header (eventOpened)="eventOpened($event)" (eventLang)="eventLang($event)"></admin-header>
+    <section>
+        <div class="asidebar" *ngIf="opened">
+            <admin-asidebar> </admin-asidebar>
+        </div>
+        <main class="pt-3 pb-5" [ngStyle]="{ 'margin-left' : opened ? '200px':'0px'}">
+            <div class="container-fluid">
+                <router-outlet *ngIf="!loadingLang"></router-outlet>
+            </div>
+
+        </main>
+    </section>
+</div>

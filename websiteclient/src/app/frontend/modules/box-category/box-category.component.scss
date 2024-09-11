@@ -1,0 +1,84 @@
+@import "src/styles/mixins";
+@import "src/styles/animations";
+.box-content:hover .images::before {
+    animation: shine 1s;
+}
+.images::before {
+    position: absolute;
+    top: 0;
+    left: -68%;
+    z-index: 2;
+    display: block;
+    content: "";
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+    transform: skewX(-25deg);
+}
+.box {
+    $w: 350px;
+    $h: 160px;
+    height: $h;
+    border-radius: 4px;
+    background-size: cover;
+    &::before {
+        position: absolute;
+        top: 0;
+        left: -68%;
+        z-index: 2;
+        display: block;
+        content: "";
+        width: 30%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 100%);
+        transform: skewX(-25deg);
+    }
+    &:hover::before {
+        animation: shine 1s;
+        width: 100%;
+    }
+    &-container {
+        width: $w;
+        height: $h;
+    }
+    &__heading {
+        width: calc(100% - 32px);
+        padding: 12px 0;
+        font-family: var(--font-secondary);
+        font-size: 15px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 3;
+    }
+    &__btn {
+        width: $w;
+        height: $h;
+        background: transparent;
+        border: 1px solid rgba(255, 102, 50, 0.2);
+        outline: none;
+        transition: 1s ease-in-out;
+        /* span {
+              color: white;
+              font-size: 18px;
+              font-weight: 100;
+          } */
+        svg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            fill: none;
+            stroke: var(--color-secondary);
+            stroke-dasharray: 328.125 1050;
+            stroke-dashoffset: 328.125;
+            transition: 1s ease-in-out;
+            z-index: 2;
+        }
+        &:hover {
+            // transition: 1s ease-in-out;
+            // background: #4f95da;
+            svg {
+                stroke-dashoffset: -1050;
+            }
+        }
+    }
+}

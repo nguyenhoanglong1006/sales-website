@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row">
+        <div *ngFor="let item of data" class="col-sm-6 col-lg-3 pt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="title">{{item.title}}</div>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h3>
+                            <span>{{item.on}} </span>
+                            <small class="text-warning" style="font-size: 14px!important;">/ {{ item.off}} off</small>
+                        </h3>
+                        <i 
+                            [ngClass]="item.icon" 
+                            style="font-size:2rem"
+                            class="text-muted">
+                        </i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <h5 style="font-size:15px" class="card-title ml-5">
+                       {{ 'dashboard.total' | translate }}{{+item.on + (+item.off)}}</h5> -->

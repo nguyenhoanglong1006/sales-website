@@ -1,0 +1,36 @@
+<a *ngIf="item.type && item.type == 1; else link_self" [href]="item.href"
+    [attr.target]="item.target_blank ? '_blank' : ''" rel="noopener noreferrer" style="text-decoration: none">
+    <div [ngStyle]="{ 'background-image': 'url(' + item.images + ')' }" class="box  position-relative overflow-hidden">
+        <div class="box-container position-absolute">
+            <div class="box__btn d-flex flex-column justify-content-end align-items-center text-center">
+                <svg width="350px" height="160px" viewBox="0 0 350 160" class="">
+                    <polyline points="349,1 349,159 1,159 1,1 349,1" class="bg-line" />
+                    <polyline points="349,1 349,159 1,159 1,1 349,1" class="hl-line" />
+                </svg>
+                <h3 class="box__heading position-relative text-truncate px-2 mb-2 mx-auto">{{ item.name }}</h3>
+            </div>
+        </div>
+        <!-- <div class="content">
+            <h2 class="text-uppercase">{{ item.name }}</h2>
+        </div> -->
+    </div>
+</a>
+<ng-template #link_self>
+    <a [routerLink]="['/' + item.href]" style="text-decoration: none">
+        <div [ngStyle]="{ 'background-image': 'url(' + item.images + ')' }"
+            class="box  position-relative overflow-hidden">
+            <div class="box-container position-absolute">
+                <button class="box__btn d-flex flex-column justify-content-end align-items-center text-center">
+                    <svg width="350px" height="160px" viewBox="0 0 350 160" class="">
+                        <polyline points="349,1 349,159 1,159 1,1 349,1" class="bg-line" />
+                        <polyline points="349,1 349,159 1,159 1,1 349,1" class="hl-line" />
+                    </svg>
+                    <h3 class="box__heading position-relative text-truncate px-2 mb-2 mx-auto">{{ item.name }}</h3>
+                </button>
+            </div>
+            <!-- <div class="content">
+                <h2 class="text-uppercase">{{ item.name }}</h2>
+            </div> -->
+        </div>
+    </a>
+</ng-template>

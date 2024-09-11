@@ -1,0 +1,114 @@
+<div class="row px-2">
+    <div class="col-md-3 px-2">
+        <div class="card p-3 h-100">
+            <div class="header-card">
+                <h4> {{'orders.order_code' | translate }}: <span> {{ data.code }} </span> </h4>
+            </div>
+            <div class="customer-detail ">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-gr-al mr-2">{{ 'orders.total_price' | translate}}: </span>
+                    <span class="alert-link">{{+data.total_price > 0 ?
+                        data.total_price.toLocaleString('vi',{maximumFractionDigits:5}) : 0}}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-gr-al mr-2">{{ 'orders.total_sale' | translate}}: </span>
+                    <span class="alert-link"> {{+data.total_sale > 0 ?
+                        data.total_sale.toLocaleString('vi',{maximumFractionDigits:5}) : 0}} </span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-gr-al mr-2">{{ 'orders.total_payment' | translate}}: </span>
+                    <span class="alert-link"> {{+data.total_payment > 0 ?
+                        data.total_payment.toLocaleString('vi',{maximumFractionDigits:5}) : 0}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 px-2">
+        <div class="card p-3 h-100">
+            <div class="header-card">
+                <h4>Thông tin khách hàng </h4>
+            </div>
+            <div class="customer-detail">
+                <div class="p-2" role="alert">
+                    <span class="text-gr-al">{{ 'orders.name' | translate}}:</span>
+                    <span class="alert-link"> {{ data.customer_name }} </span>
+                </div>
+                <div class="p-2" role="alert">
+                    <span class="text-gr-al">{{ 'orders.customer_address' | translate}}:</span>
+                    <span class="alert-link"> {{ data.customer_address }} </span>
+                </div>
+                <div class="d-inline-flex align-items-center px-2"
+                    *ngIf="data.customer_phone && data.customer_phone != ''">
+                    <span class="text-gr-al">Số điện thoại:</span>
+                    <span class="mx-1 "> {{ data.customer_phone }} </span>
+                </div>
+                <div class="d-inline-flex align-items-center px-2"
+                    *ngIf="data.customer_email && data.customer_email != ''">
+                    <span class="text-gr-al">Email:</span>
+                    <span class="alert-link mx-1"> {{ data.customer_email }} </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card p-2 mt-3">
+    <!-- List table -->
+    <table class="table table-hover mt-2">
+        <thead>
+            <tr>
+                <th *ngFor="let col of tableService.cols" (click)="tableService._sorting(col.field)"
+                    [ngClass]="{ 'sorting' : tableService.sorting.field==col.field ,'cursor-pointer': col.filter==true  , 'd-none' : col.show==false }">
+                    <div [ngSwitch]="col.field">
+                        <span *ngSwitchDefault>{{col.title | translate }}</span>
+                        <i *ngIf="tableService.sorting.field==col.field" class="fa"
+                            [ngClass]="{ 'fa-long-arrow-down' : tableService.sorting.sort=='asc' , 'fa-long-arrow-up' : tableService.sorting.sort=='desc' }"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableService.data; let i= index">
+                <td *ngFor="let col of tableService.cols" [ngClass]="{ 'd-none' : col.show == false }">
+                    <div [ngSwitch]="col.field" [ngClass]="col.class || 'text-left'">
+                        <span *ngSwitchCase="'index'"> {{i+1}}
+                        </span>
+                        <span *ngSwitchCase="'price'">
+                            {{item[col.field] >= 0 ? item[col.field].toLocaleString(item.currency_code == 'VND' ? 'vi' :
+                            'en', {maximumFractionDigits: 5}) : ''}}
+                        </span>
+                        <span *ngSwitchCase="'total'">
+                            {{item[col.field] >= 0 ? item[col.field].toLocaleString(item.currency_code == 'VND' ? 'vi' :
+                            'en', {maximumFractionDigits: 5}) : ''}}
+                        </span>
+                        <span *ngSwitchCase="'maker_date'">
+                            {{item[col.field]| date: 'dd/MM/yyyy' }}
+                        </span>
+                        <span *ngSwitchCase="'action'" class="display-action">
+                            <button tooltip="{{ 'btn.edit' | translate }}" class="btn btn-link btn-sm"
+                                [routerLink]="['../update/', item.id]">
+                                <i class="fas fa-pencil-alt text-dark"></i>
+                            </button>
+                            <!-- <button 
+                                tooltip="{{ 'btn.changePassword' | translate }}"
+                                class="btn btn-link btn-sm text-info"
+                                *ngIf="loggedAccount.is_delete === isAdmin || validPermission(item)"
+                                [routerLink]="['../change-password/',item.id]">
+                                <i class="fas fa-key"></i>
+                            </button>
+                            <button 
+                                tooltip="{{ 'btn.remove' | translate }}"
+                                class="btn btn-link btn-sm text-danger" 
+                                *ngIf="loggedAccount.is_delete === isAdmin && validPermission(loggedAccount)"
+                                (click)="onRemove(item.id , item.name)">
+                                <i class="fas fa-trash"></i>
+                            </button> -->
+                        </span>
+                        <span *ngSwitchDefault>{{item[col.field]}}</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

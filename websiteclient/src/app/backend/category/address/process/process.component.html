@@ -1,0 +1,99 @@
+<form [formGroup]="fm" *ngIf="fm" (submit)='$event.stopPropagation()'>
+    <div class="card">
+        <div class="card-header">
+            <strong>
+                <i class="fas fa-arrow-left mr-2 cursor-pointer text-primary"
+                    [routerLink]="[(id && id !=0)?'../../get-list':'../get-list']"></i>
+                {{ ((id && id!=0)?'settings.address.update':'settings.address.add')
+                | translate:{name : fm.value.name} }}
+            </strong>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-sm-12 col-md-8">
+                        <div class="row ">
+                            <div class="col-md-12" *ngIf="mutiLang && mutiLang.length > 1">
+                                <label>Ngôn ngữ</label>
+                                <div class="d-flex mb-4">
+                                    <div *ngFor="let item of mutiLang" class="cursor-pointer">
+                                        <img class="mr-2 p-1" style="border-color: #4caf50 !important ;" width="38"
+                                            [src]="item.icon" [title]="item.name" [alt]="item.name"
+                                            [ngStyle]="{'opacity': +item.id == +lang_id ? '1' : '0.4'}"
+                                            [ngClass]="{'border': +item.id == +lang_id}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-9 pr-0">
+                                <div class="form-group">
+                                    <label for="name">{{ 'lblName' | translate }}<span
+                                            class="ml-2 text-red">*</span></label>
+                                    <input autocomplete="off" type="text" autocomplete="off" class="form-control"
+                                        required name="name" formControlName="name" id="name">
+                                    <small *ngIf="!fm.get('name').valid && fm.get('name').touched" class="text-red">
+                                        {{'message.required' | translate}}</small>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'lblOrders' | translate }}</label>
+                                    <input autocomplete="off" type="number" min="0" class="form-control" name="order"
+                                        formControlName="orders">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-sm-12 col-md-6 pr-0">
+                                <div class="form-group">
+                                    <label>{{ 'lblPhone' | translate }}</label>
+                                    <input autocomplete="off" type="text" class="form-control" name="phone"
+                                        formControlName="phone">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 ">
+                                <div class="form-group">
+                                    <label>{{ 'lblEmail' | translate }}</label>
+                                    <input autocomplete="off" type="email" class="form-control" name="email"
+                                        formControlName="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>{{'lblAddress' | translate}}</label>
+                            <textarea autocomplete="off" formControlName="address" class="form-control"
+                                rows="2"></textarea>
+                        </div>
+                        <div class="form-group ">
+                            <label>{{'lblNote' | translate}}</label>
+                            <textarea autocomplete="off" formControlName="note" class="form-control"
+                                rows="4"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label class="lable-switch mb-0">
+                        <div class="switch">
+                            <input checked="checked" formControlName="status" type="checkbox" name="status">
+                            <span class="lever"></span>
+                        </div>
+                        <span ng-bind="lang.lbl_status_on" class="ng-binding">
+                            {{ (fm.value.status == 1 ? 'status.on' :'status.off') | translate}}</span>
+                    </label>
+                    <div>
+                        <button type="button" (click)="onSubmit()" [disabled]="!fm.valid "
+                            class="btn float-right mr-2" [ngClass]="fm.valid && flags ? 'btn-success' : 'btn-defaut'">
+                            {{'btn.save' | translate}}
+                        </button>
+                        <button type="button" [routerLink]="['/admin/category/address/get-list']"
+                            class="btn btn-primary float-right mr-2">{{ 'btn.back'| translate }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

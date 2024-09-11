@@ -1,0 +1,68 @@
+<header class="app-header bg-white navbar">
+    <div class="d-flex justify-content-between align-items-center w-100">
+        <div class="d-flex align-items-center">
+            <div class="logo-header mx-auto">
+                <a class="p-0" [routerLink]="['dashboard']">
+                    <img *ngIf="globals.company && globals.company.logo" [src]="globals.company.logo"
+                        class="w-100 h-100" style="object-fit: contain; object-fit: contain; object-position: left;">
+                </a>
+            </div>
+            <button class="navbar-toggler d-md-down-none" type="button" (click)="onClickMenu()">&#9776;</button>
+            <div class="position-relative ml-3">
+                <div class="dropdown-toggle d-flex align-items-center cursor-pointer" id="language"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img 
+                        [src]="mutiLang.active.icon" 
+                        alt="icon" 
+                        width="20" 
+                        title="icon">
+                    <span style="margin: 0 3px 0 8px; font-size: 14px;">
+                        {{ mutiLang.active.name }}
+                    </span>
+                    <span class="caret"></span>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="language">
+                    <li role="menuitem" *ngFor="let item of mutiLang.data">
+                        <div class="dropdown-item d-flex align-items-center cursor-pointer"
+                            (click)="onLanguage(item.id)">
+                            <img class="lazyload" data-src="{{item.icon}}" alt="language" width="16" height="12"
+                                style=" margin-right: 8px;" title="icon">
+                            {{item.name}}
+                        </div>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <ul class="nav ml-auto d-flex">
+            <li class="nav-item mr-3">
+                <a class="nav-link text-dark" target="_blank" href="/">
+                    <i class="icon-speedometer"></i>Truy cập Website</a>
+            </li>
+            <li class="nav-item user position-relative">
+                <a class="nav-link text-dark p-0">
+                    <div class="d-flex justify-content-center align-items-center mr-2 ml-2"
+                        style="font-size: 13px; cursor: pointer;">
+                        <img class="mr-2 border p-1" width="35px" height="35px" [title]="user.name"
+                            *ngIf="user.avatar && user.avatar.length > 4" [alt]="user.name"
+                            [src]="globals.BASE_API_URL +  user.avatar" style="object-fit: contain;border-radius: 50%;">
+                        <img class="mr-2 border p-1" width="35px" height="35px" [title]="user.name"
+                            *ngIf="!user.avatar || user.avatar.length == 0" [alt]="user.name"
+                            [src]="user.sex == 1 ? '../../../../assets/img/man.png' : '../../../../assets/img/women.png'"
+                            style="object-fit: contain;border-radius: 50%;">
+                        <span>{{user.name}}</span>
+                        <i class="fa-angle-down fas ml-2" style="font-size: 16px;"></i>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-user overflow-hidden p-0">
+                    <li role="menuitem">
+                        <a class="dropdown-item p-2" [routerLink]="['settings']">Setting</a>
+                    </li>
+                    <li role="menuitem">
+                        <a class="dropdown-item p-2" href="login" (click)="globals.USERS.remove()">Đăng xuất</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</header>

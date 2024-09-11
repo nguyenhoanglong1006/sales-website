@@ -1,0 +1,11 @@
+.feed-back {
+    margin-top: 24px;
+    padding-bottom: 80px;
+}
+
+@media(max-width: 767px) {
+    .feed-back {
+        margin-top: 15px;
+        padding-bottom: 40px;
+    }
+}

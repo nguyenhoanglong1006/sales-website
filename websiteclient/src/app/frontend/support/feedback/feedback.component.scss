@@ -1,0 +1,217 @@
+/* Feedback */
+/* .btn-back {
+    font-size: 12px;
+} */
+input,
+textarea {
+    &::placeholder {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 20px;
+        letter-spacing: 0.25px;
+        color: #8993a4;
+    }
+    border: unset;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 10%);
+    background-color: #fff;
+}
+.feed-back {
+    margin-top: 24px;
+    padding-bottom: 32px;
+    &--bg {
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 20px 0px;
+        background-color: snow;
+        z-index: 1;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(/assets/img/bg/shape-1.png) no-repeat right -12% bottom;
+            background-size: 67%;
+            opacity: 0.6;
+            z-index: -1;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .feed-back {
+        margin-top: 16px;
+        padding-bottom: 36px;
+    }
+}
+.feed-back .bg-image {
+    margin-top: 39px;
+    margin-bottom: 24px;
+}
+@media (max-width: 767px) {
+    .feed-back .bg-image {
+        margin-top: 32px;
+    }
+}
+input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+.feed-back .subtitle {
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    color: #505f79;
+    margin-bottom: 24px;
+}
+@media (max-width: 767px) {
+    .feed-back .subtitle {
+        margin-bottom: 27px;
+    }
+}
+.feed-back .button-radio {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+    color: var(--color-primary);
+}
+@media (max-width: 767px) {
+    .feed-back .title {
+        margin-bottom: 4px;
+    }
+    .feed-back .title.purpose {
+        margin-bottom: 8px !important;
+    }
+    .feed-back .button-radio {
+        margin-bottom: 16px;
+    }
+}
+/* Hide the browser's default radio button */
+.feed-back .button-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+/* On mouse-over, add a grey background color */
+.feed-back .button-radio:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+/* When the radio button is checked, add a blue background */
+.feed-back .button-radio input:checked ~ .checkmark {
+    background-color: #00377b;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.feed-back .button-radio .checkmark:after {
+    content: '';
+    position: absolute;
+    display: none;
+}
+/* Show the indicator (dot/circle) when checked */
+.feed-back .button-radio input:checked ~ .checkmark:after {
+    display: block;
+}
+/* Style the indicator (dot/circle) */
+.feed-back .button-radio .checkmark:after {
+    top: 6px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+.feed-back .box {
+    border-radius: 4px;
+    height: 90px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    cursor: pointer;
+    padding: 12px;
+}
+.feed-back .box.active {
+    background-color: #deebff;
+}
+.feed-back .box.active .title {
+    color: var(--color-primary);
+}
+.feed-back .box:hover {
+    background-color: #deebff;
+}
+.feed-back .box:hover .title {
+    color: var(--color-primary);
+}
+.feed-back .box .title {
+    color: #6b778c;
+    font-size: 12px;
+    width: 60px;
+}
+.feed-back .btn-submit {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 4px;
+    width: 160px;
+    height: 40px;
+    border: none;
+    font-weight: 500;
+    font-size: 12px;
+}
+@media (max-width: 767px) {
+    .feed-back .footer {
+        padding-top: 15px;
+    }
+}
+/* alert success */
+.modal-body .title {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+.modal-body .subtitle {
+    font-size: 15px;
+    color: #172b4d;
+    letter-spacing: 0.25px;
+}
+.modal-body button {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 4px;
+    height: 32px;
+    width: 100px;
+    border: none;
+    font-weight: 500;
+    font-size: 12px;
+    margin-top: 24px;
+    cursor: pointer;
+}
+@media (max-width: 767px) {
+    .modal-body .subtitle {
+        display: inline !important;
+    }
+}
+@supports (-webkit-touch-callout: none) {
+    @media (max-width: 576px) {
+        .form-control,
+        input,
+        select {
+            font-size: 16px !important;
+        }
+    }
+}
